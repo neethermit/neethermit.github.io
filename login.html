@@ -6,6 +6,8 @@
     
 	<script type="text/javascript" src="jquery.easing.1.3.js"></script>    
 	<script type="text/javascript" src="jquery.easing.compatibility.js"></script>    
+<link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+
 </head>
     <style>
         
@@ -62,19 +64,30 @@
             display: none;
             opacity: 0;
             left: 0px;
-            margin-top: 240px;
-            margin-left: 300px;
+            margin-top: 10px;
+            margin-left: 190px;
+            padding: 160px;
+            background-image: url(prueba2.png);
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position:center center; 
         }
         .signInDiv{
-            margin-top: 150px;
+            margin-top: 100px;
             
-            margin-left: 150px;
-            padding-left: 200px;
-           // background-image: url(free-food-vector.jpg);
-            padding-top: 240px;
+            margin-left: 250px;
+            padding-left: 160px;
+            
+            padding-right: 160px;
+            background-image: url(prueba1.png);
+                        background-repeat: no-repeat;
+            background-size:cover;
+            background-position:center center; 
+            padding-top: 120px;
+            padding-bottom: 170px;
         }
         .signUpSlide, .signInSlide{
-            margin-top: 300px;
+            margin-top: 200px;
             position:absolute;
         }
         .signInSlide{
@@ -94,6 +107,78 @@
             border-width: 2px;
             border-color: #999999;
         }
+        
+        .buttonLS{
+            background-color: green;
+            color: aliceblue;
+            border: none;
+            font-size: 20px;
+            padding: 5px;
+            width: 250px;
+        }
+        .buttonLS:hover{
+            background-color: lawngreen;
+        }
+        .supplyimg{
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position:center center; 
+            width: 250px;
+            height: 150px;
+            display: block;
+        }
+        
+        .supplyimg12{
+            background-image: url(img1.png);
+
+        }
+        
+              .supplyimg13{
+            background-image: url(img3.png);
+
+        }
+        
+        
+        
+        .popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    display: none;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: -130%;
+    left: 50%;
+    margin-left: -80px;
+    font-family: calibri;
+}
+
+
+        .logo1{
+            font-family: calibri;
+            color: green;
+            font-size: 40px;
+            font-family: 'Bevan', cursive;
+            margin: auto;
+            margin-top: 20px;
+            width: 50%;
+        }
+
+
     </style>
     
     <script>
@@ -103,8 +188,11 @@
                           $(".slide").css('left',greenOffset);
                           
             $(".signUpbtn").click(function(){
-               $(".slide").animate({left:'0px'},{duration:600,queque:false},"easeOut");
+               $(".slide").animate({left:'0px'},{duration:600,queque:false},"easeIn");
                 
+                
+                
+                 $(".logo1").css({'text-align': 'right', 'opacity':'0'}).animate({'opacity':'1','left':'0%'},{ duration: 1000});
                //$(".loginDiv").animate({opacity:0},{duration:800,queque:false});
                //$(".loginDiv").animate({left:'600px',opacity:0},{duration:200,queque:false},"easeOut");
                $(".signInDiv").css({'display':'block', 'opacity':'1'}).animate({'opacity':'0','left':'100%'}, {duration: 400,complete: showLoginbtn()});
@@ -117,14 +205,100 @@
             
             $(".logInbtn").click(function(){
                 greenOffset = $(window).width()-$(".slide").width();
-               $(".slide").animate({left:greenOffset},{duration:600,queque:false},"easeOut");
+               $(".slide").animate({left:greenOffset},{duration:600,queque:false},"easeIn");
                 
          
-                
+                 $(".logo1").css({'text-align': 'left', 'opacity':'0'}).animate({'opacity':'1','left':'0%'},{ duration: 1000});
                $(".signInDiv").css({'display':'block', 'opacity':'0'}).animate({'opacity':'1','left':'0%'},{ duration: 500});
                 $(".signUpDiv").css({'display':'block', 'opacity':'1'}).animate({'opacity':'0','left':'-100%'}, {duration: 700,complete: showSignupbtn()});
                  
             });
+            
+            
+            
+            $("#logInEmail").on("change keyup paste click", function(){
+                dismissPopUp1();
+            });
+            
+            $("#logInPass").on("change keyup paste click", function(){
+                dismissPopUp1();
+            });
+            
+            $("#logInSubmit").click(function(){
+                validateLogin();
+            });
+            
+            function dismissPopUp1(){
+                if($("#logInEmail").val().length!==0&&$("#logInPass").val().length!==0){
+                //Los 2 campos estan llenos
+                    
+                $("#myPopup").fadeOut();
+                    
+                }
+            }
+            
+            function validateLogin(){
+                if($("#logInEmail").val().length!==0&&$("#logInPass").val().length!==0){
+                //Los 2 campos estan llenos
+                    
+                }
+                else{
+                //Alguno de los 2 campos faltan por llenar
+                    
+                $("#myPopup").fadeIn();
+                    
+                }
+             
+            }
+            
+            
+            
+            $("#signUpEmail").on("change keyup paste click", function(){
+                dismissPopUp2();
+            });
+            
+            $("#signUpPass").on("change keyup paste click", function(){
+                dismissPopUp2();
+            });
+            
+            $("#signUpPass2").on("change keyup paste click", function(){
+                dismissPopUp2();
+            });
+            
+            $("#signUpUsername").on("change keyup paste click", function(){
+                dismissPopUp2();
+            });
+            
+            $("#signUpSubmit").click(function(){
+                validateSignup();
+            });
+            
+            function dismissPopUp2(){
+                if($("#signUpEmail").val().length!==0
+                && $("#signUpUsername").val().length!==0
+                && $("#signUpPass").val().length!==0
+                && $("#signUpPass2").val().length!==0){
+                //Los 2 campos estan llenos
+                    
+                $("#myPopup2").fadeOut();
+                    
+                }
+            }
+            
+            function validateSignup(){
+                if($("#logInEmail").val().length!==0&&$("#logInPass").val().length!==0){
+                //Los 2 campos estan llenos
+                    
+                }
+                else{
+                //Alguno de los 2 campos faltan por llenar
+                    
+                $("#myPopup2").fadeIn();
+                    
+                }
+             
+            }
+            
             
             function showLoginbtn(){
                 $(".signInDiv").hide();
@@ -140,39 +314,49 @@
                 
             }
                         
-                          
                           });
         
         
     </script>
 <body>
-    <div class="signInDiv">
-    <input class="campos" placeholder="Correo" type="text"><br><br>
-        
-    <input class="campos" placeholder="Contraseña" type="text">
     
+    <div class="logo1">Supply Check</div>
+    <div class="signInDiv">
+    <input class="campos" id="logInEmail" placeholder="Correo" type="text"><br><br>        
+    <input class="campos" id="logInPass" placeholder="Contraseña" type="text"><br><br>
+
+        <div class="popup" ><button class="buttonLS" id="logInSubmit">Log in</button>
+            <span class="popuptext" id="myPopup">Campos sin llenar</span>
+        </div>
     </div>
     
         <div class="signUpDiv">
-    <input  class="campos" type="text" placeholder="Correo"><br><br>
-    <input class="campos" type="text"  placeholder="Contraseña"><br><br>
-    <input class="campos" type="text"  placeholder="Confirmar Contraseña">
-    
+            
+    <input class="campos" type="text" id="signUpUsername"  placeholder="Nombre de usuario"><br><br>
+    <input  class="campos" type="text" id="signUpEmail" placeholder="Correo"><br><br>
+    <input class="campos" type="text" id="signUpPass" placeholder="Contraseña"><br><br>
+    <input class="campos" type="text" id="signUpPass2"  placeholder="Confirmar Contraseña"><br><br>
+            <div class="popup" ><button class="buttonLS" id="signUpSubmit">Sign up</button>
+                <span class="popuptext" id="myPopup2">Campos sin llenar</span>
+            </div>
     </div>
     
     <div class="slide">
     
         <center><div>
             <div class="signUpSlide">
+                <div class="supplyimg12 supplyimg"></div>
                 <h1>¿No tienes cuenta?¡Crea una!</h1>
             <button class="signUpbtn">Sign up</button>
             </div>
             <div class="signInSlide">
             
+                <div class="supplyimg13 supplyimg"></div>
             <h1>¿Ya eres miembro?¡Entra aqui!</h1>
             <button class="logInbtn">Sign in</button>
             </div>
             </div></center>
     </div>
 </body>
+    
 </html>
