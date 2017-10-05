@@ -1,0 +1,361 @@
+
+        
+html,body{
+            
+        }
+        body{
+
+            margin: 0;
+
+        }
+        .logo-Menu{
+            background-color: green;
+            width: 200px;
+        }
+        .listTopPage{
+            background-color: green;
+            width: 320px;
+        }
+        .topText{
+            
+             font-family: 'Cabin Sketch', cursive;
+            font-size: 25px;
+            margin-left: 0px;
+            margin-top: 20px;
+            color: white;
+        }
+        .pageHeader{
+            min-width: 800px;
+                box-shadow: 5px 2px 5px #888888;
+        }
+        .mainMenu{
+            position:fixed;
+            cursor: default;
+            width: 200px;
+            height: 100%;
+            top: 68px;
+            left: 0;
+            padding: 0;
+            padding-top: 40px;
+            border-style:solid;
+            border-width: 1px;
+            border-color: green;
+            
+            background-color: white; 
+            z-index: 10;
+            
+            -webkit-transform: translate(-100%,0%);
+            -moz-transform: translate(-100%,0%);
+            -ms-transform: translate(-100%,0%);
+            -ms-transform: translate(-100%,0%);
+            -o-transform: translate(-100%,0%);
+            transform: translate(-100%,0%);
+        }
+           .listMenu{
+            position:fixed;
+            cursor: default;
+            width: 320px;
+            height: 90%;
+            top: 68px;
+               
+            left: 100%;
+            padding: 25px;
+            padding-top: 40px;
+            border-style:solid;
+            border-width: 1px;
+            border-color: green;
+            
+            background-color: white; 
+            z-index: 10;
+            
+            -webkit-transform: translate(100%,0%);
+            -moz-transform: translate(100%,0%);
+            -ms-transform: translate(100%,0%);
+            -ms-transform: translate(100%,0%);
+            -o-transform: translate(100%,0%);
+            transform: translate(100%,0%);
+               
+            overflow-y: auto;
+        }
+    
+        .menuOutline{
+            
+            margin-top: 100px;
+            width: 200px;
+            display: flex;
+            padding: 5px;
+        }
+        
+        .menuItem{
+            cursor: pointer;
+            display: flex;
+            padding: 15px;
+            padding-left: 25px;
+            border: 0;
+            border-style: solid;
+             background: /* gradient can be an image */
+    linear-gradient(
+      to left, 
+      rgba(255,255,255,1.0) 0%,
+      rgba(70,70,70,1) 50%,
+      rgba(255,255,255,1) 100%
+    )
+    bottom 
+    no-repeat; 
+  background-size:100% 1px ;/
+          
+        }
+        .menuItem:not(.menuItem_selected):hover{
+            background-color: yellowgreen;
+        }
+        .menuItem_selected{
+            background-color:#967BB6;
+            cursor: default;
+        }
+        
+        .pinboard{
+            display: inline-block;
+                padding: 0;
+            border-style:solid;
+            border-width: 1px;
+            border-color: green;
+            min-width: 1300px;
+            height: 580px;
+            padding-top: 50px;
+            padding-left: 20px;
+        }
+        .bodycontainer{
+            display: flex;
+            
+            margin-top: 0px;
+        }
+        .flexdiv{
+           display: flex; 
+        }
+        .filler{
+            flex-grow: 1;
+        }
+        
+        .noteBlock{
+            
+            display: inline-block;
+            width: 170px;
+            height: 200px;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 10px;
+            border-width: 1px;
+            border-style: solid;
+            border-color:darkgray;
+            background-color: whitesmoke;
+
+        }
+        .noteBlock:hover{
+                box-shadow: 5px 5px 5px #888888;
+
+        }
+        
+        .noteBlock:nth-child(1){
+            -webkit-transform:  rotate(-15deg);
+            -moz-transform:  rotate(-15deg);
+            -ms-transform:  rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            -o-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+        
+        .noteBlock:nth-child(2){
+            -webkit-transform:  rotate(20deg);
+            -moz-transform:  rotate(20deg);
+            -ms-transform:  rotate(20deg);
+            -ms-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+        .noteBlock:nth-child(3){
+            -webkit-transform:  rotate(10deg);
+            -moz-transform:  rotate(10deg);
+            -ms-transform:  rotate(10deg);
+            -ms-transform: rotate(10deg);
+            -o-transform: rotate(10deg);
+            transform: rotate(10deg);
+        }
+                
+        .noteBlock:nth-child(4){
+            -webkit-transform:  rotate(-10deg);
+            -moz-transform:  rotate(-10deg);
+            -ms-transform:  rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+            -o-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+        }
+        
+        .noteBlock:nth-child(5){
+            -webkit-transform:  rotate(20deg);
+            -moz-transform:  rotate(20deg);
+            -ms-transform:  rotate(20deg);
+            -ms-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+        .noteBlock:nth-child(6){
+            -webkit-transform:  rotate(-15deg);
+            -moz-transform:  rotate(-15deg);
+            -ms-transform:  rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            -o-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+        
+                .noteBlock:nth-child(7){
+            -webkit-transform:  rotate(10deg);
+            -moz-transform:  rotate(10deg);
+            -ms-transform:  rotate(10deg);
+            -ms-transform: rotate(10deg);
+            -o-transform: rotate(10deg);
+            transform: rotate(10deg);
+        }
+                
+        .noteBlock:nth-child(8){
+            -webkit-transform:  rotate(-10deg);
+            -moz-transform:  rotate(-10deg);
+            -ms-transform:  rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+            -o-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+        }
+              .noteBlock:nth-child(9){
+            -webkit-transform:  rotate(-15deg);
+            -moz-transform:  rotate(-15deg);
+            -ms-transform:  rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            -o-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+                .noteBlock:nth-child(10){
+            -webkit-transform:  rotate(-15deg);
+            -moz-transform:  rotate(-15deg);
+            -ms-transform:  rotate(-15deg);
+            -ms-transform: rotate(-15deg);
+            -o-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+        }
+              .noteBlock:nth-child(11){
+            -webkit-transform:  rotate(20deg);
+            -moz-transform:  rotate(20deg);
+            -ms-transform:  rotate(20deg);
+            -ms-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+             .noteBlock:nth-child(12){
+            -webkit-transform:  rotate(20deg);
+            -moz-transform:  rotate(20deg);
+            -ms-transform:  rotate(20deg);
+            -ms-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+        
+        .notePhoto{
+            width: 150px;
+            height: 120px;
+            margin-top: 5px;
+             margin-bottom: 15px;
+            border-width: 1px;
+            background-color: black;
+        }
+        .pin{
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 0%;
+            left:50%;
+            background-color: darkcyan;
+            
+            -webkit-transform: translate(-50%,-50%) rotate(-45deg);
+            -moz-transform: translate(-50%,-50%) rotate(-45deg);
+            -ms-transform: translate(-50%,-50%) rotate(-45deg);
+            -ms-transform: translate(-50%,-50%) rotate(-45deg);
+            -o-transform: translate(-50%,-50%) rotate(-45deg);
+            transform: translate(-50%,-50%) rotate(-45deg );
+        }
+        .noteDesc{
+            font-family: 'Cabin Sketch', cursive;
+            font-size: 12px;
+        }
+        .logo{
+             font-family: 'Cabin Sketch', cursive;
+            font-size: 25px;
+            margin-left: 10px;
+            margin-top: 20px;
+            color: white;
+            //background-image: url("../logo.png");
+            width: 150px;
+            height: 45px;
+            background-repeat: no-repeat;
+            background-size:contain;
+        }  
+        .newNotebtn{
+            font-family: 'Special Elite', cursive;
+            //background-image: url(marco1.png);  
+            background-color: green;
+            background-size: 100% 100%;
+            color: aliceblue;
+            font-size: 20px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border: none;     
+        }
+        .newNotebtn:hover{
+            background-color: seagreen;
+        }
+        .menuIcon,.popList{
+            padding-left: 15px;
+            margin-top: 25px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .popList{
+            margin-right: 20px;
+        
+        }
+        .menuIcon:hover{
+            color: white;
+        }  
+        .popList:hover{
+            color: white;
+        }
+        
+        .blackboardListElement{
+            display: flex;
+            background-color: green;
+            width: 255px;
+            height: 40px;
+            padding: 7px;
+            margin-bottom: 10px;
+            border-width: 3px;
+            border-color: white;
+            box-shadow: 5px 5px 10px #888888;
+        }
+        .blackboardListElement:hover{
+            background-color:darkgreen;
+        }
+        .popListTitles{
+            margin-bottom: 15px;
+            font-family: 'Open Sans', sans-serif;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+
+        }
+        .popListText{
+            
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            color: white;
+        }
+        
+        

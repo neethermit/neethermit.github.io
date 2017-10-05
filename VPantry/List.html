@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    
+    <link rel="icon" href="apple.png">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/MainStyle.css" rel="stylesheet">
+    <link href="css/ListStyle.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Special+Elite" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/js/bootstrap.min.js"></script>
+    
+    <script>
+    
+    $(document).ready(function(){
+        
+        var visibleMenu=false;
+        var visibleList=false;
+        var menuAnim=false;
+        var listAnim=false;
+        
+        $(".menuIcon").click(function(){
+            if(!menuAnim){
+                menuAnim=true;
+                $(".menuIcon").toggleClass("glyphicon-align-justify glyphicon-list");
+                    var menuOffset = $(".mainMenu").outerWidth(); 
+                    if(!visibleMenu){
+                        $(".mainMenu").animate({'left':menuOffset},{ duration: 300,done:function(){
+                            menuAnim=false;
+                        }});
+                    visibleMenu=true;
+                    }
+                else{
+                    $(".mainMenu").animate({'left':0},{ duration: 300,done:function(){
+                            menuAnim=false;
+                        }});
+                    visibleMenu=false;
+                }
+            }   
+        });
+        
+        $(".popList").click(function(){
+            if(!listAnim){
+                listAnim=true;
+                $(".popList").toggleClass("glyphicon-chevron-left glyphicon-chevron-right");
+                var popupListWidth=$(".listMenu").outerWidth();
+                var listOffset = $(window).width()-(popupListWidth*2); 
+                if(!visibleList){
+                    $(".listMenu").animate({'left':listOffset},{ duration: 300,done:function(){
+                            listAnim=false;
+                        }});
+                    visibleList=true;}
+                else{
+                    $(".listMenu").animate({'left':"100%"},{ duration: 300,done:function(){
+                            listAnim=false;
+                        }});
+                    visibleList=false;
+            }
+            }
+        });
+       
+    });
+    
+    </script>
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    </head>
+<body>
+    <div class="mainMenu">
+      
+        <div class="menuItem">
+            <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-blackboard"></span><span >Pizarron</span>
+        
+        
+        </div>
+        
+        <div class="menuItem  menuItem_selected">
+            <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-list-alt"></span><span >Lista</span>
+        </div>
+        <div class="menuItem">
+            <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-cog"></span><span >Configuración</span>
+        </div>
+        <div class="menuItem" style="margin-top: 200px;">
+            <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-off"></span><span >Cerrar Sesión</span>
+        </div>
+ 
+        </div>  
+    <div class="listMenu">
+        <div class="flexdiv ">
+        <span class="popListTitles">Articulo</span>
+            <div class="filler"></div>
+        <span class="popListTitles">Cantidad</span>
+            </div>
+    <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+            <div class="blackboardListElement">
+    <span class="popListText">Leche</span> <div class="filler"></div><span class="popListText">1L</span>
+        </div>
+    </div>
+    <div class="flexdiv pageHeader">
+        <div class="logo-Menu flexdiv">
+          <span  class="glyphicon glyphicon-list menuIcon"></span>
+    <div class="logo">VirtualPantry</div>
+            </div>
+        <div class="filler"></div>
+    <button class="newNotebtn">Agregar Producto</button>
+        <div class="filler"></div>
+            <button class="newNotebtn">Guardar Cambios</button>
+        <div class="filler"></div>
+        <div class="listTopPage">
+            <div>
+         <span  title="Mostrar lista"class="glyphicon glyphicon-chevron-left popList"></span><span class="topText">Resumen de Notas</span>
+            </div>
+            </div>
+    </div>
+    
+    <div class="bodycontainer" style="display:block;">
+     
+    <div class="listboard ">
+        
+    <div class="listcontent">
+        <div class="flexdiv ">
+        <span class="groceryListArticle">Articulo</span>
+     
+        <span class="groceryListFecha">Fecha de Adqusición</span>
+            
+        <span class="groceryListCant">Cantidad</span>
+ 
+            </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    <div class="groceryListElement">
+    <div class="groceryListNomFecha">
+        <img class="groceryListImage" src="img1.png">
+    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
+        </div>
+        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
+        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
+        </div>
+    </div>
+        </div>
+        </div>
+    </body>
+</html>

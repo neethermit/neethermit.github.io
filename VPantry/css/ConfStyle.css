@@ -1,0 +1,96 @@
+.confContent{
+    border-style: solid;
+    border-width: 1px;
+    border-color: green;
+    min-height: 500px;
+    
+    padding-top: 50px;
+    padding-left: 60px;
+    
+    padding-right: 60px;
+}
+
+.confText{
+    font-family: Calibri;
+    font-size: 18px;
+    margin-right: 40px;
+}
+.confSection{
+    margin-top: 20px;
+}
+.confTitle{
+            margin-bottom: 15px;
+            font-family: 'Open Sans', sans-serif;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+    margin-bottom: 10px;
+     
+
+        }  
+  .campos{
+            height: 30px;
+            width: 250px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-size: 20px;
+            font-family: calibri;
+            outline-color: red;
+            outline: none;
+            border-width: 2px;
+            border-color: #999999;
+        }
+
+.confBtn{
+    background-color: green;
+    color:white;
+    margin-left: 60px;
+    width: 140px;
+    border-color: aliceblue;
+}
+
+.fakebtn{
+    background-color: white;
+    color:white;
+    margin-left: 60px;
+    width: 140px;
+    border-color: aliceblue;
+}
+
+   .delimiter{
+            cursor: pointer;
+            display: flex;
+            padding: 15px;
+            padding-left: 25px;
+            border: 0;
+            border-style: solid;
+            margin-bottom: 30px;
+             background: /* gradient can be an image */
+    linear-gradient(
+      to left, 
+      rgba(255,255,255,1.0) 0%,
+      rgba(70,70,70,1) 50%,
+      rgba(255,255,255,1) 100%
+    )
+    bottom 
+    no-repeat; 
+  background-size:100% 1px ;/
+          
+        }
+
+    .fakebtn2{
+            font-family: 'Special Elite', cursive;
+            //background-image: url(marco1.png);  
+            background-color: white;
+            background-size: 100% 100%;
+            color: aliceblue;
+            font-size: 20px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border: none;     
+        }
