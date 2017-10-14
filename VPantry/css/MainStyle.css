@@ -1,13 +1,24 @@
 
         
 html,body{
-            
+                -ms-overflow-style: scrollbar;
+
         }
         body{
-
+            background-image: url("../Resources/fondofrutas2.png");
             margin: 0;
 
         }
+a,a:hover,a:active{
+     color: inherit;
+    text-decoration: none;
+}
+.blur{
+   filter: blur(8px); 
+}
+.grayscale{
+    filter: grayscale(90%);
+}
         .logo-Menu{
             background-color: green;
             width: 200px;
@@ -25,8 +36,16 @@ html,body{
             color: white;
         }
         .pageHeader{
+            position: fixed;
+            top:0;
+            width: 100%;
+            background-color: white;
+            background-image: url(../Resources/fondogris.png);
+            background-size: contain;
             min-width: 800px;
+            height: 68px;
                 box-shadow: 5px 2px 5px #888888;
+            z-index: 10;
         }
         .mainMenu{
             position:fixed;
@@ -76,6 +95,8 @@ html,body{
             transform: translate(100%,0%);
                
             overflow-y: auto;
+                   -ms-overflow-style: scrollbar;
+
         }
     
         .menuOutline{
@@ -115,14 +136,17 @@ html,body{
         
         .pinboard{
             display: inline-block;
-                padding: 0;
+            padding: 0;
             border-style:solid;
             border-width: 1px;
             border-color: green;
+            
+            margin-top: 60px;
             min-width: 1300px;
-            height: 580px;
+            min-height: 640px;
             padding-top: 50px;
             padding-left: 20px;
+            background-image: url(../Resources/fondofrutas2.png);
         }
         .bodycontainer{
             display: flex;
@@ -140,11 +164,11 @@ html,body{
             
             display: inline-block;
             width: 170px;
-            height: 200px;
+            height: 220px;
             margin-left: 20px;
             margin-right: 20px;
             padding: 10px;
-            border-width: 1px;
+            border-width: 2px;
             border-style: solid;
             border-color:darkgray;
             background-color: whitesmoke;
@@ -155,7 +179,7 @@ html,body{
 
         }
         
-        .noteBlock:nth-child(1){
+        .noteBlock:nth-child(12n+1){
             -webkit-transform:  rotate(-15deg);
             -moz-transform:  rotate(-15deg);
             -ms-transform:  rotate(-15deg);
@@ -164,7 +188,7 @@ html,body{
             transform: rotate(-15deg);
         }
         
-        .noteBlock:nth-child(2){
+        .noteBlock:nth-child(12n+2){
             -webkit-transform:  rotate(20deg);
             -moz-transform:  rotate(20deg);
             -ms-transform:  rotate(20deg);
@@ -172,7 +196,7 @@ html,body{
             -o-transform: rotate(20deg);
             transform: rotate(20deg);
         }
-        .noteBlock:nth-child(3){
+        .noteBlock:nth-child(12n+3){
             -webkit-transform:  rotate(10deg);
             -moz-transform:  rotate(10deg);
             -ms-transform:  rotate(10deg);
@@ -181,7 +205,7 @@ html,body{
             transform: rotate(10deg);
         }
                 
-        .noteBlock:nth-child(4){
+        .noteBlock:nth-child(12n+4){
             -webkit-transform:  rotate(-10deg);
             -moz-transform:  rotate(-10deg);
             -ms-transform:  rotate(-10deg);
@@ -190,7 +214,7 @@ html,body{
             transform: rotate(-10deg);
         }
         
-        .noteBlock:nth-child(5){
+        .noteBlock:nth-child(12n+5){
             -webkit-transform:  rotate(20deg);
             -moz-transform:  rotate(20deg);
             -ms-transform:  rotate(20deg);
@@ -198,7 +222,7 @@ html,body{
             -o-transform: rotate(20deg);
             transform: rotate(20deg);
         }
-        .noteBlock:nth-child(6){
+        .noteBlock:nth-child(12n+6){
             -webkit-transform:  rotate(-15deg);
             -moz-transform:  rotate(-15deg);
             -ms-transform:  rotate(-15deg);
@@ -207,7 +231,7 @@ html,body{
             transform: rotate(-15deg);
         }
         
-                .noteBlock:nth-child(7){
+                .noteBlock:nth-child(12n+7){
             -webkit-transform:  rotate(10deg);
             -moz-transform:  rotate(10deg);
             -ms-transform:  rotate(10deg);
@@ -216,7 +240,7 @@ html,body{
             transform: rotate(10deg);
         }
                 
-        .noteBlock:nth-child(8){
+        .noteBlock:nth-child(12n+8){
             -webkit-transform:  rotate(-10deg);
             -moz-transform:  rotate(-10deg);
             -ms-transform:  rotate(-10deg);
@@ -224,7 +248,7 @@ html,body{
             -o-transform: rotate(-10deg);
             transform: rotate(-10deg);
         }
-              .noteBlock:nth-child(9){
+              .noteBlock:nth-child(12n+9){
             -webkit-transform:  rotate(-15deg);
             -moz-transform:  rotate(-15deg);
             -ms-transform:  rotate(-15deg);
@@ -232,7 +256,7 @@ html,body{
             -o-transform: rotate(-15deg);
             transform: rotate(-15deg);
         }
-                .noteBlock:nth-child(10){
+                .noteBlock:nth-child(12n+10){
             -webkit-transform:  rotate(-15deg);
             -moz-transform:  rotate(-15deg);
             -ms-transform:  rotate(-15deg);
@@ -240,7 +264,7 @@ html,body{
             -o-transform: rotate(-15deg);
             transform: rotate(-15deg);
         }
-              .noteBlock:nth-child(11){
+              .noteBlock:nth-child(12n+11){
             -webkit-transform:  rotate(20deg);
             -moz-transform:  rotate(20deg);
             -ms-transform:  rotate(20deg);
@@ -248,7 +272,7 @@ html,body{
             -o-transform: rotate(20deg);
             transform: rotate(20deg);
         }
-             .noteBlock:nth-child(12){
+             .noteBlock:nth-child(12n+12){
             -webkit-transform:  rotate(20deg);
             -moz-transform:  rotate(20deg);
             -ms-transform:  rotate(20deg);
@@ -256,6 +280,70 @@ html,body{
             -o-transform: rotate(20deg);
             transform: rotate(20deg);
         }
+        .noteBlock:nth-child(12n+1) .notePhoto{
+         background-image: url(../icons/ico1.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+2) .notePhoto{
+         background-image: url(../icons/ico2.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+3) .notePhoto{
+         background-image: url(../icons/ico3.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+4) .notePhoto{
+         background-image: url(../icons/ico4.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+5) .notePhoto{
+         background-image: url(../icons/ico5.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+6) .notePhoto{
+         background-image: url(../icons/ico6.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+7) .notePhoto{
+         background-image: url(../icons/ico7.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }
+        .noteBlock:nth-child(12n+8) .notePhoto{
+         background-image: url(../icons/ico8.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+9) .notePhoto{
+         background-image: url(../icons/ico9.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+10) .notePhoto{
+         background-image: url(../icons/ico10.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }
+        .noteBlock:nth-child(12n+11) .notePhoto{
+         background-image: url(../icons/ico11.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }    .noteBlock:nth-child(12n+12) .notePhoto{
+         background-image: url(../icons/ico12.png);
+            background-position: center;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }
+        
         
         .notePhoto{
             width: 150px;
@@ -263,7 +351,9 @@ html,body{
             margin-top: 5px;
              margin-bottom: 15px;
             border-width: 1px;
-            background-color: black;
+            background-color: gray;
+            border-color: gray;
+            border-style: solid;
         }
         .pin{
             width: 15px;
@@ -358,4 +448,106 @@ html,body{
             color: white;
         }
         
-        
+.viewNoteModal,.newNoteModal,.confirmationModal{
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 50;
+}
+.viewNoteModalBody,newNoteModalBody{
+    margin-top: 60px;
+    width: 450px;
+    height: 500px;
+    padding: 10px 10px 10px 25px;
+    border: 4px solid rgba(255,255,255,0.8);
+    border-radius: 4px;
+
+}   
+.modalCampos,.modalCampoUnidad,.modalCampoNumero{
+    display: block;
+    margin: 0px 10px 15px 10px;
+    height: 40px;
+    width: 220px;
+    background-color: rgba(0,0,0,0.0);
+    border: 2px solid rgba(255,255,255,0.8);
+    color: white;
+    padding: 9px;
+
+}
+.modalCampoUnidad{
+    width: 140px;
+}
+.modalCampoNumero{
+       width: 60px;
+    padding-right: 0px;
+}
+.viewNoteModalImage{
+    margin: 0px 20px 30px 0px;
+    border: 3px solid white;
+}
+.modalViewNoteDesc{
+    width: 395px;
+    height: 140px;   
+    background-color: rgba(0,0,0,0.0);
+    border: 2px solid rgba(255,255,255,0.8);
+  margin: 0px 20px 15px 0px;
+    padding: 9px;
+    color: white;
+}
+.modalBtn{
+    width: 140px;
+        height: 35px;   
+    background-color: rgba(0,0,0,0.0);
+    border: 2px solid rgba(255,255,255,0.8);
+    margin-bottom: 20px;
+        border-radius: 8px;
+    color: white;
+}
+.modalBtn:hover{
+    
+    background-color: rgba(255,255,255,0.4);
+}
+.deleteNoteBtn,.redModalBtn{
+    
+    background-color: rgba(150,0,0,0.5);
+}
+.deleteNoteBtn:hover{
+    
+    background-color: rgba(150,0,0,0.8);
+}
+.cross{
+    margin-bottom: 15px;
+    color: white;
+    font-size: 14px;
+    top: 0;
+    cursor: pointer;
+}
+.confirmationModal{
+    display: none;   
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.confirmationModalBody{
+    margin-top: 60px;
+    margin-top: 250px;
+    width: 400px;
+    height: 120px;
+    padding: 20px 10px 10px 25px;
+    
+    background-color: rgba(0,0,0,0.9);
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 12px;
+}
+.confirmationModalText{
+    color: white;
+    margin-bottom: 20px;
+}
+option{
+    color: gray;
+}

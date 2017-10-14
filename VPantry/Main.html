@@ -2,72 +2,22 @@
 <html>
 <head>
     
-    <link rel="icon" href="apple.png">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="Resources/apple.png">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/MainStyle.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Special+Elite" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     
-        <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.min.js"></script>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/MainJs.js"></script>
     
-    <script>
-    
-    $(document).ready(function(){
-        
-        var visibleMenu=false;
-        var visibleList=false;
-        var menuAnim=false;
-        var listAnim=false;
-        
-        $(".menuIcon").click(function(){
-            if(!menuAnim){
-                menuAnim=true;
-                $(".menuIcon").toggleClass("glyphicon-align-justify glyphicon-list");
-                    var menuOffset = $(".mainMenu").outerWidth(); 
-                    if(!visibleMenu){
-                        $(".mainMenu").animate({'left':menuOffset},{ duration: 300,done:function(){
-                            menuAnim=false;
-                        }});
-                    visibleMenu=true;
-                    }
-                else{
-                    $(".mainMenu").animate({'left':0},{ duration: 300,done:function(){
-                            menuAnim=false;
-                        }});
-                    visibleMenu=false;
-                }
-            }   
-        });
-        
-        $(".popList").click(function(){
-            if(!listAnim){
-                listAnim=true;
-                $(".popList").toggleClass("glyphicon-chevron-left glyphicon-chevron-right");
-                var popupListWidth=$(".listMenu").outerWidth();
-                var listOffset = $(window).width()-(popupListWidth*2); 
-                if(!visibleList){
-                    $(".listMenu").animate({'left':listOffset},{ duration: 300,done:function(){
-                            listAnim=false;
-                        }});
-                    visibleList=true;}
-                else{
-                    $(".listMenu").animate({'left':"100%"},{ duration: 300,done:function(){
-                            listAnim=false;
-                        }});
-                    visibleList=false;
-            }
-            }
-        });
-       
-    });
-    
-    </script>
        
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     </head>
 <body>
+    <div class="pageContainer">
     <div class="mainMenu">
       
         <div class="menuItem menuItem_selected">
@@ -75,13 +25,14 @@
         
         
         </div>
-        
+        <a href="List.html">
         <div class="menuItem">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-list-alt"></span><span >Lista</span>
-        </div>
+        </div></a>
+        <a href="Configuracion.html">
         <div class="menuItem">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-cog"></span><span >Configuración</span>
-        </div>
+        </div></a>
         <div class="menuItem" style="margin-top: 200px;">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-off"></span><span >Cerrar Sesión</span>
         </div>
@@ -133,7 +84,7 @@
     <div class="logo">VirtualPantry</div>
             </div>
         <div class="filler"></div>
-    <button class="newNotebtn">Nueva Nota</button>
+    <button id="newNote" class="newNotebtn">Nueva Nota</button>
         <div class="filler"></div>
         <div class="listTopPage">
          <span  title="Mostrar lista"class="glyphicon glyphicon-chevron-left popList"></span><span class="topText">Resumen de Notas</span>
@@ -144,68 +95,228 @@
         <div class="filler"></div>
     <div class="pinboard">
         <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
-        </div>
-        <div class="noteBlock note2">
-            <div class="pin"></div>
-        <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
-        </div>
-                <div class="noteBlock note3">
-            <div class="pin"></div>
-        <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
-        </div>
-                <div class="noteBlock note1">
-            <div class="pin"></div>
-        <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
-        </div>
-        <div class="noteBlock note2">
-            <div class="pin"></div>
-        <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
-        </div>
-                <div class="noteBlock note3">
-            <div class="pin"></div>
-        <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
         <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
-        <div class="noteBlock note2">
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
-                <div class="noteBlock note3">
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
-                <div class="noteBlock note1">
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
-        <div class="noteBlock note2">
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
-                <div class="noteBlock note3">
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
             <div class="pin"></div>
         <div class="notePhoto"></div>
-            <div class="noteDesc">LoremIpsum</div>
+            <div class="noteDesc">Producto/Cantidad</div>
         </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        <div class="noteBlock note1">
+        <div class="noteDesc">-Karla</div>
+
+            <div class="pin"></div>
+        <div class="notePhoto"></div>
+            <div class="noteDesc">Producto/Cantidad</div>
+        </div>
+        
+  
         </div>
         
         <div class="filler"></div>
         </div>
+    </div>
+    
+    <div class="viewNoteModal">
+        <div class="filler"></div>
+    <div class="viewNoteModalBody">
+        
+        <div class="flexdiv">
+            <div class="filler"></div>
+            <span id="closeModalViewNote" class="glyphicon glyphicon-remove cross"></span>
+        </div>
+        <div class="flexdiv">
+        <img id="previewPhotoViewNote" class="viewNoteModalImage" width="140px" height="205px" src="icons/ico1.png">
+            <div>
+                <div  class="modalCampos">Publicada por : Karla</div>
+                <div  class="modalCampos" >Leche</div><div class="flexdiv">
+                <div class="modalCampoNumero" placeholder="Cantidad">2</div><div   class="modalCampoUnidad" >Litros</div></div>
+                <div class="modalCampos">Lacteos</div>
+            </div>
+        </div>
+        <div class="modalViewNoteDesc" placeholder="Agregar descripcion">Que no sea lala</div>
+        <div class="flexdiv"><div class="filler"></div><button class="modalBtn">Agregar Articulo</button><div class="filler"></div><button class="modalBtn deleteNoteBtn">Eliminar nota</button><div class="filler"></div></div>
+        </div>
+        <div class="filler"></div>
+    </div>
+      
+    <div class="newNoteModal">
+        <div class="filler"></div>
+    <div class="viewNoteModalBody">
+        
+        <div class="flexdiv">
+            <div class="filler"></div>
+            <span id="closeModalNewNote" class="glyphicon glyphicon-remove cross"></span>
+        </div>
+        <div class="flexdiv">
+        <img id="previewPhotoNewNote" class="viewNoteModalImage" width="140px" height="205px" src="icons/ico1.png">
+            <div>
+            <input type="text" class="modalCampos" placeholder="Articulo"><div class="flexdiv">
+            <input type="number" min=1 value="1" class="modalCampoNumero" placeholder="Cantidad"><input type="text"  class="modalCampoUnidad" placeholder="Unidad"></div>
+                <select id="categoriaNewNote" class="modalCampos" >
+                <option value="1">Lacteos</option>
+                <option value="2">Frutas</option>
+                <option value="3">Verduras</option>
+                <option value="4">Cereal</option>
+                <option value="5">Pan</option>
+                <option value="6">Carne</option>
+                <option value="7">Condimento</option>
+                <option value="8">Postre</option>
+                <option value="9">Otro</option>
+                </select>
+            </div>
+        </div>
+        <textarea class="modalViewNoteDesc" placeholder="Agregar descripcion"></textarea>
+        <div class="flexdiv"><div class="filler"></div><button class="modalBtn">Crear Nota</button><div class="filler"></div></div>
+        </div>
+        <div class="filler"></div>
+    </div>
+    
+    
+    
+    <div class="confirmationModal">
+        <div class="flexdiv">
+        <div class="filler"></div>
+        <div class="confirmationModalBody">
+               <div class="flexdiv">
+               <div class="filler"></div>
+                  <div class="confirmationModalText"> ¿Eliminar esta nota?</div>
+               <div class="filler"></div>
+            </div>
+           <div class="flexdiv">
+               <div class="filler"></div>
+               <button class="modalBtn redModalBtn confirmDeleteNote">Eliminar nota</button><div class="filler"></div>
+              <button class="modalBtn cancelDeleteNote">Cancelar</button> 
+               <div class="filler"></div>
+            </div>
+        </div>
+             <div class="filler"></div>
+            </div>
+    </div>
     </body>
 </html>

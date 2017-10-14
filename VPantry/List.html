@@ -4,86 +4,37 @@
     
     <link rel="icon" href="apple.png">
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/MainStyle.css" rel="stylesheet">
     <link href="css/ListStyle.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Special+Elite" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     
-    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="../js/js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ListJs.js"></script>
     
-    <script>
-    
-    $(document).ready(function(){
-        
-        var visibleMenu=false;
-        var visibleList=false;
-        var menuAnim=false;
-        var listAnim=false;
-        
-        $(".menuIcon").click(function(){
-            if(!menuAnim){
-                menuAnim=true;
-                $(".menuIcon").toggleClass("glyphicon-align-justify glyphicon-list");
-                    var menuOffset = $(".mainMenu").outerWidth(); 
-                    if(!visibleMenu){
-                        $(".mainMenu").animate({'left':menuOffset},{ duration: 300,done:function(){
-                            menuAnim=false;
-                        }});
-                    visibleMenu=true;
-                    }
-                else{
-                    $(".mainMenu").animate({'left':0},{ duration: 300,done:function(){
-                            menuAnim=false;
-                        }});
-                    visibleMenu=false;
-                }
-            }   
-        });
-        
-        $(".popList").click(function(){
-            if(!listAnim){
-                listAnim=true;
-                $(".popList").toggleClass("glyphicon-chevron-left glyphicon-chevron-right");
-                var popupListWidth=$(".listMenu").outerWidth();
-                var listOffset = $(window).width()-(popupListWidth*2); 
-                if(!visibleList){
-                    $(".listMenu").animate({'left':listOffset},{ duration: 300,done:function(){
-                            listAnim=false;
-                        }});
-                    visibleList=true;}
-                else{
-                    $(".listMenu").animate({'left':"100%"},{ duration: 300,done:function(){
-                            listAnim=false;
-                        }});
-                    visibleList=false;
-            }
-            }
-        });
-       
-    });
-    
-    </script>
        
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     </head>
 <body>
     <div class="mainMenu">
-      
+      <a href="Main.html">
         <div class="menuItem">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-blackboard"></span><span >Pizarron</span>
         
         
         </div>
-        
+        </a>
         <div class="menuItem  menuItem_selected">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-list-alt"></span><span >Lista</span>
         </div>
+        <a href="Configuracion.html">
         <div class="menuItem">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-cog"></span><span >Configuración</span>
         </div>
+            </a>
         <div class="menuItem" style="margin-top: 200px;">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-off"></span><span >Cerrar Sesión</span>
         </div>
@@ -123,10 +74,9 @@
     <div class="logo">VirtualPantry</div>
             </div>
         <div class="filler"></div>
-    <button class="newNotebtn">Agregar Producto</button>
+    <button id="agregrarProductioBtn" class="newNotebtn">Agregar Producto</button>
         <div class="filler"></div>
-            <button class="newNotebtn">Guardar Cambios</button>
-        <div class="filler"></div>
+
         <div class="listTopPage">
             <div>
          <span  title="Mostrar lista"class="glyphicon glyphicon-chevron-left popList"></span><span class="topText">Resumen de Notas</span>
@@ -135,10 +85,28 @@
     </div>
     
     <div class="bodycontainer" style="display:block;">
-     
+ 
     <div class="listboard ">
         
     <div class="listcontent">
+             <div class="flexdiv "><div class="filler"></div>
+        <span class="groceryListCategory">Ordenar por categoria</span>
+          <div class="filler"></div>
+ 
+            </div>
+        <div class="flexdiv "><div class="filler"></div>
+       <select class="categoryListSelect">     <option value="1">Lacteos</option>
+                <option value="2">Frutas</option>
+                <option value="3">Verduras</option>
+                <option value="4">Cereal</option>
+                <option value="5">Pan</option>
+                <option value="6">Carne</option>
+                <option value="7">Condimento</option>
+                <option value="8">Postre</option>
+                <option value="9">Otro</option></select>
+          <div class="filler"></div>
+ 
+            </div>
         <div class="flexdiv ">
         <span class="groceryListArticle">Articulo</span>
      
@@ -147,62 +115,125 @@
         <span class="groceryListCant">Cantidad</span>
  
             </div>
-    <div class="groceryListElement">
+        <form>
+            <div class="groceryListElement flexdiv">
     <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
+        <img class="groceryListImage" src="Resources/img1.png">
     <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
         </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
-    <div class="groceryListElement">
+        <div class="groceryListCantBlock"><span class="groceryListCentered groceryListCantNumber">3</span></div>
+        <input type="hidden" class="oldValue" value="3">
+        <div class="groceryListUnidad">Litros</div>
+        
+        <button type="button" class="groceryListCantMinus"><span class="groceryListCentered">-</span></button>
+        <button type="button"class="groceryListCantPlus"><span class="groceryListCentered">+</span></button>
+        <button type="button" class=" saveListBtn">Guardar</button>
+        <button type="button" class=" deleteListbtn">Eliminar</button>
+        </div></form>
+ 
+        <form>
+            <div class="groceryListElement flexdiv">
     <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
+        <img class="groceryListImage" src="Resources/img1.png">
     <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
         </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
-    <div class="groceryListElement">
+        <div class="groceryListCantBlock"><span class="groceryListCentered groceryListCantNumber">3</span></div>
+        <input type="hidden" class="oldValue" value="3">
+        <div class="groceryListUnidad">Litros</div>
+        
+        <button type="button" class="groceryListCantMinus"><span class="groceryListCentered">-</span></button>
+        <button type="button"class="groceryListCantPlus"><span class="groceryListCentered">+</span></button>
+        <button type="button" class=" saveListBtn">Guardar</button>
+        <button type="button" class=" deleteListbtn">Eliminar</button>
+        </div></form>
+ 
+        <form>
+            <div class="groceryListElement flexdiv">
     <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
+        <img class="groceryListImage" src="Resources/img1.png">
     <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
         </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
-    <div class="groceryListElement">
+        <div class="groceryListCantBlock"><span class="groceryListCentered groceryListCantNumber">3</span></div>
+        <input type="hidden" class="oldValue" value="3">
+        <div class="groceryListUnidad">Litros</div>
+        
+        <button type="button" class="groceryListCantMinus"><span class="groceryListCentered">-</span></button>
+        <button type="button"class="groceryListCantPlus"><span class="groceryListCentered">+</span></button>
+        <button type="button" class=" saveListBtn">Guardar</button>
+        <button type="button" class=" deleteListbtn">Eliminar</button>
+        </div></form>
+ 
+        <form>
+            <div class="groceryListElement flexdiv">
     <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
+        <img class="groceryListImage" src="Resources/img1.png">
     <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
         </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
-    <div class="groceryListElement">
-    <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
-    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
-        </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
-    <div class="groceryListElement">
-    <div class="groceryListNomFecha">
-        <img class="groceryListImage" src="img1.png">
-    <span class="groceryListText">Leche</span> <div class="filler"></div><span class="groceryListText">21/10/2017</span>
-        </div>
-        <div class="groceryListCantMinus"><span class="groceryListCentered">-</span></div>
-        <div class="groceryListCantBlock"><span class="groceryListCentered">3</span></div>
-        <div class="groceryListCantPlus"><span class="groceryListCentered">+</span></div>
-        </div>
+        <div class="groceryListCantBlock"><span class="groceryListCentered groceryListCantNumber">3</span></div>
+        <input type="hidden" class="oldValue" value="3">
+        <div class="groceryListUnidad">Litros</div>
+        
+        <button type="button" class="groceryListCantMinus"><span class="groceryListCentered">-</span></button>
+        <button type="button"class="groceryListCantPlus"><span class="groceryListCentered">+</span></button>
+        <button type="button" class=" saveListBtn">Guardar</button>
+        <button type="button" class=" deleteListbtn">Eliminar</button>
+        </div></form>
+ 
     </div>
         </div>
         </div>
+          
+    <div class="newNoteModal">
+        <div class="filler"></div>
+    <div class="viewNoteModalBody">
+        
+        <div class="flexdiv">
+            <div class="filler"></div>
+            <span id="closeModalNewNote" class="glyphicon glyphicon-remove cross"></span>
+        </div>
+        <div class="flexdiv">
+        <img id="previewPhotoNewNote" class="viewNoteModalImage" width="140px" height="185px" src="icons/ico1.png">
+            <div>
+            <input type="text" class="modalCampos" placeholder="Articulo"><div class="flexdiv">
+            <input type="number" min="1" value="1" class="modalCampoNumero" placeholder="Cantidad"><input type="text"  class="modalCampoUnidad" placeholder="Unidad"></div>
+                <select id="categoriaNewNote" class="modalCampos" >
+                <option value="1">Lacteos</option>
+                <option value="2">Frutas</option>
+                <option value="3">Verduras</option>
+                <option value="4">Cereal</option>
+                <option value="5">Pan</option>
+                <option value="6">Carne</option>
+                <option value="7">Condimento</option>
+                <option value="8">Postre</option>
+                <option value="9">Otro</option>
+                </select>
+            </div>
+        </div>
+        <div class="flexdiv"><div class="filler"></div><button class="modalBtn">Añadir producto</button><div class="filler"></div></div>
+        </div>
+        <div class="filler"></div>
+    </div>
+    
+    
+    
+    <div class="confirmationModal">
+        <div class="flexdiv">
+        <div class="filler"></div>
+        <div class="confirmationModalBody">
+               <div class="flexdiv">
+               <div class="filler"></div>
+                  <div class="confirmationModalText"> ¿Eliminar esta nota?</div>
+               <div class="filler"></div>
+            </div>
+           <div class="flexdiv">
+               <div class="filler"></div>
+               <button class="modalBtn redModalBtn confirmDeleteList">Eliminar nota</button><div class="filler"></div>
+              <button class="modalBtn cancelDeleteList">Cancelar</button> 
+               <div class="filler"></div>
+            </div>
+        </div>
+             <div class="filler"></div>
+            </div>
+    </div>
     </body>
 </html>

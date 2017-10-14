@@ -4,15 +4,15 @@
     
     <link rel="icon" href="apple.png">
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/MainStyle.css" rel="stylesheet">
     <link href="css/ListStyle.css" rel="stylesheet">
     <link href="css/ConfStyle.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cabin+Sketch|Special+Elite" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     
-        <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.min.js"></script>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
     
     <script>
     
@@ -72,16 +72,18 @@
     </head>
 <body>
     <div class="mainMenu">
-      
+      <a href="Main.html">
         <div class="menuItem">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-blackboard"></span><span >Pizarron</span>
         
         
         </div>
-        
+          </a>
+        <a href="List.html">
         <div class="menuItem  ">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-list-alt"></span><span >Lista</span>
         </div>
+            </a>
         <div class="menuItem menuItem_selected">
             <span style="padding-right: 5px;font-size: 20px" class="glyphicon glyphicon-cog"></span><span >Configuración</span>
         </div>
@@ -124,8 +126,6 @@
     <div class="logo">VirtualPantry</div>
             </div>
         <div class="filler"></div>
-            <button class="fakebtn2">Guardar Cambios</button>
-        <div class="filler"></div>
         <div class="listTopPage">
             <div>
          <span  title="Mostrar lista"class="glyphicon glyphicon-chevron-left popList"></span><span class="topText">Resumen de Notas</span>
@@ -138,19 +138,29 @@
     <div class="listboard ">
         
     <div class="confContent">
+        
+                <div class="flexdiv"><div class="filler"></div><span class="confTitle">Agregar al tablero</span><div class="filler"></div></div>
         <div class="flexdiv confSection">
             <span class="confText">Agregar Integrante</span><div class="filler"></div><input class="campos" type="text">
     <button class="confBtn">Agregar</button>
             
             </div>
+        <div class="flexdiv"><div class="filler"></div> 
+    <button class="confBtn salirGpobtn">Salir del Grupo</button><div class="filler"></div> </div>
         <div class="delimiter"></div>
                 <div class="flexdiv"><div class="filler"></div><span class="confTitle">Invitaciones</span><div class="filler"></div></div>
 
         <div class="flexdiv confSection">
            <div class="filler"></div> <span class="confText">Carlos</span> <span class="confText">correo@ejemplo.com</span><div class="filler"></div>
-    <button class="confBtn" style="background-color: #967BB6">Unirte</button>
+    <button class="confBtn unirseAlGpobtn">Unirte</button>
             
             </div>
+        <div class="flexdiv confSection">
+           <div class="filler"></div> <span class="confText">Carlos</span> <span class="confText">correo@ejemplo.com</span><div class="filler"></div>
+    <button class="confBtn sacardelGpoBtn">Unirte</button>
+            
+            </div>
+           <div class="flexdiv"><div class="filler"></div>No tienes Invitaciones<div class="filler"></div></div>
         <div class="delimiter"></div>
         
         <div class="flexdiv"><div class="filler"></div><span class="confTitle">Cambiar nombre de usuario</span><div class="filler"></div></div>

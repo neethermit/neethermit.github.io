@@ -2,13 +2,22 @@
  padding-left: 10px;   
  padding-right: 10px; 
     padding-top: 50px;
-}
-
-.listboard{
+    padding-bottom: 50px;
+      margin-top: 60px;
 
             border-style:solid;
             border-width: 1px;
             border-color: green;
+    
+    background-color: white;
+}
+
+.bodycontainer{
+    
+}
+
+.listboard{
+    
             width: 100%;
             min-height: 580px;
                     padding-left: 200px;
@@ -19,7 +28,7 @@
     width: 100%;
 }
 
-.groceryListNomFecha,.groceryListCantBlock,.groceryListCantMinus,.groceryListCantPlus{
+.groceryListNomFecha,.groceryListCantBlock,.groceryListCantMinus,.groceryListCantPlus,.deleteListbtn,.saveListBtn,.groceryListUnidad{
             display: flex;
             background-color: green;
             width: 475px;
@@ -34,28 +43,87 @@
             
         }
 
+.groceryListUnidad{
+    margin-left: 5px;
+    width: 120px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+    color: white;
+    
+}
  .groceryListCantBlock,.groceryListCantMinus,.groceryListCantPlus{
 
             width: 60px;
             height: 40px;
-            margin-left: 10px;
+            margin-left: 5px;
      
    
+    border:none;
             
     }
 
 
     .groceryListCantMinus{
-          margin-left: 60px;
+        
+     cursor: pointer;
+          margin-left: 5px;
         
       background-color: #5d4e70;
 }
 
+.deleteListbtn,.saveListBtn{
+    
+    height: 40px;
+    width: 120px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    
+            margin-left: 5px;
+     
+    border:none;
+}
+.saveListBtn{
+    visibility: hidden;
+    opacity: 0;
+    background-color:olivedrab;
+}.saveListBtn:hover{
+    
+    background-color:darkolivegreen;
+}.saveListBtn:active{
+    
+    background-color:olivedrab;
+}
+.deleteListbtn{
+    background-color: lightcoral;
+}.deleteListbtn:hover{
+    background-color: coral;
+}.deleteListbtn:active{
+    background-color: lightcoral;
+}
+.activeSaveBtn{
+    visibility: visible;
+}
+
 .groceryListCantPlus{
-      background-color:#967BB6;
-   
-            
+    
+     cursor: pointer;
+      background-color:#967BB6;  
     }
+.groceryListCategory{
+                margin-bottom: 15px;
+            font-family: 'Open Sans', sans-serif;
+
+            border-bottom-width: 1px;
+            margin-bottom: 20px;
+}
+.categoryListSelect{
+    width: 200px;
+    height: 30px;
+    border-color: green;
+    color: green;
+    margin-bottom: 30px;
+}
         .groceryListNomFecha:hover{
             background-color:darkgreen;
         }
@@ -72,11 +140,11 @@
 
     .groceryListFecha
 {   
-    margin-left: 180px;
+    margin-left: 70px;
 }
 
 .groceryListCant{
-    margin-left: 130px;
+    margin-left: 40px;
 }
 
     .groceryListText{
@@ -111,4 +179,8 @@
             -o-transform: translate(-50%,-50%) rotate(-45deg);
             transform: translate(20%,-30%);
     
+}
+.viewNoteModalBody{
+    margin-top: 120px;
+    height: 320px;
 }

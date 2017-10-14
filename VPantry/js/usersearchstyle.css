@@ -1,0 +1,68 @@
+
+.artistuser{
+    margin-top: 10px;
+    width: 100%;
+    max-width: none;
+    text-overflow: ellipsis;
+}
+
+.description{
+    
+    margin-top: 5px;
+    width: 100%;
+    max-width: none;
+    text-overflow: ellipsis;
+    overflow: auto;
+}
+.artistpic{
+    width: 115px;
+    height: 115px;
+    
+}
+.seguir{
+    font-family:Royal;
+    color: aliceblue;
+    margin-top: 5px;
+    font-size: 8px;
+}
+
+
+.subbutton {
+    display: inline-block;  
+    padding-right: 5px;
+    padding-left: 5px;
+    background: rgba(22, 22, 22, 0.5);
+    margin-right: 5px;
+    margin-top: 20px;
+}
+
+.subbutton:hover {
+    
+    background: rgba(223, 228, 234, 0.7);
+}
+
+.plus{
+    color: aliceblue;
+    font-size: 8px;
+    margin-left: 5px;
+}
+
+@media (min-width: 768px) {     
+
+    .seguir,.plus{
+    font-size: 14px;
+    }
+.trackart,.commentpic{
+        margin-left: 20px;
+        width: 142px;
+        height: 142px;
+        
+    }
+    
+    
+    .description{
+        
+        max-width: 500px;
+    }
+}
+    

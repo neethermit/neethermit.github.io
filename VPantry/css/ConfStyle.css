@@ -6,8 +6,9 @@
     
     padding-top: 50px;
     padding-left: 60px;
-    
+    margin-top: 70px;
     padding-right: 60px;
+    background-color: white;
 }
 
 .confText{
@@ -94,3 +95,16 @@
             margin-top: 10px;
             border: none;     
         }
+
+.salirGpobtn{
+    margin: 0;
+    margin-top: 20px;
+    background-color: coral;
+}
+
+.unirseAlGpobtn{
+    background-color: #967BB6
+}
+.sacardelGpoBtn{
+        background-color: coral;
+}
