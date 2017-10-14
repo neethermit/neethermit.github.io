@@ -26,7 +26,7 @@
             }   
         });
         
-        $(".popList").click(function(){
+        $(".listTopPage").click(function(){
             if(!listAnim){
                 listAnim=true;
                 $(".popList").toggleClass("glyphicon-chevron-left glyphicon-chevron-right");
