@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - collada</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background:#777;
+				padding:20;
+				margin:0;
+				overflow:hidden;
+			}
+
+	
+
+			a {
+				color: #ffffff;
+			}
+            .flexbox{
+                display: flex;
+            }
+            .filler{
+                flex-grow: 1;
+            }
+            .menu{ 
+            position:absolute;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 10;
+            }
+            #container{
+                position: relative;
+         
+            }
+            .etiquetas{
+                font-family: calibri;
+                font-size: 30px;
+                color: aliceblue;
+            }
+            .separador{
+                font-family: calibri;
+                font-size: 30px;
+                color: aliceblue;
+                margin: 40px;
+                margin-top: 200px;
+            }
+            .botonmenu{
+                 background-color: rgba(0,0,0,0.9);
+                border: 3px white solid;
+                color: aliceblue;
+                padding: 10px 20px;
+                margin-bottom: 50px;
+                
+                width: 200px;
+                
+            }   
+            
+            .botonmenu:hover{
+                background-color: rgba(200,200,200,0.7); 
+                box-shadow: 0 0 10px #CCCCCC;
+            }
+            .botonmenu:active{
+                background-color: rgba(200,200,200,0.9); 
+                box-shadow: 0 0 10px #CCCCCC;
+            }
+            
+            .btnmenu2{
+                width: 300px;
+            }
+            .btntoggle,.colorinput{
+                width: 150px;
+            }
+            .colorinput{
+                padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch {
+            border: none;
+            }
+            .btnactived{
+                 background-color: rgba(200,200,200,0.9); 
+                color: black;
+            }
+            .camposMenu{
+                background-color: rgba(0,0,0,0.9);
+                border: 3px white solid;
+                color: aliceblue;
+                font-size: 20px;
+                
+                font-family: calibri;
+                
+                margin: 10px 10px 10px 10px;
+                
+            }
+            .tablapunt{
+                border-collapse: collapse;
+            }
+        
+            .tablapunt,.tablapunt th,.tablapunt td{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                 background-color: rgba(0,0,0,0.1);
+                border: 3px white solid;
+                text-align: center;
+            }
+                .tablapunt th{
+                
+                 background-color: rgba(200,200,200,0.7);
+            }
+            .tablatext{
+                cursor: default;
+                padding: 10px 60px;
+                font-family: calibri;
+                font-size: 20px;
+                font-weight: 100;
+               color: white;
+            }
+            .servertable:hover{
+                
+                 background-color: rgba(0,10,240,0.2);
+            }
+            .servertableselected,.servertableselected:hover{
+                background-color: rgba(0,10,240,0.5);
+            }
+            .descripcion{
+                color: aliceblue;
+                font-family: calibri;
+                font-size: 20px;
+                font-weight: 100;
+                margin-bottom: 30px;
+            }
+            .bloquemult{
+                width: 200px;
+            }
+            .menupage{
+                position: absolute;
+                top:50%;
+                left: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            }
+            .timer{
+                font-size: 30px;
+                color: aliceblue;
+                z-index: 5;
+                position: absolute;
+                left: 50%;
+            -webkit-transform: translate(-50%,50%);
+            -moz-transform: translate(-50%,50%);
+            -ms-transform: translate(-50%,50%);
+            -ms-transform: translate(-50%,50%);
+            -o-transform: translate(-50%,50%);
+            transform: translate(-50%,50%);
+            }
+            .timerfont{
+                font-size: 30px;
+                color: aliceblue;
+            }
+            .totalLaps{
+               
+                z-index: 3;
+                position: absolute;
+                left: 100%;
+                top: 100%;
+            -webkit-transform: translate(-150%,-150%);
+            -moz-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -o-transform: translate(-150%,-150%);
+            transform: translate(-150%,-150%);   
+            }
+            .lapText{
+                 font-size: 60px;
+                color: aliceblue;
+            }
+            .menuAlias{
+            }
+            .menuOpciones{
+               width: 50%;
+            }
+            .menuPrincipal,.menuComemzar,.menuOpciones,.menuPuntuaciones,.menuDescInd,.menuDescMult{
+                display: none;   
+            }
+		</style>
+	</head>
+	<body>
+
+		<div id="container">
+            <div class="timer"><span id="hour" class="timerfont">00</span>:<span id="min" class="timerfont">00</span>:<span id="sec" class="timerfont">00</span></div>
+              <div class="totalLaps flexbox">
+                <span class="lapText">0</span>
+                <span class="lapText">/</span>
+                <span class="lapText">3</span>
+            </div>
+            <div class="menu">
+          
+            
+                <div class="menuAlias menupage">
+                    <center><label class="etiquetas">Escribe un alias</label></center><br>
+                    <center><input type="text" class="camposMenu" id="inputalias"></center><br>
+                    <center><button class="botonmenu" id="btnalias">Aceptar</button></center>
+                </div>
+
+                <div class="menuPrincipal menupage">
+                    <center><button class="botonmenu btnmenu2" id="btncomenzarjgo">Comenzar Juego</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnpuntuaciones">Puntuaciones</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnopciones">Opciones</button></center>
+                </div>
+                
+                <div class="menuComemzar menupage">
+                    <center><button class="botonmenu btnmenu2" id="btnindividual">Prueba de tiempo</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnversus">Carrera versus</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnbackcomenzar">Atras</button></center>
+                </div>
+                <div class="menuDescInd menupage">
+                    
+                    <center><div class="descripcion" >Llega a la meta en el menor tiempo posible recolectando todas las monedas. Compite por superar las puntuaciones de los demas jugadores y ser el mejor.</div></center>
+                    <center><button class="botonmenu btnmenu2" id="btnstartind">Comenzar</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnbackdesct">Atras</button></center>
+                </div>
+                <div class="menuDescMult menupage">
+                    
+                    <center>
+                        <div>
+                        <div class="flexbox">
+                             <div class="filler"></div>
+                        <div class="descripcion bloquemult" >
+                             Crea una sala<br><br>
+                       
+                        </div>
+                            <div class="filler"></div>
+                        <div class="separador">o</div>
+                             <div class="filler"></div>
+                    <div class="descripcion bloquemult" >
+                        Unete a un jugador
+                    <table class="tablapunt">
+                    <thead>
+                    <th><div class="tablatext">Jugador</div></th>
+                        </thead>
+                        <tbody>
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>   
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>     
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>     
+                  
+                        </tbody>
+                    </table>
+                         
+                        </div>
+                             <div class="filler"></div>
+                        </div>
+                               </div> 
+                        <div>
+                            <div class="flexbox">
+                          <button class="botonmenu btnmenu2" id="btnstartmult1">Crear</button><button class="botonmenu btnmenu2" id="btnstartmult2">Comenzar</button>
+                            </div>
+                        </div>
+                     
+                    </center>
+                   
+                    <center><button class="botonmenu btnmenu2" id="btnbackdescm">Atras</button></center>
+                </div>
+                
+                <div class="menuPuntuaciones menupage">
+                    <table class="tablapunt">
+                    <thead>
+                    <th><div class="tablatext">#</div></th>
+                    <th><div class="tablatext">Jugador</div></th>
+                    <th><div class="tablatext">Tiempo</div></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><div class="tablatext">1</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>   
+                        <tr>
+                            <td><div class="tablatext">2</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">3</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">4</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">5</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">6</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">7</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">8</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">9</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">10</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>  
+                        </tbody>
+                    </table>
+                    <center><button class="botonmenu btnmenu2" id="btnbackpuntuaciones">Atras</button></center>
+                </div>
+                
+                <div class="menuOpciones menupage">
+                    <div class="flexbox"><label class="etiquetas" >Sonido</label> 
+                            <div class="filler"></div>
+                    <button class="botonmenu btntoggle" id="soundbtn" value="1">On</button></div>
+                    
+                    <div class="flexbox"><label class="etiquetas" >Particulas</label> 
+                            <div class="filler"></div>
+                    <button class="botonmenu btntoggle" id="particlebtn" value="1">On</button></div>
+                    
+                    <div class="flexbox"><div><div class="etiquetas" >Luz Ambiental</div> </div>
+                          <div class="filler"></div>
+                    <input class="botonmenu colorinput" type="color" id="ambColor" value="#cccccc"></div>
+                    
+                    <div class="flexbox"><div><div class="etiquetas" >Luz Direccional</div></div> 
+                        <div class="filler"></div>
+                    <input class="botonmenu colorinput" type="color" id="dirColor" value="#ffffff"></div>
+                   
+                    <center><button class="botonmenu btnmenu2" id="btnbackopciones">Atras</button></center>
+                </div>
+                
+                
+            
+            </div>
+            
+        </div>
+
+
+		<script src="three.js"></script>
+
+		<script src="js/loaders/ColladaLoader2.js"></script>
+		<script src="js/Detector.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+        	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+
+		<script>
+            var Stopwatch = {
+  totalSeconds: 0,
+
+  start: function () {
+    var self = this;
+
+    this.interval = setInterval(function () {
+      self.totalSeconds += 1;
+
+        var h=Math.floor(self.totalSeconds / 3600);
+        var m=Math.floor(self.totalSeconds / 60 % 60);
+        var s=parseInt(self.totalSeconds % 60);
+        
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+        s = s < 10 ? '0' + s : s;
+        
+      $("#hour").text(h);
+      $("#min").text(m);
+      $("#sec").text(s);
+        
+    }, 1000);
+  },
+
+  pause: function () {
+    clearInterval(this.interval);
+    delete this.interval;
+  },
+
+  resume: function () {
+    if (!this.interval) this.start();
+  }
+};
+
+            	var keys = {};
+	$(document).ready(function() {
+		document.addEventListener('keydown', onKeyDown);
+		document.addEventListener('keyup', onKeyUp);
+        
+            
+        $("#btnalias").on('click',function(){
+          if($("#inputalias").val()!==''){
+            $(".menuAlias").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+            }
+         
+        });
+   
+        //Comenzar juego
+        $("#btncomenzarjgo").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuComemzar").fadeIn();
+            });
+        });
+        
+        $("#btnbackcomenzar").on('click',function(){
+          
+            $(".menuComemzar").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        
+        //Menu individual
+        $("#btnindividual").on('click',function(){
+            
+            $(".menuComemzar").fadeOut('fast','linear',function(){     
+                    $(".menuDescInd").fadeIn();
+            });
+        });
+        
+        $("#btnbackdesct").on('click',function(){
+          
+            $(".menuDescInd").fadeOut('fast','linear',function(){
+                     
+                $(".menuComemzar").fadeIn();
+            });
+         
+        });
+        $("#btnstartind").on('click',function(){
+            
+            Stopwatch.start();
+          addmodels();
+            changelight($("#ambColor").val(),$("#dirColor").val());
+            $(".menu").fadeOut('fast','linear',function(){
+                     
+             
+            });
+         
+        });
+        //Menu multijugador
+        $("#btnversus").on('click',function(){
+            
+            $(".menuComemzar").fadeOut('fast','linear',function(){     
+                    $(".menuDescMult").fadeIn();
+            });
+        });
+        
+        $("#btnbackdescm").on('click',function(){
+          
+            $(".menuDescMult").fadeOut('fast','linear',function(){
+                     
+                $(".menuComemzar").fadeIn();
+            });
+         
+        });
+        $("#btnstartmult1,#btnstartmult2").on('click',function(){
+          //comenzar juego
+            $(".menu").fadeOut('fast','linear',function(){
+                
+           Stopwatch.start();     
+              addmodels();
+                changelight($("#ambColor").val(),$("#dirColor").val());
+            });
+         
+        });
+        
+        //Puntuaciones
+        $("#btnpuntuaciones").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuPuntuaciones").fadeIn();
+            });
+        });
+        
+        $("#soundbtn").on('click',function(){
+            
+            audio.muted = !audio.muted;
+
+            
+            if($(this).val()==0){
+             $(this).text('On');
+            $(this).val(1);
+            }
+            else{
+                $(this).val(0);
+                $(this).text('Off'); 
+            }
+            $(this).toggleClass("btnactived");
+        });
+        
+        $("#particlebtn").on('click',function(){
+            if($(this).val()==0){
+             $(this).text('On');
+            $(this).val(1);
+            }
+            else{
+                $(this).val(0);
+                $(this).text('Off'); 
+            }
+            $(this).toggleClass("btnactived");
+        });
+        
+        $("#btnbackpuntuaciones").on('click',function(){
+          
+            $(".menuPuntuaciones").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        
+        
+        
+        //Opciones
+        $("#btnopciones").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuOpciones").fadeIn();
+            });
+        });
+        
+        $("#btnbackopciones").on('click',function(){
+          
+            $(".menuOpciones").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        
+       
+        
+         $(".servertable").on("click",function () {
+     $(this).addClass("servertableselected").siblings().removeClass("servertableselected");
+    });
+        
+      
+	});
+            
+      
+            
+    function onKeyDown(event) {
+		keys[String.fromCharCode(event.keyCode)] = true;
+	}
+	function onKeyUp(event) {
+		keys[String.fromCharCode(event.keyCode)] = false;
+	}
+            
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+var visibleSize = { width: window.innerWidth, height: window.innerHeight};
+		
+			var container, stats, clock;
+			var camera, scene, renderer, car,scenario;
+            var llantas1, llantas2;
+            var rampas=[];
+            var monedas=[];
+            var audio = document.createElement('audio');
+			init();
+			animate();
+            
+        function changelight(lightval1,lightval2){
+        
+        var light1sub = lightval1.substr(1);
+        var light2sub = lightval2.substr(1);
+        var lightvalhex1 = parseInt(light1sub, 16);
+        var lightvalhex2 = parseInt(light2sub, 16);
+		var amblight = scene.getObjectByName("ambLight");
+		var dirlight = scene.getObjectByName("dirLight");
+                amblight.color.setHex( lightvalhex1 );
+                dirlight.color.setHex( lightvalhex2 );
+            }
+            
+            function addmodels(){
+          
+					scene.add( scenario );
+                    car.rotation.z =( 3.1418/180)*90;
+                    car.position.set(-44.75,0.30,27.15);
+            }
+			function init() {
+
+				container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 20000 );
+				camera.position.set( 0, 0.5, 4 );
+
+				scene = new THREE.Scene();
+
+				clock = new THREE.Clock();
+
+                var basicMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 1, wireframe: true } );
+
+                
+				// loading manager
+                
+
+				var loadingManager = new THREE.LoadingManager( function() {
+
+					scene.add( car );
+           
+                    	
+                    car.add(camera);
+                    camera.position.y = 2;
+                    camera.position.z = 1;
+                    camera.up.set( 0, 0, 1);
+		            camera.lookAt(car.position);
+                           
+                            // car.position.y=-0.20;
+		   
+                    
+                            var loader3 = new THREE.ColladaLoader( loadingManager3 );
+                
+				loader3.load( './models/FrontWheels/carrofrontwheels.dae', function ( collada ) {
+
+					llantas1 = collada.scene;
+
+				} );
+                
+                var loader4 = new THREE.ColladaLoader( loadingManager4 );
+                
+				loader4.load( './models/BackWheels/carrobackwheels.dae', function ( collada ) {
+
+					llantas2 = collada.scene;
+
+				} );
+
+				} );
+                
+                var loadingManagerScenario = new THREE.LoadingManager( function() {
+
+                    scenario.scale.set(4,4,4);
+                     scenario.children[2].material = new THREE.MeshPhongMaterial( { map: scenario.children[2].material.map });
+                     scenario.children[3].material = new THREE.MeshPhongMaterial( { map: scenario.children[3].material.map });
+                    
+                     scenario.children[4].material = new THREE.MeshPhongMaterial( { map: scenario.children[4].material.map });
+					
+                    
+		          //car.rotation.y =( 3.1418/180)*180;
+                    	
+				} );
+                var loadingManager3 = new THREE.LoadingManager( function() {
+               
+                   // llantas1.children[1].material = new THREE.MeshPhongMaterial( { map: llantas1.children[1].material.map });
+                    
+					scene.add( llantas1 );
+                    car.add(llantas1);
+                    	
+				} );
+
+                     var loadingManager4 = new THREE.LoadingManager( function() {
+                         
+					scene.add( llantas2 );
+                         
+                    llantas2.position.y=0.5;
+                     car.add(llantas2);
+                    	
+				} );
+
+                     var loadingManager5 = new THREE.LoadingManager( function() {
+
+                      
+					    scene.add( rampas[0] );
+                        rampas[0].scale.set(8,4,4);
+                        rampas[0].position.set(24.7,0.20,6.25);
+                         
+                        scene.add(rampas[1]);
+                        rampas[1].scale.set(8,4,4);
+                        rampas[1].rotation.z=(3.14/180)*90;
+                        rampas[1].position.set(-15.84,0.20,-55.67);
+                       
+                    	
+				} );
+                     var loadingManager6 = new THREE.LoadingManager( function() {
+
+                        monedas[0].scale.set(20,20,20);
+                        monedas[0].position.set(0.67,0.5,27.50);
+					    scene.add( monedas[0] );
+                             monedas[1].scale.set(20,20,20);
+                        monedas[1].position.set(25.98,0.5,0.54);
+					    scene.add( monedas[1] );
+                             monedas[2].scale.set(20,20,20);
+                        monedas[2].position.set(24.54,0.5,-69.48);
+					    scene.add( monedas[2] );
+                             monedas[3].scale.set(20,20,20);
+                        monedas[3].position.set(-8.65,0.5,-61.04);
+					    scene.add( monedas[3] );
+                             monedas[4].scale.set(20,20,20);
+                        monedas[4].position.set(-48.82,0.5,-54.27);
+					    scene.add( monedas[4] );
+                             monedas[5].scale.set(20,20,20);
+                        monedas[5].position.set(-68.78,0.5,12.53);
+					    scene.add( monedas[5] );
+                    
+                    	
+				} );
+
+				var loader = new THREE.ColladaLoader( loadingManager );
+                
+				loader.load( './models/Car/CarroBlueTop.dae', function ( collada ) {
+
+					car = collada.scene;
+
+				} );
+              
+                var loader2 = new THREE.ColladaLoader( loadingManagerScenario );
+                
+				loader2.load( './models/Escenario/scenario22.dae', function ( collada ) {
+
+					scenario = collada.scene;
+
+				} );
+                
+        
+                
+                var loader5 = new THREE.ColladaLoader( loadingManager5 );
+                
+				loader5.load( './models/Rampa/rampa.dae', function ( collada ) {
+
+					rampas.push(collada.scene);
+                    rampas.push(collada.scene.clone());
+
+				} );
+                var loader6 = new THREE.ColladaLoader( loadingManager6 );
+                
+				loader6.load( './models/Coin/coin.dae', function ( collada ) {
+
+					monedas.push(collada.scene);
+                    monedas.push(collada.scene.clone());         
+                    monedas.push(collada.scene.clone());       
+                    monedas.push(collada.scene.clone());   
+                    monedas.push(collada.scene.clone()); 
+                    monedas.push(collada.scene.clone());
+
+				} );
+                
+
+				//
+              
+
+				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+                ambientLight.name="ambLight";
+				scene.add( ambientLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+				directionalLight.position.set( 1, 1, 0 ).normalize();
+                directionalLight.name="dirLight";
+				scene.add( directionalLight );
+                
+                var grid = new THREE.GridHelper(300, 20, 0xffffff, 0xffffff);
+		grid.position.y = -1;
+		scene.add(grid);
+				//
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+                
+                
+                audio.src = 'Track4.mp3';
+                audio.loop = true;
+                audio.play();
+
+
+				//
+
+				stats = new Stats();
+				//container.appendChild( stats.dom );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+              var stop=true;
+			function render() {
+                  var alto = false;
+        var yaw = 0;
+		var forward = 0;
+                var alto=false;
+		if (keys["A"]) {
+			yaw = 1;
+            forward = -3;
+		} else if (keys["D"]) {
+			yaw = -1;
+            forward = -3;
+		}
+		if (keys["W"]) {
+			forward = -10;
+		} else if (keys["S"]) {
+			forward = 10;
+		}
+        if (keys["X"]) {
+         if(stop){
+			alto = true;
+             stop=false;
+        }
+		} else if (keys["C"]) {
+		stop=true;
+		}
+
+				var delta = clock.getDelta();
+
+				if ( car !== undefined && llantas2!=undefined && llantas1!=undefined) {
+                    
+		llantas2.rotation.x += 10 * delta;
+
+		llantas1.rotation.x += 10 * delta;
+
+                    if(alto){
+                        alto = false;
+                        alert(car.position.x+"___"+car.position.y+"___"+car.position.z);
+                        
+                    }
+                    if(monedas[0]!=undefined){
+                        for(var i=0;i<6;i++){
+                        monedas[i].rotation.z += 3 * delta;
+                            }
+                        }
+		car.rotation.z += yaw * delta;
+
+		car.translateY(forward * delta);
+
+				}
+                
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
