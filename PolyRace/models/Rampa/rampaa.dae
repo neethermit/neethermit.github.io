@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.78.0 commit date:2017-02-24, commit time:14:33, hash:e92f235283</authoring_tool>
+    </contributor>
+    <created>2017-11-17T15:03:30</created>
+    <modified>2017-11-17T15:03:30</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images>
+    <image id="file1" name="file1">
+      <init_from>file1.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="lambert1-effect">
+      <profile_COMMON>
+        <newparam sid="file1-surface">
+          <surface type="2D">
+            <init_from>file1</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="file1-sampler">
+          <sampler2D>
+            <source>file1-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="file1-sampler" texcoord="map1"/>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">49</float>
+            </shininess>
+            <transparent opaque="A_ONE">
+              <texture texture="file1-sampler" texcoord="map1"/>
+            </transparent>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="lambert1-material" name="lambert1">
+      <instance_effect url="#lambert1-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Untitled-mesh" name="Untitled">
+      <mesh>
+        <source id="Untitled-mesh-positions">
+          <float_array id="Untitled-mesh-positions-array" count="24">-0.5 -0.5 0.5 0.5 -0.5 0.5 -0.5 0.5 0.5 0.5 0.5 0.5 -0.5 5.918492 -0.5 0.5 5.918492 -0.5 -0.5 -0.5 -0.5 0.5 -0.5 -0.5</float_array>
+          <technique_common>
+            <accessor source="#Untitled-mesh-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Untitled-mesh-normals">
+          <float_array id="Untitled-mesh-normals-array" count="21">0 0 1 0 0.1814883 0.9833932 0 0.1814883 0.9833931 0 0 -1 0 -1 0 1 0 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#Untitled-mesh-normals-array" count="7" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Untitled-mesh-map">
+          <float_array id="Untitled-mesh-map-array" count="72">0.375 0 0.625 0 0.375 0.25 0.375 0.25 0.625 0 0.625 0.25 0.375 0.25 0.625 0.25 0.375 0.6695135 0.375 0.6695135 0.625 0.25 0.625 0.6695135 0.375 0.6695135 0.625 0.6695135 0.375 0.75 0.375 0.75 0.625 0.6695135 0.625 0.75 0.375 0.75 0.625 0.75 0.375 1 0.375 1 0.625 0.75 0.625 1 0.625 0 0.875 0 0.625 0.25 0.625 0.25 0.875 0 0.875 0.25 0.375 0 0.375 0.25 0.125 0 0.125 0 0.375 0.25 0.125 0.25</float_array>
+          <technique_common>
+            <accessor source="#Untitled-mesh-map-array" count="36" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Untitled-mesh-vertices">
+          <input semantic="POSITION" source="#Untitled-mesh-positions"/>
+        </vertices>
+        <polylist material="lambert1-material" count="12">
+          <input semantic="VERTEX" source="#Untitled-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Untitled-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Untitled-mesh-map" offset="2" set="0"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>0 0 0 1 0 1 2 0 2 2 0 3 1 0 4 3 0 5 2 1 6 3 2 7 4 2 8 4 2 9 3 2 10 5 1 11 4 3 12 5 3 13 6 3 14 6 3 15 5 3 16 7 3 17 6 4 18 7 4 19 0 4 20 0 4 21 7 4 22 1 4 23 1 5 24 7 5 25 3 5 26 3 5 27 7 5 28 5 5 29 0 6 30 2 6 31 6 6 32 6 6 33 2 6 34 4 6 35</p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="pCube1" name="pCube1" type="NODE">
+        <matrix sid="transform">0.1146351 0 0 0 0 -6.38008e-10 -0.2319861 0 0 0.003916065 -3.77953e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#Untitled-mesh" name="pCube1">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="lambert1-material" target="#lambert1-material">
+                <bind_vertex_input semantic="map1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

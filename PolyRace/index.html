@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#" lang="en">
 	<head>
-		<title>three.js webgl - collada</title>
+		<title>Poly Run</title>
+        <link rel="icon" href="redblue2.png">
 		<meta charset="utf-8">
+        
+        <meta property="og:image" content="preview.png" />
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
@@ -31,6 +35,14 @@
             background-color: rgba(0,0,0,0.9);
             z-index: 10;
             }
+            .loading{ 
+            position:absolute;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,1);
+            z-index: 12;
+            }
             #container{
                 position: relative;
          
@@ -39,6 +51,17 @@
                 font-family: calibri;
                 font-size: 30px;
                 color: aliceblue;
+            }
+            .blueWin{
+                font-size: 40px;
+                color: blue;
+                 text-shadow: 0 0 3px #FFFFFF;
+                
+            }
+            .redWin{
+                font-size: 40px;
+                color: red;
+                text-shadow: 0 0 3px #FFFFFF;
             }
             .separador{
                 font-family: calibri;
@@ -161,11 +184,18 @@
             -o-transform: translate(-50%,50%);
             transform: translate(-50%,50%);
             }
+            .finaltimer{
+                font-size: 30px;
+                color: aliceblue;
+             
+            }
             .timerfont{
                 font-size: 30px;
                 color: aliceblue;
+                
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
             }
-            .totalLaps{
+            .totalLaps,.totalLapsj2{
                
                 z-index: 3;
                 position: absolute;
@@ -178,8 +208,56 @@
             -o-transform: translate(-150%,-150%);
             transform: translate(-150%,-150%);   
             }
+            .totalLapsj1{
+               
+                z-index: 3;
+                position: absolute;
+                left: 100%;
+                top: 50%;
+            -webkit-transform: translate(-150%,-150%);
+            -moz-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -o-transform: translate(-150%,-150%);
+            transform: translate(-150%,-150%);   
+            }
+            .totalcoins{
+               
+                z-index: 3;
+                position: absolute;
+                left: 0%;
+                top: 100%;
+            -webkit-transform: translate(10%,-150%);
+            -moz-transform: translate(10%,-150%);
+            -ms-transform: translate(10%,-150%);
+            -ms-transform: translate(10%,-150%);
+            -o-transform: translate(10%,-150%);
+            transform: translate(10%,-150%);   
+            }
             .lapText{
                  font-size: 60px;
+                color: aliceblue;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            }
+            .loadingText{
+                text-shadow: -2px 0 blue, 0 4px red, 4px 0 blue, 0 -2px red;
+                font-size: 70px;
+                position: absolute;
+                color: aliceblue;
+                left: 50%;
+                top: 50%;
+                z-index: 10;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%); 
+                
+            }
+            .gamename{
+                 text-shadow: -2px 0 blue, 0 4px red, 4px 0 blue, 0 -2px red;
+                font-size: 70px;
                 color: aliceblue;
             }
             .menuAlias{
@@ -187,24 +265,52 @@
             .menuOpciones{
                width: 50%;
             }
-            .menuPrincipal,.menuComemzar,.menuOpciones,.menuPuntuaciones,.menuDescInd,.menuDescMult{
+            .menuPrincipal,.menuComemzar,.menuOpciones,.menuPuntuaciones,.menuDescInd,.menuDescMult,.singleWinScreen,.pauseScreen,
+            .blueWinScreen,.redWinScreen{
                 display: none;   
+            }
+            
+            .timer,.totalLaps,.totalcoins,.totalLapsj1,.totalLapsj2{
+                 display: none;  
             }
 		</style>
 	</head>
 	<body>
 
 		<div id="container">
+            
             <div class="timer"><span id="hour" class="timerfont">00</span>:<span id="min" class="timerfont">00</span>:<span id="sec" class="timerfont">00</span></div>
-              <div class="totalLaps flexbox">
-                <span class="lapText">0</span>
+            
+              <div class="totalLaps">
+                <span class="lapText" id="currentLap">0</span>
                 <span class="lapText">/</span>
                 <span class="lapText">3</span>
+            </div>
+            <div class="totalLapsj1">
+                <span class="lapText" id="currentLapj1">0</span>
+                <span class="lapText">/</span>
+                <span class="lapText">3</span>
+            </div>
+            <div class="totalLapsj2">
+                <span class="lapText" id="currentLapj2">0</span>
+                <span class="lapText">/</span>
+                <span class="lapText">3</span>
+            </div>
+            
+            <div class="totalcoins flexbox">
+                <span class="lapText">Monedas: </span>
+                <span class="lapText" id="currentMon">0</span>
+                <span class="lapText" >/</span>
+                <span class="lapText" >6</span>
+            </div>
+            <div class="loading">
+            <div class="loadingText">Loading</div>
             </div>
             <div class="menu">
           
             
                 <div class="menuAlias menupage">
+                    <div class="gamename">Poly Run</div><br><br>
                     <center><label class="etiquetas">Escribe un alias</label></center><br>
                     <center><input type="text" class="camposMenu" id="inputalias"></center><br>
                     <center><button class="botonmenu" id="btnalias">Aceptar</button></center>
@@ -221,56 +327,29 @@
                     <center><button class="botonmenu btnmenu2" id="btnversus">Carrera versus</button></center>
                     <center><button class="botonmenu btnmenu2" id="btnbackcomenzar">Atras</button></center>
                 </div>
+                
                 <div class="menuDescInd menupage">
                     
                     <center><div class="descripcion" >Llega a la meta en el menor tiempo posible recolectando todas las monedas. Compite por superar las puntuaciones de los demas jugadores y ser el mejor.</div></center>
+                    <center><div class="descripcion" > Z:Acelerar<br>X:Frenar<br>Flechas izquierda y derecha:Girar</div></center>
                     <center><button class="botonmenu btnmenu2" id="btnstartind">Comenzar</button></center>
                     <center><button class="botonmenu btnmenu2" id="btnbackdesct">Atras</button></center>
                 </div>
+                
+              
+                
                 <div class="menuDescMult menupage">
                     
-                    <center>
-                        <div>
-                        <div class="flexbox">
-                             <div class="filler"></div>
-                        <div class="descripcion bloquemult" >
-                             Crea una sala<br><br>
-                       
-                        </div>
-                            <div class="filler"></div>
-                        <div class="separador">o</div>
-                             <div class="filler"></div>
-                    <div class="descripcion bloquemult" >
-                        Unete a un jugador
-                    <table class="tablapunt">
-                    <thead>
-                    <th><div class="tablatext">Jugador</div></th>
-                        </thead>
-                        <tbody>
-                        <tr class="servertable">
-                            <td><div class="tablatext ">Ernesto</div></td>
-                        </tr>   
-                        <tr class="servertable">
-                            <td><div class="tablatext ">Ernesto</div></td>
-                        </tr>     
-                        <tr class="servertable">
-                            <td><div class="tablatext ">Ernesto</div></td>
-                        </tr>     
-                  
-                        </tbody>
-                    </table>
-                         
-                        </div>
-                             <div class="filler"></div>
-                        </div>
-                               </div> 
-                        <div>
-                            <div class="flexbox">
-                          <button class="botonmenu btnmenu2" id="btnstartmult1">Crear</button><button class="botonmenu btnmenu2" id="btnstartmult2">Comenzar</button>
-                            </div>
-                        </div>
+                    <center><div class="descripcion" >Compite contra otro jugador y descubre quien de los 2 es el mas habil, el primero en 
+                        hacer 3 vueltas gana</div></center>
+                      <center><div class="descripcion" >Jugador 1<br> Z:Acelerar<br>X:Frenar<br>Flechas izquierda y derecha:Girar</div></center>
+                      <center><div class="descripcion" >Jugador 2<br> A:Acelerar<br>S:Frenar<br>J y L:Girar</div></center>
+                    <!--<button class="botonmenu btnmenu2" id="btnstartmult1">Crear</button>-->
+                        <center> <button class="botonmenu btnmenu2" id="btnstartmult2">Comenzar</button></center>
+                          
+                    
                      
-                    </center>
+                   
                    
                     <center><button class="botonmenu btnmenu2" id="btnbackdescm">Atras</button></center>
                 </div>
@@ -282,8 +361,8 @@
                     <th><div class="tablatext">Jugador</div></th>
                     <th><div class="tablatext">Tiempo</div></th>
                         </thead>
-                        <tbody>
-                        <tr>
+                        <tbody id="puntajebody">
+                      <!--  <tr>
                             <td><div class="tablatext">1</div></td>
                             <td><div class="tablatext">Ernesto</div></td>
                             <td><div class="tablatext">00:02:50</div></td>
@@ -332,7 +411,7 @@
                             <td><div class="tablatext">10</div></td>
                             <td><div class="tablatext">Ernesto</div></td>
                             <td><div class="tablatext">00:02:50</div></td>
-                        </tr>  
+                        </tr>  -->
                         </tbody>
                     </table>
                     <center><button class="botonmenu btnmenu2" id="btnbackpuntuaciones">Atras</button></center>
@@ -347,6 +426,10 @@
                             <div class="filler"></div>
                     <button class="botonmenu btntoggle" id="particlebtn" value="1">On</button></div>
                     
+                    <div class="flexbox"><label class="etiquetas" >Scanlines</label> 
+                            <div class="filler"></div>
+                    <button class="botonmenu btntoggle" id="scanbtn" value="1">Off</button></div>
+                    
                     <div class="flexbox"><div><div class="etiquetas" >Luz Ambiental</div> </div>
                           <div class="filler"></div>
                     <input class="botonmenu colorinput" type="color" id="ambColor" value="#cccccc"></div>
@@ -356,6 +439,32 @@
                     <input class="botonmenu colorinput" type="color" id="dirColor" value="#ffffff"></div>
                    
                     <center><button class="botonmenu btnmenu2" id="btnbackopciones">Atras</button></center>
+                </div>
+                
+                
+                  <div class="singleWinScreen menupage">
+                    <center><label class="etiquetas">Tu tiempo final fue:</label></center><br><br>
+                      <center><div class="finaltimer"><span id="hourF" class="timerfont">00</span>:<span id="minF" class="timerfont">00</span>:<span id="secF" class="timerfont">00</span></div></center><br>
+                    <center><button class="botonmenu btnmenu2" onclick="shareFB();">Compartir en facebook</button></center>
+                    <center><button class="botonmenu btnmenu2" id="singlewinReturn">Ir a menu</button></center>
+                </div>
+                
+                <div class="blueWinScreen menupage">
+                    <center><label class="etiquetas blueWin">Gano el jugador 1</label></center><br><br>
+                            <br><br>
+                    <center><button class="botonmenu btnmenu2" id="bluewinReturn">Ir a menu</button></center>
+                </div>
+                
+                <div class="redWinScreen menupage">
+                    <center><label class="etiquetas redWin">Gano el jugador 2</label></center><br><br>
+                            <br><br>
+                    <center><button class="botonmenu btnmenu2" id="redwinReturn">Ir a menu</button></center>
+                </div>
+                
+                <div class="pauseScreen menupage">
+                    <center><label class="etiquetas">Pausa</label></center><br><br>
+                    
+                    <center><button class="botonmenu btnmenu2" id="pauseMenu">Regresar a menu</button><button class="botonmenu btnmenu2" id="pauseCountinue">Continuar</button></center>
                 </div>
                 
                 
@@ -369,10 +478,60 @@
 
 		<script src="js/loaders/ColladaLoader2.js"></script>
 		<script src="js/Detector.js"></script>
+        <script src="js/shaders/UnpackDepthRGBAShader.js"></script>
+        <script src="js/shaders/CopyShader.js"></script>
+		<script src="js/shaders/DotScreenShader.js"></script>
+		<script src="js/shaders/RGBShiftShader.js"></script>
+		<script src="js/shaders/FilmShader.js"></script>
+
+		<script src="js/postprocessing/EffectComposer.js"></script>
+		<script src="js/postprocessing/RenderPass.js"></script>
+		<script src="js/postprocessing/ShaderPass.js"></script>
+
+		<script src="js/utils/ShadowMapViewer.js"></script>
 		<script src="js/libs/stats.min.js"></script>
         	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 
+         <script type="x-shader/x-vertex" id="vertexshader">
+
+			uniform float amplitude;
+
+			attribute vec3 displacement;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vec3 newPosition = position + amplitude * displacement;
+
+				vColor = customColor;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform vec3 color;
+			uniform float opacity;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( vColor * color, opacity );
+
+			}
+
+		</script>
+
+
+        
 		<script>
+
             var Stopwatch = {
   totalSeconds: 0,
 
@@ -404,17 +563,39 @@
 
   resume: function () {
     if (!this.interval) this.start();
+  },
+                
+  setFinalTime: function () {
+        
+        var self = this;
+        var h=Math.floor(self.totalSeconds / 3600);
+        var m=Math.floor(self.totalSeconds / 60 % 60);
+        var s=parseInt(self.totalSeconds % 60);
+        
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+        s = s < 10 ? '0' + s : s;
+    
+        tiempostring=h+":"+m+":"+s;
+        tiempillo=Stopwatch.totalSeconds;
+      $("#hourF").text(h);
+      $("#minF").text(m);
+      $("#secF").text(s);
+    self.totalSeconds=0;
   }
 };
-
+            
+	
             	var keys = {};
 	$(document).ready(function() {
+         getScores();
 		document.addEventListener('keydown', onKeyDown);
 		document.addEventListener('keyup', onKeyUp);
         
             
         $("#btnalias").on('click',function(){
           if($("#inputalias").val()!==''){
+              username=$("#inputalias").val();
             $(".menuAlias").fadeOut('fast','linear',function(){
                      
                 $(".menuPrincipal").fadeIn();
@@ -458,9 +639,20 @@
         });
         $("#btnstartind").on('click',function(){
             
-            Stopwatch.start();
-          addmodels();
+            Stopwatch.resume();
+            playmode=1;
+            treecollOn=true;
+            splitScreen=false;
+            gameStart=true;
+            
+            addmodels();
             changelight($("#ambColor").val(),$("#dirColor").val());
+            
+            addTimerGui();
+            addLapsGui();
+            addCoinsGui();
+            
+            $(".menuDescInd").hide();
             $(".menu").fadeOut('fast','linear',function(){
                      
              
@@ -485,11 +677,24 @@
         });
         $("#btnstartmult1,#btnstartmult2").on('click',function(){
           //comenzar juego
-            $(".menu").fadeOut('fast','linear',function(){
+          
+           Stopwatch.resume();
+            playmode=2;
+            treecollOn=true;
+            splitScreen=true;
+            gameStart=true;
                 
-           Stopwatch.start();     
-              addmodels();
-                changelight($("#ambColor").val(),$("#dirColor").val());
+            addmodels();
+            changelight($("#ambColor").val(),$("#dirColor").val());
+                
+            addTimerGui();
+            addLapsj1Gui();
+            addLapsj2Gui();
+            
+            
+            $(".menuDescMult").hide();
+               $(".menu").fadeOut('fast','linear',function(){
+                   
             });
          
         });
@@ -520,6 +725,7 @@
         
         $("#particlebtn").on('click',function(){
             if($(this).val()==0){
+                
              $(this).text('On');
             $(this).val(1);
             }
@@ -527,6 +733,21 @@
                 $(this).val(0);
                 $(this).text('Off'); 
             }
+            particleOn=!particleOn;
+            $(this).toggleClass("btnactived");
+        });
+        
+        $("#scanbtn").on('click',function(){
+            if($(this).val()==0){
+                
+             $(this).text('Off');
+            $(this).val(1);
+            }
+            else{
+                $(this).val(0);
+                $(this).text('On'); 
+            }
+            scanlines=!scanlines;
             $(this).toggleClass("btnactived");
         });
         
@@ -557,10 +778,60 @@
             });
          
         });
+        //Victory screen
+        $("#singlewinReturn").on('click',function(){
+            returntomenu();
+            gameStart=false;
+            $(".singleWinScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        $("#bluewinReturn").on('click',function(){
+            returntomenu();
+            gameStart=false;
+            $(".blueWinScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        $("#redwinReturn").on('click',function(){
+            returntomenu();
+            gameStart=false;
+            $(".redWinScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        //Pause menu
+        $("#pauseCountinue").on('click',function(){
+           pausa=false;
+        $(".pauseScreen").hide();
+        $(".menu").hide();
+            Stopwatch.resume();
+         
+        });
         
-       
+        $("#pauseMenu").on('click',function(){
+          
+           
+            gameStart=false;
+            pausa=false;
+            returntomenu();
+           
+            $(".pauseScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+         
+        });
+           
         
-         $(".servertable").on("click",function () {
+$(".servertable").on("click",function () {
      $(this).addClass("servertableselected").siblings().removeClass("servertableselected");
     });
         
@@ -579,16 +850,167 @@
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 		
+            
+            
 			var container, stats, clock;
-			var camera, scene, renderer, car,scenario;
+			var camera, scene, renderer, car,scenario,composer;
+            
+		var renderPass, copyPass;
             var llantas1, llantas2;
             var rampas=[];
             var monedas=[];
+            var treeBoxes=[];
+            var slowTiles=[];
+            var checkPoints=[];
+            var metaArea;
+            var montana;
             var audio = document.createElement('audio');
+            var username;
+            var tiempostring;
+            var tiempillo;
+            
+            var explosion=[];
+            var dirs = [];
+            var movementSpeed = 8;
+            var totalObjects = 500;
+            var objectSize = 0.5;
+            var sizeRandomness = 40;
+            var colors = [0xFF0000, 0xCCFF00, 0x0000FF, 0x00FF00, 0xFFFFFF];
+            
+            
+            var jugadores=[];
+            var jugadorid=0;
+            
+            var playmode=1;
+            var gameStart=false;
+            var splitScreen=false;
+            var particleOn=true;
+            var scanlines=false;
+       
+            
+            var showCollision=false;
+            var treecollOn=true;
+            
+            var monedasCant=0;
+            var victory=false;
+            var totalLaps=3;
+            
+            var treehelpers = new THREE.Group();
+            var terrainHelpers = new THREE.Group();
+            var checkHelpers = new THREE.Group();
+            
+            var pausa=false;
+            var scenarioReady=false;
+            var wheel1p1Ready=false;
+            var wheel2p1Ready=false;
+            var wheel1p2Ready=false;
+            var wheel2p2Ready=false;
+            var modelsReady=false;
+            
+            function checkPoint(box){
+                this.collisionbox=box;
+                this.active=[true,true];
+            }
+            function slowTile(box){
+                this.collisionbox=box;
+            }
+            
+            function treecollision(box){
+                this.collisionbox=box;
+            }
+            
+            function rampa(modelo){
+                this.modelo=modelo;
+                this.collisionbox={};
+            }
+            
+            function moneda(modelo){
+                
+                this.modelo=modelo;
+                this.xRaybox={};
+                this.colisionbox={};
+                this.active=true;
+            }
+            
+            function jugador(carro){
+
+                this.carro=carro;
+                this.llantas1={};
+                this.llantas2={};
+
+                this.pivot={};
+                this.collisionbox={};
+                this.helper={};
+                
+                this.velocidad=0;
+                this.aceleracion=0.58;
+                this.velocidadmaxima=15;
+                this.velocidadmaximaNormal=15;
+                this.velocidadmaximaBoost=40;
+                this.velocidadmaximaLenta=3;
+                this.friccion=0.5;
+                this.wheelangle=0;
+                this.wheeldirection=0;
+                this.reversa=false;
+                this.going=false;
+                this.boost=false;
+                this.boostTime=0;
+                this.slowMove=false;
+                this.yaw = 0;
+                
+                
+                this.checkPointsCant=0;
+                this.currentLaps=0;
+
+                this.positionX;
+                this.positionY;
+                this.positionZ;
+                this.rotationX;
+                this.rotationY;
+                this.rotationZ;
+            }
+            
+            var views = [
+				{
+					left: 0,
+					top: 0,
+					width: 1.0,
+					height: 0.5,
+					background: new THREE.Color( 1.0, 1.0, 1.0 ),
+					eye: [ 0, 300, 1800 ],
+					up: [ 0, 1, 0 ],
+					fov:45
+					
+				},
+				{
+					left: 0,
+					top: 0.5,
+					width: 1.0,
+					height: 0.5,
+					background: new THREE.Color( 0.7, 0.5, 0.5 ),
+					eye: [ 0, 300, 1800 ],
+					up: [ 0, 1, 0 ],
+					fov: 45
+				
+				}
+			];
+            var windowWidth  = window.innerWidth;
+            var windowHeight = window.innerHeight;
+            
+			var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 1024;
+			var HUD_MARGIN = 0.05;
+			var SCREEN_WIDTH = window.innerWidth;
+			var SCREEN_HEIGHT = window.innerHeight;  
+                        
+		var object, uniforms;
+		var light;
+            
+            
+            
 			init();
 			animate();
             
-        function changelight(lightval1,lightval2){
+            function changelight(lightval1,lightval2){
         
         var light1sub = lightval1.substr(1);
         var light2sub = lightval2.substr(1);
@@ -599,25 +1021,269 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
                 amblight.color.setHex( lightvalhex1 );
                 dirlight.color.setHex( lightvalhex2 );
             }
+        
+            function isallload(){
+                if(!modelsReady)
+                {
+                    if(scenarioReady&&wheel1p1Ready&&wheel2p1Ready&&wheel1p2Ready&&wheel2p2Ready){
+                        $(".loading").hide();
+                        modelsReady=true;  
+                    }
+                }
+            }
+            
+            function addTimerGui(){
+                $(".timer").show();
+            }
+            
+            function addLapsGui(){
+                $(".totalLaps").show();
+                $(".totalLaps").css("display","flex");
+            }
+            function addLapsj1Gui(){
+                $(".totalLapsj1").show();
+                $(".totalLapsj1").css("display","flex");
+            }
+            function addLapsj2Gui(){
+                $(".totalLapsj2").show();
+                $(".totalLapsj2").css("display","flex");
+            }
+            
+            function addCoinsGui(){
+                $(".totalcoins").show();
+            }
+            
+            function removeGui(){
+                $(".timer").hide();
+                $(".totalLaps").hide();
+                $(".totalLaps").removeClass("flexbox");
+                $(".totalLapsj1").hide();
+                $(".totalLapsj1").removeClass("flexbox");
+                $(".totalLapsj2").hide();
+                $(".totalLapsj2").removeClass("flexbox");
+                $(".totalcoins").hide();
+                
+                $("#currentMon").text('0');
+                $("#currentLap").text('0');
+                $("#currentLapj1").text('0');
+                $("#currentLapj2").text('0');
+                
+                $("#hour").text('00');
+                $("#min").text('00');
+                $("#sec").text('00');
+                
+            }
+            
+            function saveDB() {
+		//var score = $("#txtScore").val();
+            
+		var dataToSend = { action: "addScore", alias: username,tiempo:tiempillo,cadena:tiempostring};
+     
+        $.ajax({
+            url: "webservice.php",
+            async:true,
+            type:'POST',
+            data: dataToSend,
+            success: function(data){
+           // alert(data);
+            },
+            error:function(x,y,z){
+           // alert("Error en ws:");
+                }
+        });
+	}
+	
+	function getScores() {
+		var dataToSend = { action: "getScores" };
+        
+            $.ajax({
+            url: "webservice.php",
+            async:true,
+            type:'POST',
+            dataType:'json',
+            data: dataToSend,
+            success: function(data){
+                
+                for (var i=0; i<data.length;i++){
+                    var scoreObj = data[i];
+                    
+                      var posicion=i+1;
+                      $("#puntajebody").append('<tr><td><div class="tablatext">'+posicion+'</div></td><td><div class="tablatext">'+scoreObj.alias+'</div></td><td><div class="tablatext">'+scoreObj.tiempo+'</div></td></tr>');
+                }
+            },
+            error:function(x,y,z){
+                  $("#puntajebody").append('<tr><td colspan="3"><div class="tablatext">Error al cargar la base de datos</div></td></tr>');
+                }
+        });
+	}
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '189462361626639',
+    xfbml      : true,
+    version    : 'v2.9'
+  });
+  FB.AppEvents.logPageView();
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk')); 
+
+
+function shareScore(score) {
+    
+  FB.ui({
+      method:'share',
+      href:'https://google.com',
+      quote: "Mi punctuacion"+score
+      
+  });
+}
+            function shareFB() {
+		var score = $("#txtScore").val();
+		shareScore(score);
+	}
+
             
             function addmodels(){
-          
-					scene.add( scenario );
-                    car.rotation.z =( 3.1418/180)*90;
-                    car.position.set(-44.75,0.30,27.15);
+                    scene.add(scenario);
+                    jugadores[0].pivot.rotation.y =( 3.1418/180)*90;
+                    jugadores[0].pivot.position.set(-56.15,0.30,32.69);
+                    jugadores[0].rotationY=jugadores[0].pivot.rotation.y;
+                    jugadores[0].positionX=jugadores[0].pivot.position.x;
+                    jugadores[0].positionY=jugadores[0].pivot.position.y;
+                    jugadores[0].positionZ=jugadores[0].pivot.position.z;
+                   for(var i=0;i<rampas.length;i++){
+                           scene.add( rampas[i].modelo );
+                           rampas[i].active=true;
+                        }
+                
+                if(playmode==1){
+                        for(var i=0;i<monedas.length;i++){
+                           scene.add( monedas[i].modelo );
+                           scene.add( monedas[i].xRaybox );
+                           monedas[i].active=true;
+                        }
+                }
+                if(playmode==2){
+                    jugadores[1].pivot.rotation.y =( 3.1418/180)*90;
+                    jugadores[1].pivot.position.set(-56.15,0.30,34.24);
+                    jugadores[1].rotationY=jugadores[1].pivot.rotation.y;
+                    jugadores[1].positionX=jugadores[1].pivot.position.x;
+                    jugadores[1].positionY=jugadores[1].pivot.position.y;
+                    jugadores[1].positionZ=jugadores[1].pivot.position.z;
+                }
             }
+            function singleplayerWin(){
+               
+                Stopwatch.pause();
+                Stopwatch.setFinalTime();
+                 saveDB();
+                $(".menu").show();
+                $(".singleWinScreen").show();
+                
+            }
+            function blueplayerWin(){
+                Stopwatch.pause();
+                
+                $(".menu").show();
+                $(".blueWinScreen").show();
+            }   
+            function redplayerWin(){
+                Stopwatch.pause();
+                
+                $(".menu").show();
+                $(".redWinScreen").show();
+            }
+            
+            function returntomenu(){
+          
+        
+                victory=false;
+                Stopwatch.totalSeconds=0;
+                removeGui();
+                scene.remove(scenario);
+                monedasCant=0;
+                checkPoints[0].active[0]=true;
+                checkPoints[1].active[0]=true;
+                checkPoints[0].active[1]=true;
+                checkPoints[1].active[1]=true;
+                jugadores[0].checkPointsCant=0;
+                jugadores[1].checkPointsCant=0;
+                jugadores[0].currentLaps=0;
+                jugadores[1].currentLaps=0;
+                jugadores[0].velocidad=0;
+                jugadores[1].velocidad=0;
+                jugadores[0].boost=false;
+                jugadores[1].boost=false;
+                jugadores[0].boostTime=0;
+                jugadores[1].boostTime=0;
+                jugadores[1].pivot.position.set(0,0,0);
+                for(var i=0;i<rampas.length;i++){
+                        
+                        scene.remove(rampas[i].modelo);
+                          
+                        }
+                if(playmode==1){
+                
+                    for(var i=0;i<monedas.length;i++){
+                        if(monedas[i].active){
+                        scene.remove(monedas[i].modelo);
+                        scene.remove(monedas[i].xRaybox);
+                            }
+                        monedas[i].active=false;
+                        }
+                    }
+                
+            };
+            
 			function init() {
 
 				container = document.getElementById( 'container' );
 
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 20000 );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 				camera.position.set( 0, 0.5, 4 );
 
+                for (var ii =  0; ii < views.length; ++ii ) {
+
+					var view = views[ii];
+					var cameraSplit = new THREE.PerspectiveCamera( view.fov, window.innerWidth / window.innerHeight, 1, 10000 );
+					cameraSplit.position.set( 0, 0.5, 4 );
+					view.camera = cameraSplit;
+
+				}
+
+                
 				scene = new THREE.Scene();
 
 				clock = new THREE.Clock();
 
                 var basicMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 1, wireframe: true } );
+                
+                    
+                uniforms = {
+
+				amplitude: { value: 5.0 },
+				opacity:   { value: 0.7 },
+				color:     { value: new THREE.Color( 0xff0000 ) }
+
+			};
+
+			var shaderMaterial = new THREE.ShaderMaterial( {
+
+				uniforms:       uniforms,
+				vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+				fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+				blending:       THREE.AdditiveBlending,
+				depthTest:      false,
+				transparent:    true
+
+			});
+
 
                 
 				// loading manager
@@ -625,44 +1291,221 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 
 				var loadingManager = new THREE.LoadingManager( function() {
 
-					scene.add( car );
+					
+                    var geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+                   // geometry.center();
+                    var material = new THREE.MeshNormalMaterial();
+                    jugadores[0].pivot = new THREE.Mesh( geometry, material );
            
-                    	
-                    car.add(camera);
-                    camera.position.y = 2;
+                    jugadores[0].collisionbox= new THREE.Box3().setFromObject(jugadores[0].carro);
+                    
+                    jugadores[0].helper = new THREE.Box3Helper(jugadores[0].collisionbox, 0xff0000);
+                    //jugadores[0].helper.updateMatrixWorld();
+                    // If you want a visible bounding box
+                    if(showCollision){
+                    jugadores[0].pivot.add(jugadores[0].helper);
+                    }
+                    scene.add(jugadores[0].pivot );
+                    
+                    jugadores[0].rotationY=jugadores[0].pivot.rotation.y;
+                    jugadores[0].positionX=jugadores[0].pivot.position.x;
+                    jugadores[0].positionY=jugadores[0].pivot.position.y;
+                    jugadores[0].positionZ=jugadores[0].pivot.position.z;
+                
+                    jugadores[0].pivot.add( jugadores[0].carro);
+                    
+                    /*
+           car.children["0"].children["0"].children["0"].children["8"].castShadow=true;
+            car.children["0"].children["0"].children["0"].children["7"].castShadow=true;
+            car.children["0"].children["0"].children["0"].children["9"].castShadow=true;
+                    	*/
+                    jugadores[0].carro.add(camera);
+                     camera.position.y = 2;
                     camera.position.z = 1;
                     camera.up.set( 0, 0, 1);
-		            camera.lookAt(car.position);
-                           
+		            camera.lookAt(jugadores[0].carro.position);
+                    jugadores[0].carro.add(views[0].camera);
+                    views[0].camera.position.y = 3;
+                    views[0].camera.position.z = 1;
+                    views[0].camera.up.set( 0, 0, 1);
+		            views[0].camera.lookAt(jugadores[0].carro.position);
+                   
+                    
+                 
                             // car.position.y=-0.20;
 		   
                     
                             var loader3 = new THREE.ColladaLoader( loadingManager3 );
                 
-				loader3.load( './models/FrontWheels/carrofrontwheels.dae', function ( collada ) {
+				loader3.load( './models/BackWheels/backwheels.dae', function ( collada ) {
 
-					llantas1 = collada.scene;
+					jugadores[0].llantas1 = collada.scene;
 
 				} );
                 
                 var loader4 = new THREE.ColladaLoader( loadingManager4 );
                 
-				loader4.load( './models/BackWheels/carrobackwheels.dae', function ( collada ) {
+				loader4.load( './models/BackWheels/backwheels.dae', function ( collada ) {
 
-					llantas2 = collada.scene;
+					jugadores[0].llantas2 = collada.scene;
+
+				} );
+                    
+                             var loaderred = new THREE.ColladaLoader( loadingManagerRed );
+                
+				loaderred.load( './models/Redcar/redcar.dae', function ( collada ) {
+                    
+                    
+					//car = collada.scene;
+                    jugadores.push(new jugador(collada.scene));
+              
 
 				} );
 
+
+				} );
+                
+                
+                
+				var loadingManagerRed = new THREE.LoadingManager( function() {
+                    
+                    var geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+                   // geometry.center();
+                    var material = new THREE.MeshNormalMaterial();
+                    jugadores[1].pivot = new THREE.Mesh( geometry, material );
+					scene.add( jugadores[1].pivot );
+					jugadores[1].pivot.add( jugadores[1].carro );
+                    jugadores[1].collisionbox= new THREE.Box3().setFromObject(jugadores[1].carro);
+                    jugadores[1].helper = new THREE.Box3Helper(jugadores[1].collisionbox, 0xff0000);
+                    if(showCollision){
+                        
+					jugadores[1].pivot.add(  jugadores[1].helper );
+                       
+                    }
+                     jugadores[1].carro.add(views[1].camera);
+                    views[1].camera.position.y = 3;
+                    views[1].camera.position.z = 1;
+                    views[1].camera.up.set( 0, 0, 1);
+		            views[1].camera.lookAt(jugadores[1].carro.position);
+               
+                var loaderRed3 = new THREE.ColladaLoader( loadingManagerRed3 );
+                
+				loaderRed3.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[1].llantas1 = collada.scene;
+
+				} );
+                
+                var loaderRed4 = new THREE.ColladaLoader( loadingManagerRed4 );
+                
+				loaderRed4.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[1].llantas2 = collada.scene;
+
+				} );
+       
 				} );
                 
                 var loadingManagerScenario = new THREE.LoadingManager( function() {
 
-                    scenario.scale.set(4,4,4);
-                     scenario.children[2].material = new THREE.MeshPhongMaterial( { map: scenario.children[2].material.map });
-                     scenario.children[3].material = new THREE.MeshPhongMaterial( { map: scenario.children[3].material.map });
+                    //scenario.children[2].receiveShadow=true;
+                    scenario.children[0].material = new THREE.MeshPhongMaterial( { map: scenario.children[0].material.map });
+                    scenario.children[1].material = new THREE.MeshPhongMaterial( { map: scenario.children[1].material.map });
+                    scenario.children[2].material = new THREE.MeshPhongMaterial( { map: scenario.children[2].material.map });
                     
-                     scenario.children[4].material = new THREE.MeshPhongMaterial( { map: scenario.children[4].material.map });
-					
+                    scenario.scale.set(5,5,5);
+                        scenario.updateMatrix();
+                    for(i=0;i<scenario.children[3].children.length;i++){
+                        
+                    scenario.children[3].children[i].material = new THREE.MeshPhongMaterial( { map: scenario.children[3].children[i].material.map });
+                  
+                                            
+                                        scenario.children[3].updateMatrix();
+                                             
+                                          
+                                        var collision = new THREE.Box3().setFromObject(scenario.children[3].children[i]);
+                                     
+                                        collision.applyMatrix4(scenario.children[3].matrix);
+                                        collision.applyMatrix4(scenario.matrix);
+                                        var helper =new THREE.Box3Helper(collision, 0x00ff00);
+                                      
+                                        slowTiles.push(new slowTile(collision));
+                                              
+                                         terrainHelpers.add(helper);
+                                         
+                                         
+                                 }
+                    
+                    if(showCollision){
+                       scene.add(terrainHelpers);
+                    }
+                    
+                    for(i=0;i<2;i++){          
+                    scenario.children[5+i].updateMatrix();
+
+
+                    var collision = new THREE.Box3().setFromObject(scenario.children[5+i]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collision.applyMatrix4(scenario.matrix);
+                    var helper =new THREE.Box3Helper(collision, 0x0000ff);
+
+                    checkPoints.push(new checkPoint(collision));
+
+                     checkHelpers.add(helper);
+                                         
+                                         
+                          } 
+                    scenario.children[7].updateMatrix();
+                    var collisionMeta = new THREE.Box3().setFromObject(scenario.children[7]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collisionMeta.applyMatrix4(scenario.matrix);
+                    var helperMeta =new THREE.Box3Helper(collisionMeta, 0xff00ff);
+                    metaArea=collisionMeta;
+                    checkHelpers.add(helperMeta);
+                    
+                    scenario.children[0].updateMatrix();
+                    var collisionMontana= new THREE.Box3().setFromObject(scenario.children[0]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collisionMontana.applyMatrix4(scenario.matrix);
+                    var helperMontana =new THREE.Box3Helper(collisionMontana, 0xffffff);
+                    montana=collisionMontana;
+                    checkHelpers.add(helperMontana);
+                    
+                            
+                    if(showCollision){
+                       scene.add(checkHelpers);
+                    
+                    }
+                    
+               
+                    
+                      
+                    for(i=4;i<scenario.children.length;i++){
+                                         if(scenario.children[i].children.length==2){
+                                             scenario.children[i].updateMatrix();
+                                             
+                                          
+                                        var collision = new THREE.Box3().setFromObject(scenario.children[i].children[1]);
+                                     
+                                        collision.applyMatrix4(scenario.children[i].matrix);
+                                        collision.applyMatrix4(scenario.matrix);
+                                        var helper =new THREE.Box3Helper(collision, 0xff0000);
+                                      
+                                        treeBoxes.push(new treecollision(collision));
+                                              
+                                         treehelpers.add(helper);
+                                         }
+                                         
+                                 }
+                    if(showCollision){
+                        scene.add(treehelpers);
+                         }
+               
+                scenarioReady=true;
+                    
                     
 		          //car.rotation.y =( 3.1418/180)*180;
                     	
@@ -670,70 +1513,189 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
                 var loadingManager3 = new THREE.LoadingManager( function() {
                
                    // llantas1.children[1].material = new THREE.MeshPhongMaterial( { map: llantas1.children[1].material.map });
+                   
+                  //  var geometry = new THREE.Geometry().fromBufferGeometry( llantas1.children[0].geometry  );
                     
-					scene.add( llantas1 );
-                    car.add(llantas1);
+                    wheel1p1Ready=true;
+ 
+                 /*
+                    jugadores[0].llantas1.children[0].material[0] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[0].map });
+                    jugadores[0].llantas1.children[0].material[1] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[0].map });
+                    jugadores[0].llantas1.children[0].material[2] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[1].map });
+                    */
+                   // jugadores[0].llantas1.children[0].castShadow=true;
+					
+                    jugadores[0].llantas1.eulerOrder='ZYX';
+                    scene.add(jugadores[0].llantas1 );
+                 
+                    jugadores[0].carro.add(jugadores[0].llantas1);
+                    jugadores[0].llantas1.position.y=-0.1;
+                } );
+
+                     var loadingManager4 = new THREE.LoadingManager( function() {
+                                  
+                    wheel2p1Ready=true;
+					scene.add( jugadores[0].llantas2 );
+                         
+                //    jugadores[0].llantas2.children[0].castShadow=true;
+                    jugadores[0].llantas2.position.y=0.6;
+                    jugadores[0].carro.add( jugadores[0].llantas2);
                     	
 				} );
 
-                     var loadingManager4 = new THREE.LoadingManager( function() {
+                var loadingManagerRed3 = new THREE.LoadingManager( function() {
+               
+                    jugadores[1].llantas1.eulerOrder='ZYX';
+                    scene.add(jugadores[1].llantas1);
+                    
+                    jugadores[1].carro.add(jugadores[1].llantas1);
+                    jugadores[1].llantas1.position.y=-0.1;
+                    
+                        wheel1p2Ready=true;
+                } );
+
+                var loadingManagerRed4 = new THREE.LoadingManager( function() {
                          
-					scene.add( llantas2 );
+					scene.add( jugadores[1].llantas2 );
                          
-                    llantas2.position.y=0.5;
-                     car.add(llantas2);
+                    jugadores[1].llantas2.position.y=0.6;
+                    jugadores[1].carro.add( jugadores[1].llantas2);
+                          
+                        wheel2p2Ready=true;
                     	
 				} );
 
                      var loadingManager5 = new THREE.LoadingManager( function() {
 
                       
-					    scene.add( rampas[0] );
-                        rampas[0].scale.set(8,4,4);
-                        rampas[0].position.set(24.7,0.20,6.25);
+					    scene.add( rampas[0].modelo );
+                        rampas[0].modelo.scale.set(8,5,5);
+                        rampas[0].modelo.position.set(30.65,0.20,5.04);
+                        rampas[0].collisionbox = new THREE.Box3().setFromObject(rampas[0].modelo);
+					   
                          
-                        scene.add(rampas[1]);
-                        rampas[1].scale.set(8,4,4);
-                        rampas[1].rotation.z=(3.14/180)*90;
-                        rampas[1].position.set(-15.84,0.20,-55.67);
+                        scene.add(rampas[1].modelo);
+                        rampas[1].modelo.scale.set(8,5,5);
+                        rampas[1].modelo.rotation.z=(3.14/180)*90;
+                        rampas[1].modelo.position.set(-21.57,0.20,-69.50);
+                        rampas[1].collisionbox = new THREE.Box3().setFromObject(rampas[1].modelo);
+					   
+                         
+                            if(showCollision){
+                                     for(i=0;i<rampas.length;i++){
+                                         var helper =new THREE.Box3Helper( rampas[i].collisionbox, 0xff0000);
+                                 scene.add(helper);
+                                 }
+                         }
                        
                     	
 				} );
                      var loadingManager6 = new THREE.LoadingManager( function() {
 
-                        monedas[0].scale.set(20,20,20);
-                        monedas[0].position.set(0.67,0.5,27.50);
-					    scene.add( monedas[0] );
-                             monedas[1].scale.set(20,20,20);
-                        monedas[1].position.set(25.98,0.5,0.54);
-					    scene.add( monedas[1] );
-                             monedas[2].scale.set(20,20,20);
-                        monedas[2].position.set(24.54,0.5,-69.48);
-					    scene.add( monedas[2] );
-                             monedas[3].scale.set(20,20,20);
-                        monedas[3].position.set(-8.65,0.5,-61.04);
-					    scene.add( monedas[3] );
-                             monedas[4].scale.set(20,20,20);
-                        monedas[4].position.set(-48.82,0.5,-54.27);
-					    scene.add( monedas[4] );
-                             monedas[5].scale.set(20,20,20);
-                        monedas[5].position.set(-68.78,0.5,12.53);
-					    scene.add( monedas[5] );
+                         
+                        
+                        monedas[0].modelo.scale.set(20,20,20);
+                        monedas[0].modelo.position.set(-0.25,0.5,32.88);
+                        monedas[0].colisionbox = new THREE.Box3().setFromObject(monedas[0].modelo);
+					  
+                
+                        monedas[1].modelo.scale.set(20,20,20);
+                        monedas[1].modelo.position.set(32.61,0.5,3.02);
+                        monedas[1].colisionbox = new THREE.Box3().setFromObject(monedas[1].modelo);
+					   
+                        
+                        monedas[2].modelo.scale.set(20,20,20);
+                        monedas[2].modelo.position.set(30.83,0.5,-78.36);
+                        monedas[2].colisionbox = new THREE.Box3().setFromObject(monedas[2].modelo);
+					   
+                        
+                        monedas[3].modelo.scale.set(20,20,20);
+                        monedas[3].modelo.position.set(-9.37,0.5,-110.22);
+                        monedas[3].colisionbox = new THREE.Box3().setFromObject(monedas[3].modelo);
+					   
+                        monedas[4].modelo.scale.set(20,20,20);
+                        monedas[4].modelo.position.set(-45.56,0.5,-68.42);
+                        monedas[4].colisionbox = new THREE.Box3().setFromObject(monedas[4].modelo);
+					   
+                         
+                        monedas[5].modelo.scale.set(20,20,20);
+                        monedas[5].modelo.position.set(-85.18,0.5,5.04);
+                        monedas[5].colisionbox = new THREE.Box3().setFromObject(monedas[5].modelo);
+					   for(i=0;i<monedas.length;i++){
+                         
+           // jugadores[0].carro.children["0"].children["9"].updateMatrix();
+            monedas[i].modelo.children["0"].updateMatrixWorld();
+            monedas[i].modelo.updateMatrixWorld();
+            var geometry = new THREE.Geometry().fromBufferGeometry( monedas[i].modelo.children["0"].geometry);
                     
+            //geometry.center();  
+            //geometry.applyMatrix(jugadores[0].carro.children["0"].children["9"].matrix);
+            //geometry.applyMatrix(monedas[i].modelo.matrixWorld);
+            //debugger;
+            var vertices = geometry.vertices;
+
+			var buffergeometry = new THREE.BufferGeometry();
+
+			var position = new THREE.Float32BufferAttribute( vertices.length * 3, 3 ).copyVector3sArray( vertices );
+			buffergeometry.addAttribute( 'position', position );
+
+			var displacement = new THREE.Float32BufferAttribute( vertices.length * 3, 3 );
+			buffergeometry.addAttribute( 'displacement', displacement );
+
+			var customColor = new THREE.Float32BufferAttribute( vertices.length * 3, 3 );
+			buffergeometry.addAttribute( 'customColor', customColor );
+
+			var color = new THREE.Color( 0xff0000 );
+
+			for( var k = 0, l = customColor.count; k < l; k ++ ) {
+
+				color.setHSL( k/ l,1.0, 1.0 );
+				color.toArray( customColor.array, k * customColor.itemSize );
+
+			}
+
+			monedas[i].xRaybox = new THREE.Mesh( buffergeometry, shaderMaterial );
+		   
+                  
+                    monedas[i].xRaybox.scale.set(0.5,1,0.5);
+                    monedas[i].xRaybox.position.x=monedas[i].modelo.position.x;
+                    monedas[i].xRaybox.position.y=monedas[i].modelo.position.y;
+                    monedas[i].xRaybox.position.z=monedas[i].modelo.position.z;
+
+                       }
+                         
+                         if(showCollision){
+                                     for(i=0;i<monedas.length;i++){
+                                         var helper =new THREE.Box3Helper( monedas[i].colisionbox, 0xff0000);
+                                 scene.add(helper);
+                                 }
+                         }
+                         
+                        /* 
+                        monedas[0].castShadow=true;   
+                        monedas[1].castShadow=true; 
+                        monedas[2].castShadow=true; 
+                        monedas[3].castShadow=true; 
+                        monedas[4].castShadow=true;
+                        monedas[5].castShadow=true;
+                        */
                     	
 				} );
 
 				var loader = new THREE.ColladaLoader( loadingManager );
                 
-				loader.load( './models/Car/CarroBlueTop.dae', function ( collada ) {
-
-					car = collada.scene;
+				loader.load( './models/Car/bluetop.dae', function ( collada ) {
+                    
+                    
+					//car = collada.scene;
+                    jugadores.push(new jugador(collada.scene));
+                   
 
 				} );
-              
+         
                 var loader2 = new THREE.ColladaLoader( loadingManagerScenario );
                 
-				loader2.load( './models/Escenario/scenario22.dae', function ( collada ) {
+				loader2.load( './models/Escenario/Escenario4.dae', function ( collada ) {
 
 					scenario = collada.scene;
 
@@ -743,22 +1705,22 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
                 
                 var loader5 = new THREE.ColladaLoader( loadingManager5 );
                 
-				loader5.load( './models/Rampa/rampa.dae', function ( collada ) {
+				loader5.load( './models/Rampa/rampaa.dae', function ( collada ) {
 
-					rampas.push(collada.scene);
-                    rampas.push(collada.scene.clone());
+					rampas.push(new rampa(collada.scene));
+                    rampas.push(new rampa(collada.scene.clone()));
 
 				} );
                 var loader6 = new THREE.ColladaLoader( loadingManager6 );
                 
-				loader6.load( './models/Coin/coin.dae', function ( collada ) {
+				loader6.load( './models/Coin/coin2.dae', function ( collada ) {
 
-					monedas.push(collada.scene);
-                    monedas.push(collada.scene.clone());         
-                    monedas.push(collada.scene.clone());       
-                    monedas.push(collada.scene.clone());   
-                    monedas.push(collada.scene.clone()); 
-                    monedas.push(collada.scene.clone());
+					monedas.push(new moneda(collada.scene));
+                    monedas.push(new moneda(collada.scene.clone()));         
+                    monedas.push(new moneda(collada.scene.clone()));       
+                    monedas.push(new moneda(collada.scene.clone()));   
+                    monedas.push(new moneda(collada.scene.clone())); 
+                    monedas.push(new moneda(collada.scene.clone()));
 
 				} );
                 
@@ -766,27 +1728,57 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 				//
               
 
-				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
                 ambientLight.name="ambLight";
 				scene.add( ambientLight );
 
-				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
-				directionalLight.position.set( 1, 1, 0 ).normalize();
+				var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+				directionalLight.position.set( -1, 1, 0 ).normalize();
                 directionalLight.name="dirLight";
+                //directionalLight.castShadow = true;  
 				scene.add( directionalLight );
                 
+                /*
+                //Create a SpotLight and turn on shadows for the light
+                var light = new THREE.SpotLight( 0xffffff );
+                light.castShadow = true;            // default false
+                scene.add( light );
+                light.position.set(-20,24,-20);
+                //Set up shadow properties for the light
+                light.shadow.mapSize.width = 512;  // default
+                light.shadow.mapSize.height = 512; // default
+                light.shadow.camera.near = 0.01;       // default
+                light.shadow.camera.far = 50;      // default
+                */
+         
                 var grid = new THREE.GridHelper(300, 20, 0xffffff, 0xffffff);
-		grid.position.y = -1;
-		scene.add(grid);
+                grid.position.y = -1;
+                scene.add(grid);
 				//
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.shadowMap.enabled = false;
+                //renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+                composer = new THREE.EffectComposer( renderer );
+                
+			renderPass = new THREE.RenderPass( scene, camera );
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				film = new THREE.ShaderPass( THREE.FilmShader  );
+                film.uniforms[ 'grayscale' ].value = 0.0;
+                film.uniforms[ 'sCount' ].value = 500.0;
+                film.uniforms[ 'nIntensity' ].value = 0.9;
+                film.uniforms[ 'sIntensity' ].value = 0.5;
+            composer.addPass( renderPass );
+            composer.addPass( film );
+            film.renderToScreen = true;
+
 				container.appendChild( renderer.domElement );
                 
                 
-                audio.src = 'Track4.mp3';
+                audio.src = 'Track3.mp3';
                 audio.loop = true;
                 audio.play();
 
@@ -794,13 +1786,65 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 				//
 
 				stats = new Stats();
-				//container.appendChild( stats.dom );
+				container.appendChild( stats.dom );
 
 				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
 			}
+            
+            
+            function ExplodeAnimation(x,y,z)
+            {
+              var geometry = new THREE.Geometry();
+
+              for (i = 0; i < totalObjects; i ++) 
+              { 
+                var vertex = new THREE.Vector3();
+                vertex.x = x;
+                vertex.y = y;
+                vertex.z = z;
+
+                geometry.vertices.push( vertex );
+                dirs.push({x:(Math.random() * movementSpeed)-(movementSpeed/2),y:(Math.random() * movementSpeed)-(movementSpeed/2),z:(Math.random() * movementSpeed)-(movementSpeed/2)});
+              }
+              var material = new THREE.ParticleBasicMaterial( { size: objectSize,  color: colors[Math.round(Math.random() * colors.length)] });
+              var particles = new THREE.ParticleSystem( geometry, material );
+
+              this.object = particles;
+              this.status = true;
+
+              this.xDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+              this.yDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+              this.zDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+
+              scene.add( this.object  ); 
+
+              this.update = function(){
+                if (this.status == true){
+                  var pCount = totalObjects;
+                  while(pCount--) {
+                    var particle =  this.object.geometry.vertices[pCount]
+                    particle.y += dirs[pCount].y;
+                    particle.x += dirs[pCount].x;
+                    particle.z += dirs[pCount].z;
+                      if(particle.y>100){
+                          this.status = false;
+                      }
+                  }
+                  this.object.geometry.verticesNeedUpdate = true;
+                    
+                }
+                    if (this.status == false){
+                   scene.remove( this.object  ); 
+ 
+              }
+              }
+            
+              
+
+            }
 
 			function onWindowResize() {
 
@@ -810,71 +1854,542 @@ var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
+            
+            function createHUD() {
+				lightShadowMapViewer = new THREE.ShadowMapViewer( light );
+				lightShadowMapViewer.position.x = 10;
+				lightShadowMapViewer.position.y = SCREEN_HEIGHT - ( SHADOW_MAP_HEIGHT / 4 ) - 10;
+				lightShadowMapViewer.size.width = SHADOW_MAP_WIDTH / 4;
+				lightShadowMapViewer.size.height = SHADOW_MAP_HEIGHT / 4;
+				lightShadowMapViewer.update();
+			}
 
 			function animate() {
 
 				requestAnimationFrame( animate );
-
 				render();
 				stats.update();
 
 			}
+            
+        var stop=true;
+        var alto=false;
+            
+        function gameLogic(){
+                
+        var delta = clock.getDelta();
 
-              var stop=true;
-			function render() {
-                  var alto = false;
-        var yaw = 0;
-		var forward = 0;
-                var alto=false;
-		if (keys["A"]) {
-			yaw = 1;
-            forward = -3;
-		} else if (keys["D"]) {
-			yaw = -1;
-            forward = -3;
+        var alto = false;
+        
+
+        isallload();
+            
+        var time = Date.now() * 0.001;
+
+        if( monedas.length>0){
+           if( monedas[0].xRaybox.geometry!=undefined){
+                    uniforms.amplitude.value = Math.sin( 0.5 * time );
+                    uniforms.color.value.offsetHSL( 0.005, 0, 0 );
+
+                    var attributes =  monedas[0].xRaybox.geometry.attributes;
+                    var array = attributes.displacement.array;
+
+                    for ( var i = 0, l = array.length; i < l; i += 3 ) {
+
+                        array[ i     ] += 0.0 * ( 0.5 - Math.random() );
+                        array[ i + 1 ] += 0.0 * ( 0.5 - Math.random() );
+                        array[ i + 2 ] += 0.0 * ( 0.5 - Math.random() );
+
+                    }
+
+                    attributes.displacement.needsUpdate = true;
+           }
+        }
+                
+              
+            
+                if(!pausa&&gameStart){
+                
+                        jugadores[0].yaw=0;
+                        jugadores[1].yaw=0;
+                    
+  if(jugadores[0].boost){
+                jugadores[0].aceleracion=10.0;
+                jugadores[0].velocidadmaxima=jugadores[0].velocidadmaximaBoost;
+                }
+                else{
+                    if(jugadores[0].slowMove){
+                jugadores[0].velocidadmaxima=jugadores[0].velocidadmaximaLenta;
+                jugadores[0].aceleracion=0.55;
+                    }
+                    else{ 
+                jugadores[0].velocidadmaxima=jugadores[0].velocidadmaximaNormal;
+                jugadores[0].aceleracion=0.58;
+                        }
+               
+                }
+    if(jugadores[1].boost){
+                jugadores[1].aceleracion=10.0;
+                jugadores[1].velocidadmaxima=jugadores[1].velocidadmaximaBoost;
+                }
+                else{
+                    if(jugadores[1].slowMove){
+                jugadores[1].velocidadmaxima=jugadores[1].velocidadmaximaLenta;
+                jugadores[1].aceleracion=0.55;
+                    }
+                    else{ 
+                jugadores[1].velocidadmaxima=jugadores[1].velocidadmaximaNormal;
+                jugadores[1].aceleracion=0.58;
+                        }
+               
+                }
+                
+		if(keys["P"]){
+               if(!pausa&&gameStart==true){
+                   
+                    $(".pauseScreen").show();
+                    $(".menu").show();
+                    Stopwatch.pause();
+                    pausa=true;
+               }
+          
+        }
+      if(!pausa){
+             
+            if (keys["%"]) {
+            jugadores[0].going=true;
+            jugadores[0].wheeldirection=1;
+            
+            if(jugadores[0].wheelangle<10){
+            jugadores[0].wheelangle+=50*delta;
+            }
+			jugadores[0].yaw = 1;
+		} else if (keys["'"]) {
+            jugadores[0].going=true;
+            jugadores[0].wheeldirection=2;
+	
+            if(jugadores[0].wheelangle>-10){
+            jugadores[0].wheelangle-=50*delta;
+            }
+            jugadores[0].yaw = -1;
 		}
-		if (keys["W"]) {
-			forward = -10;
-		} else if (keys["S"]) {
-			forward = 10;
+		if (keys["Z"]) {
+            
+                jugadores[0].reversa=false;
+            if(jugadores[0].velocidad<jugadores[0].velocidadmaxima* delta){
+                jugadores[0].velocidad+=(jugadores[0].aceleracion-jugadores[0].friccion)* delta;
+                }
+            else{
+                jugadores[0].velocidad=jugadores[0].velocidadmaxima* delta;
+            }
+		} else if (keys["X"]) {
+        if(!jugadores[0].boost){
+              jugadores[0].reversa=true;
+               
+            if(jugadores[0].velocidad>0){
+                    jugadores[0].aceleracion=0.65;
+                    jugadores[0].velocidad-=(jugadores[0].aceleracion-jugadores[0].friccion)* delta;
+                }
+               else if(jugadores[0].velocidad>-(jugadores[0].velocidadmaxima/2* delta)){
+                   jugadores[0].velocidad-=(jugadores[0].aceleracion-jugadores[0].friccion)* delta;
+                }
+               
+              else{
+                  jugadores[0].velocidad=-jugadores[0].velocidadmaxima/2* delta;
+              }
+          
+        }else{
+             jugadores[0].velocidad=jugadores[0].velocidadmaxima/2* delta
+        }
+            
 		}
-        if (keys["X"]) {
+        if (keys["N"]) {
          if(stop){
 			alto = true;
              stop=false;
         }
-		} else if (keys["C"]) {
+		} else if (keys["M"]) {
 		stop=true;
 		}
-
-				var delta = clock.getDelta();
-
-				if ( car !== undefined && llantas2!=undefined && llantas1!=undefined) {
-                    
-		llantas2.rotation.x += 10 * delta;
-
-		llantas1.rotation.x += 10 * delta;
-
-                    if(alto){
-                        alto = false;
-                        alert(car.position.x+"___"+car.position.y+"___"+car.position.z);
-                        
+        if (!keys["Z"]&&!keys["X"]) {
+            if(!jugadores[0].boost){
+              jugadores[0].going=false;
+    
+            if(jugadores[0].reversa){
+                   
+                    if(jugadores[0].velocidad>-1*delta&&jugadores[0].velocidad<0){
+                        jugadores[0].velocidad=0;
                     }
-                    if(monedas[0]!=undefined){
-                        for(var i=0;i<6;i++){
-                        monedas[i].rotation.z += 3 * delta;
+                    else if(jugadores[0].velocidad<0){
+                        jugadores[0].velocidad+=jugadores[0].aceleracion*jugadores[0].friccion/2*delta;
+                    }
+                    else if(jugadores[0].velocidad>0){
+                        jugadores[0].velocidad-=jugadores[0].aceleracion*jugadores[0].friccion/2*delta;
+                    }
+            }
+            else{
+                    if(jugadores[0].velocidad>0){
+                        jugadores[0].velocidad-=jugadores[0].aceleracion*jugadores[0].friccion/2*delta;
+             
+                    }
+                    else if(jugadores[0].velocidad<1*delta&&jugadores[0].velocidad>0){
+                        jugadores[0].velocidad=0;
+                    }
+                   else if(jugadores[0].velocidad<0){
+                        jugadores[0].velocidad=0;
+                    }
+                }
+            }
+        }
+        if (!keys["%"]&&!keys["'"]) {
+            if(jugadores[0].wheeldirection==1){
+                  if(jugadores[0].wheelangle>0){
+                    jugadores[0].wheelangle-=50*delta;
+                    }else if(jugadores[0].wheelangle<1){
+                    jugadores[0].wheelangle=0;
+                    jugadores[0].wheeldirection=0;
+                    }
+            }
+            else if(jugadores[0].wheeldirection==2){
+                    if(jugadores[0].wheelangle<0){
+                    jugadores[0].wheelangle+=50*delta;
+                    }else if(jugadores[0].wheelangle>-1){
+                    jugadores[0].wheelangle=0;
+                    jugadores[0].wheeldirection=0;
+                    }
+                    }  
+                }
+                if(playmode==2){
+
+                    if (keys["J"]) {
+                    jugadores[1].going=true;
+                    jugadores[1].wheeldirection=1;
+
+                    if(jugadores[1].wheelangle<10){
+                    jugadores[1].wheelangle+=50*delta;
+                    }
+                    jugadores[1].yaw = 1;
+                } else if (keys["L"]) {
+                    jugadores[1].going=true;
+                    jugadores[1].wheeldirection=2;
+
+                    if(jugadores[1].wheelangle>-10){
+                    jugadores[1].wheelangle-=50*delta;
+                    }
+                    jugadores[1].yaw = -1;
+                }
+                if (keys["A"]) {
+
+                        jugadores[1].reversa=false;
+                    if(jugadores[1].velocidad<jugadores[1].velocidadmaxima* delta){
+                        jugadores[1].velocidad+=(jugadores[1].aceleracion-jugadores[1].friccion)* delta;
+                        }
+                    else{
+                        jugadores[1].velocidad=jugadores[1].velocidadmaxima* delta;
+                    }
+                } else if (keys["S"]) {
+                if(!jugadores[1].boost){
+                      jugadores[1].reversa=true;
+
+                    if(jugadores[1].velocidad>0){
+                            jugadores[1].aceleracion=0.65;
+                            jugadores[1].velocidad-=(jugadores[1].aceleracion-jugadores[1].friccion)* delta;
+                        }
+                       else if(jugadores[1].velocidad>-(jugadores[1].velocidadmaxima/2* delta)){
+                           jugadores[1].velocidad-=(jugadores[1].aceleracion-jugadores[1].friccion)* delta;
+                        }
+
+                      else{
+                          jugadores[1].velocidad=-jugadores[1].velocidadmaxima/2* delta;
+                      }
+
+                }else{
+                     jugadores[1].velocidad=jugadores[1].velocidadmaxima/2* delta
+                }
+
+                }
+                if (!keys["A"]&&!keys["S"]) {
+                    if(!jugadores[1].boost){
+                      jugadores[1].going=false;
+
+                    if(jugadores[1].reversa){
+
+                            if(jugadores[1].velocidad>-1*delta&&jugadores[1].velocidad<0){
+                                jugadores[1].velocidad=0;
+                            }
+                            else if(jugadores[1].velocidad<0){
+                                jugadores[1].velocidad+=jugadores[1].aceleracion*jugadores[1].friccion/2*delta;
+                            }
+                            else if(jugadores[1].velocidad>0){
+                                jugadores[1].velocidad-=jugadores[1].aceleracion*jugadores[1].friccion/2*delta;
+                            }
+                    }
+                    else{
+                            if(jugadores[1].velocidad>0){
+                                jugadores[1].velocidad-=jugadores[1].aceleracion*jugadores[1].friccion/2*delta;
+
+                            }
+                            else if(jugadores[1].velocidad<1*delta&&jugadores[1].velocidad>0){
+                                jugadores[1].velocidad=0;
+                            }
+                           else if(jugadores[1].velocidad<0){
+                                jugadores[1].velocidad=0;
                             }
                         }
-		car.rotation.z += yaw * delta;
+                    }
+                }
+                if (!keys["J"]&&!keys["L"]) {
+                    if(jugadores[1].wheeldirection==1){
+                          if(jugadores[1].wheelangle>0){
+                            jugadores[1].wheelangle-=50*delta;
+                            }else if(jugadores[1].wheelangle<1){
+                            jugadores[1].wheelangle=0;
+                            jugadores[1].wheeldirection=0;
+                            }
+                    }
+                    else if(jugadores[1].wheeldirection==2){
+                            if(jugadores[1].wheelangle<0){
+                            jugadores[1].wheelangle+=50*delta;
+                            }else if(jugadores[1].wheelangle>-1){
+                            jugadores[1].wheelangle=0;
+                            jugadores[1].wheeldirection=0;
+                            }
+                            }  
+                        }
+                }
+      }
+   
+                    if(jugadores.length>0){
+                        for(o=0;o<playmode;o++){
+                        var carCollision=false;
 
-		car.translateY(forward * delta);
+                        if( jugadores[o].llantas1.rotation !== undefined){
+                            jugadores[o].llantas1.rotation.z =(3.14/180)*jugadores[o].wheelangle;
+                            jugadores[o].llantas1.rotation.x += jugadores[o].velocidad;
+                            jugadores[o].llantas2.rotation.x += jugadores[o].velocidad;
+                                }
+                         
 
+                            if(jugadores[o].boost){
+                                jugadores[o].boostTime+=1*delta;
+                                if(jugadores[o].boostTime>1){
+                                    jugadores[o].boost=false;
+                                    jugadores[o].boostTime=0;
+                                }
+                            }
+
+                            jugadores[o].collisionbox=new THREE.Box3().setFromObject(jugadores[o].carro);
+                           // jugadores[0].pivot.updateMatrix();
+                            //jugadores[0].collisionbox.applyMatrix4(jugadores[0].pivot.matrix);
+                           // jugadores[0].collisionbox.applyMatrix4(jugadores[0].carro.matrix);
+
+                          
+
+                            if(jugadores[o].collisionbox.intersectsBox(montana)){
+
+                                            carCollision=true;
+                                        }
+
+                            if(playmode==1){
+                                for(i=0;i<monedas.length;i++){
+                                        if(monedas[i].active){
+
+                                            var collision = jugadores[o].collisionbox.intersectsBox(monedas[i].colisionbox);
+                                            if(collision){
+                                                //  debugger;
+                                               monedas[i].active=false;
+                                               monedasCant++;
+                                                $("#currentMon").text(monedasCant); 
+                                                scene.remove( monedas[i].xRaybox );
+                                                scene.remove(monedas[i].modelo);
+                                            }
+                                        }
+                                }
+                            }
+                            else{
+                                  if(jugadores[0].collisionbox.intersectsBox(jugadores[1].collisionbox)){
+                                   carCollision=true;
+                            }
+                            }
+                            
+                            if(!jugadores[o].boost){
+                            for(i=0;i<rampas.length;i++){
+
+
+                                        var collision = jugadores[o].collisionbox.intersectsBox(rampas[i].collisionbox);
+                                        if(collision){
+                                            //  debugger;
+                                           jugadores[o].boost=true;
+                                        }
+                                    }
+                            }
+                            
+                            if(treecollOn){
+                            for(i=0;i<treeBoxes.length;i++){
+
+
+                                        var collision = jugadores[o].collisionbox.intersectsBox(treeBoxes[i].collisionbox);
+
+                                        if(collision){
+
+                                            carCollision=true;
+                                        }
+
+                                    }
+                            }
+
+                           jugadores[o].slowMove=false;
+                            for(i=0;i<slowTiles.length;i++){
+
+                                        var collision = jugadores[o].collisionbox.intersectsBox(slowTiles[i].collisionbox);
+
+                                        if(collision){
+
+                                       jugadores[o].slowMove=true;
+                                        }
+
+                                    }
+                            for(i=0;i<checkPoints.length;i++){
+
+                                        var collision = jugadores[o].collisionbox.intersectsBox(checkPoints[i].collisionbox);
+
+                                        if(collision&&checkPoints[i].active[o]){
+                                        jugadores[o].checkPointsCant++;
+                                        checkPoints[i].active[o]=false;
+                                     
+                                        }
+
+                                    }
+                            if(jugadores[o].checkPointsCant==checkPoints.length){
+
+                            var collision = jugadores[o].collisionbox.intersectsBox(metaArea);
+
+                                 if(collision){
+                                    jugadores[o].checkPointsCant=0;
+                                       // debugger;
+                                     if(particleOn){
+                                    explosion.push(new ExplodeAnimation(-46.39,1.0,33.48));
+                                    explosion.push(new ExplodeAnimation(-30.91,1.0,32.01));
+                                    explosion.push(new ExplodeAnimation(-33.88,1.0,35.02));
+                                         }
+                                    for(i=0;i<checkPoints.length;i++){
+
+                                    checkPoints[i].active[o]=true;
+                                            }
+                                    jugadores[o].currentLaps+=1;
+                                    if(playmode==1){
+                                    $("#currentLap").text(jugadores[o].currentLaps);
+                                    }
+                                    else{
+                                        if(o==0){
+                                            $("#currentLapj1").text(jugadores[o].currentLaps);
+                                        } else if(o==1){
+                                            $("#currentLapj2").text(jugadores[o].currentLaps);
+                                        }
+                                    }
+
+                                    if(playmode==1&&victory==false){
+                                            if(monedas.length==monedasCant&&jugadores[o].currentLaps>=totalLaps){
+                                              
+                                                victory=true;
+                                                singleplayerWin();
+                                            }
+                                        }
+                                    if(playmode==2&&victory==false){
+                                            if(jugadores[o].currentLaps==totalLaps){
+                                                victory=true;
+                                                if(o==0){
+                                                blueplayerWin();
+                                                    }
+                                                if(o==1){
+                                                redplayerWin();
+                                                    }
+                                            }
+                                    }
+                                 }
+                            }
+
+                            if(explosion.length>0){
+                                    for(var p=0;p<explosion.length;p++){
+                                               explosion[p].update();
+                                    }
+                                }
+
+                            if(alto){
+                                alto = false;  
+
+                              // debugger;
+                             alert( jugadores[0].pivot.position.x+"___"+ jugadores[0].pivot.position.y+"___"+ jugadores[0].pivot.position.z);
+
+                            }
+                            
+                            if(monedas.length!=undefined){
+                                for(var i=0;i<monedas.length;i++){
+                                monedas[i].modelo.rotation.z += 3 * delta;
+                                    }
+
+                            }
+                            
+                            if(!carCollision){
+                                   if(jugadores[o].velocidad!==0){
+                                  jugadores[o].pivot.rotation.y += jugadores[o].yaw * delta;
+                                    }
+                                jugadores[o].rotationY=jugadores[o].pivot.rotation.y;
+                                jugadores[o].positionX=jugadores[o].pivot.position.x;
+                                jugadores[o].positionZ=jugadores[o].pivot.position.z;
+                                jugadores[o].pivot.translateZ(jugadores[o].velocidad);
+                            }
+                            else{
+                                jugadores[o].velocidad=0;
+                                            jugadores[o].pivot.rotation.y=jugadores[o].rotationY;
+                                            jugadores[o].pivot.position.x=jugadores[o].positionX;
+                                            jugadores[o].pivot.position.z=jugadores[o].positionZ;
+                                            carCollision=false;
+                            }
+
+                            
+                        }
+                    }
+                }
+        }
+            
+			function render() {
+                gameLogic();
+                if(splitScreen){
+                    for ( var ii = 0; ii < views.length; ++ii ) {
+
+					var view = views[ii];
+					var cameraSplit = view.camera;
+
+					var left   = Math.floor( windowWidth  * view.left );
+					var top    = Math.floor( windowHeight * view.top );
+					var width  = Math.floor( windowWidth  * view.width );
+					var height = Math.floor( windowHeight * view.height );
+
+					renderer.setViewport( left, top, width, height );
+					renderer.setScissor( left, top, width, height );
+					renderer.setScissorTest( true );
+					renderer.setClearColor( view.background );
+
+					cameraSplit.aspect = width / height;
+					cameraSplit.updateProjectionMatrix();
+                        
+					renderer.render( scene, cameraSplit );
+                        
+               
 				}
-                
-
+                }
+                else{ 
+                	
+                renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
+				//renderer.setScissor( left, top, width, height );
+				renderer.setScissorTest( false );
 				renderer.render( scene, camera );
-
+                     if(scanlines){
+                 composer.render();}
 			}
+                }
+               
 
 		</script>
 	</body>

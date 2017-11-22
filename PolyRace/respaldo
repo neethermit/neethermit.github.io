@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - collada</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background:#777;
+				padding:20;
+				margin:0;
+				overflow:hidden;
+			}
+
+	
+
+			a {
+				color: #ffffff;
+			}
+            .flexbox{
+                display: flex;
+            }
+            .filler{
+                flex-grow: 1;
+            }
+            .menu{ 
+            position:absolute;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 10;
+            }
+            .loading{ 
+            position:absolute;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,1);
+            z-index: 12;
+            }
+            #container{
+                position: relative;
+         
+            }
+            .etiquetas{
+                font-family: calibri;
+                font-size: 30px;
+                color: aliceblue;
+            }
+            .separador{
+                font-family: calibri;
+                font-size: 30px;
+                color: aliceblue;
+                margin: 40px;
+                margin-top: 200px;
+            }
+            .botonmenu{
+                 background-color: rgba(0,0,0,0.9);
+                border: 3px white solid;
+                color: aliceblue;
+                padding: 10px 20px;
+                margin-bottom: 50px;
+                
+                width: 200px;
+                
+            }   
+            
+            .botonmenu:hover{
+                background-color: rgba(200,200,200,0.7); 
+                box-shadow: 0 0 10px #CCCCCC;
+            }
+            .botonmenu:active{
+                background-color: rgba(200,200,200,0.9); 
+                box-shadow: 0 0 10px #CCCCCC;
+            }
+            
+            .btnmenu2{
+                width: 300px;
+            }
+            .btntoggle,.colorinput{
+                width: 150px;
+            }
+            .colorinput{
+                padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch {
+            border: none;
+            }
+            .btnactived{
+                 background-color: rgba(200,200,200,0.9); 
+                color: black;
+            }
+            .camposMenu{
+                background-color: rgba(0,0,0,0.9);
+                border: 3px white solid;
+                color: aliceblue;
+                font-size: 20px;
+                
+                font-family: calibri;
+                
+                margin: 10px 10px 10px 10px;
+                
+            }
+            .tablapunt{
+                border-collapse: collapse;
+            }
+        
+            .tablapunt,.tablapunt th,.tablapunt td{
+                margin-top: 30px;
+                margin-bottom: 30px;
+                 background-color: rgba(0,0,0,0.1);
+                border: 3px white solid;
+                text-align: center;
+            }
+                .tablapunt th{
+                
+                 background-color: rgba(200,200,200,0.7);
+            }
+            .tablatext{
+                cursor: default;
+                padding: 10px 60px;
+                font-family: calibri;
+                font-size: 20px;
+                font-weight: 100;
+               color: white;
+            }
+            .servertable:hover{
+                
+                 background-color: rgba(0,10,240,0.2);
+            }
+            .servertableselected,.servertableselected:hover{
+                background-color: rgba(0,10,240,0.5);
+            }
+            .descripcion{
+                color: aliceblue;
+                font-family: calibri;
+                font-size: 20px;
+                font-weight: 100;
+                margin-bottom: 30px;
+            }
+            .bloquemult{
+                width: 200px;
+            }
+            .menupage{
+                position: absolute;
+                top:50%;
+                left: 50%;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            }
+            .timer{
+                font-size: 30px;
+                color: aliceblue;
+                z-index: 5;
+                position: absolute;
+                left: 50%;
+            -webkit-transform: translate(-50%,50%);
+            -moz-transform: translate(-50%,50%);
+            -ms-transform: translate(-50%,50%);
+            -ms-transform: translate(-50%,50%);
+            -o-transform: translate(-50%,50%);
+            transform: translate(-50%,50%);
+            }
+            .finaltimer{
+                font-size: 30px;
+                color: aliceblue;
+             
+            }
+            .timerfont{
+                font-size: 30px;
+                color: aliceblue;
+            }
+            .totalLaps{
+               
+                z-index: 3;
+                position: absolute;
+                left: 100%;
+                top: 100%;
+            -webkit-transform: translate(-150%,-150%);
+            -moz-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -ms-transform: translate(-150%,-150%);
+            -o-transform: translate(-150%,-150%);
+            transform: translate(-150%,-150%);   
+            }
+            .totalcoins{
+               
+                z-index: 3;
+                position: absolute;
+                left: 0%;
+                top: 100%;
+            -webkit-transform: translate(10%,-150%);
+            -moz-transform: translate(10%,-150%);
+            -ms-transform: translate(10%,-150%);
+            -ms-transform: translate(10%,-150%);
+            -o-transform: translate(10%,-150%);
+            transform: translate(10%,-150%);   
+            }
+            .lapText{
+                 font-size: 60px;
+                color: aliceblue;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+            }
+            .loadingText{
+                text-shadow: -2px 0 blue, 0 4px red, 4px 0 blue, 0 -2px red;
+                font-size: 70px;
+                position: absolute;
+                color: aliceblue;
+                left: 50%;
+                top: 50%;
+                z-index: 10;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%); 
+                
+            }
+            .menuAlias{
+            }
+            .menuOpciones{
+               width: 50%;
+            }
+            .menuPrincipal,.menuComemzar,.menuOpciones,.menuPuntuaciones,.menuDescInd,.menuDescMult,.singleWinScreen,.pauseScreen{
+                display: none;   
+            }
+            
+            .timer,.totalLaps,.totalcoins{
+                 display: none;  
+            }
+		</style>
+	</head>
+	<body>
+
+		<div id="container">
+            
+            <div class="timer"><span id="hour" class="timerfont">00</span>:<span id="min" class="timerfont">00</span>:<span id="sec" class="timerfont">00</span></div>
+            
+              <div class="totalLaps">
+                <span class="lapText" id="currentLap">0</span>
+                <span class="lapText">/</span>
+                <span class="lapText">3</span>
+            </div>
+            
+            <div class="totalcoins flexbox">
+                <span class="lapText">Monedas: </span>
+                <span class="lapText" id="currentMon">0</span>
+                <span class="lapText" >/</span>
+                <span class="lapText" >6</span>
+            </div>
+            <div class="loading">
+            <div class="loadingText">Loading</div>
+            </div>
+            <div class="menu">
+          
+            
+                <div class="menuAlias menupage">
+                    <center><label class="etiquetas">Escribe un alias</label></center><br>
+                    <center><input type="text" class="camposMenu" id="inputalias"></center><br>
+                    <center><button class="botonmenu" id="btnalias">Aceptar</button></center>
+                </div>
+
+                <div class="menuPrincipal menupage">
+                    <center><button class="botonmenu btnmenu2" id="btncomenzarjgo">Comenzar Juego</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnpuntuaciones">Puntuaciones</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnopciones">Opciones</button></center>
+                </div>
+                
+                <div class="menuComemzar menupage">
+                    <center><button class="botonmenu btnmenu2" id="btnindividual">Prueba de tiempo</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnversus">Carrera versus</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnbackcomenzar">Atras</button></center>
+                </div>
+                
+                <div class="menuDescInd menupage">
+                    
+                    <center><div class="descripcion" >Llega a la meta en el menor tiempo posible recolectando todas las monedas. Compite por superar las puntuaciones de los demas jugadores y ser el mejor.</div></center>
+                    <center><button class="botonmenu btnmenu2" id="btnstartind">Comenzar</button></center>
+                    <center><button class="botonmenu btnmenu2" id="btnbackdesct">Atras</button></center>
+                </div>
+                
+              
+                
+                <div class="menuDescMult menupage">
+                    
+                    <center>
+                        <div>
+                        <div class="flexbox">
+                             <div class="filler"></div>
+                        <div class="descripcion bloquemult" >
+                             Crea una sala<br><br>
+                       
+                        </div>
+                            <div class="filler"></div>
+                        <div class="separador">o</div>
+                             <div class="filler"></div>
+                    <div class="descripcion bloquemult" >
+                        Unete a un jugador
+                    <table class="tablapunt">
+                    <thead>
+                    <th><div class="tablatext">Jugador</div></th>
+                        </thead>
+                        <tbody>
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>   
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>     
+                        <tr class="servertable">
+                            <td><div class="tablatext ">Ernesto</div></td>
+                        </tr>     
+                  
+                        </tbody>
+                    </table>
+                         
+                        </div>
+                             <div class="filler"></div>
+                        </div>
+                               </div> 
+                        <div>
+                            <div class="flexbox">
+                          <button class="botonmenu btnmenu2" id="btnstartmult1">Crear</button><button class="botonmenu btnmenu2" id="btnstartmult2">Comenzar</button>
+                            </div>
+                        </div>
+                     
+                    </center>
+                   
+                    <center><button class="botonmenu btnmenu2" id="btnbackdescm">Atras</button></center>
+                </div>
+                
+                <div class="menuPuntuaciones menupage">
+                    <table class="tablapunt">
+                    <thead>
+                    <th><div class="tablatext">#</div></th>
+                    <th><div class="tablatext">Jugador</div></th>
+                    <th><div class="tablatext">Tiempo</div></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><div class="tablatext">1</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>   
+                        <tr>
+                            <td><div class="tablatext">2</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">3</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">4</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">5</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">6</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">7</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>     
+                        <tr>
+                            <td><div class="tablatext">8</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">9</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>    
+                        <tr>
+                            <td><div class="tablatext">10</div></td>
+                            <td><div class="tablatext">Ernesto</div></td>
+                            <td><div class="tablatext">00:02:50</div></td>
+                        </tr>  
+                        </tbody>
+                    </table>
+                    <center><button class="botonmenu btnmenu2" id="btnbackpuntuaciones">Atras</button></center>
+                </div>
+                
+                <div class="menuOpciones menupage">
+                    <div class="flexbox"><label class="etiquetas" >Sonido</label> 
+                            <div class="filler"></div>
+                    <button class="botonmenu btntoggle" id="soundbtn" value="1">On</button></div>
+                    
+                    <div class="flexbox"><label class="etiquetas" >Particulas</label> 
+                            <div class="filler"></div>
+                    <button class="botonmenu btntoggle" id="particlebtn" value="1">On</button></div>
+                    
+                    <div class="flexbox"><div><div class="etiquetas" >Luz Ambiental</div> </div>
+                          <div class="filler"></div>
+                    <input class="botonmenu colorinput" type="color" id="ambColor" value="#cccccc"></div>
+                    
+                    <div class="flexbox"><div><div class="etiquetas" >Luz Direccional</div></div> 
+                        <div class="filler"></div>
+                    <input class="botonmenu colorinput" type="color" id="dirColor" value="#ffffff"></div>
+                   
+                    <center><button class="botonmenu btnmenu2" id="btnbackopciones">Atras</button></center>
+                </div>
+                
+                
+                  <div class="singleWinScreen menupage">
+                    <center><label class="etiquetas">Tu tiempo final fue:</label></center><br><br>
+                      <center><div class="finaltimer"><span id="hourF" class="timerfont">00</span>:<span id="minF" class="timerfont">00</span>:<span id="secF" class="timerfont">00</span></div></center><br>
+                    <center><button class="botonmenu btnmenu2" id="singlewinReturn">Ir a menu</button></center>
+                </div>
+                
+                <div class="pauseScreen menupage">
+                    <center><label class="etiquetas">Pausa</label></center><br><br>
+                    
+                    <center><button class="botonmenu btnmenu2" id="pauseMenu">Regresar a menu</button><button class="botonmenu btnmenu2" id="pauseCountinue">Continuar</button></center>
+                </div>
+                
+                
+            
+            </div>
+            
+        </div>
+
+
+		<script src="three.js"></script>
+
+		<script src="js/loaders/ColladaLoader2.js"></script>
+		<script src="js/Detector.js"></script>
+        <script src="js/shaders/UnpackDepthRGBAShader.js"></script>
+
+		<script src="js/utils/ShadowMapViewer.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+        	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+
+         <script type="x-shader/x-vertex" id="vertexshader">
+
+			uniform float amplitude;
+
+			attribute vec3 displacement;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vec3 newPosition = position + amplitude * displacement;
+
+				vColor = customColor;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform vec3 color;
+			uniform float opacity;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( vColor * color, opacity );
+
+			}
+
+		</script>
+
+
+        
+		<script>
+
+            var Stopwatch = {
+  totalSeconds: 0,
+
+  start: function () {
+    var self = this;
+
+    this.interval = setInterval(function () {
+      self.totalSeconds += 1;
+
+        var h=Math.floor(self.totalSeconds / 3600);
+        var m=Math.floor(self.totalSeconds / 60 % 60);
+        var s=parseInt(self.totalSeconds % 60);
+        
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+        s = s < 10 ? '0' + s : s;
+        
+      $("#hour").text(h);
+      $("#min").text(m);
+      $("#sec").text(s);
+        
+    }, 1000);
+  },
+
+  pause: function () {
+    clearInterval(this.interval);
+    delete this.interval;
+  },
+
+  resume: function () {
+    if (!this.interval) this.start();
+  },
+                
+  setFinalTime: function () {
+        
+        var self = this;
+        var h=Math.floor(self.totalSeconds / 3600);
+        var m=Math.floor(self.totalSeconds / 60 % 60);
+        var s=parseInt(self.totalSeconds % 60);
+        
+        h = h < 10 ? '0' + h : h;
+        m = m < 10 ? '0' + m : m;
+        s = s < 10 ? '0' + s : s;
+        
+      $("#hourF").text(h);
+      $("#minF").text(m);
+      $("#secF").text(s);
+    self.totalSeconds=0;
+  }
+};
+
+            	var keys = {};
+	$(document).ready(function() {
+		document.addEventListener('keydown', onKeyDown);
+		document.addEventListener('keyup', onKeyUp);
+        
+            
+        $("#btnalias").on('click',function(){
+          if($("#inputalias").val()!==''){
+            $(".menuAlias").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+            }
+         
+        });
+   
+        //Comenzar juego
+        $("#btncomenzarjgo").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuComemzar").fadeIn();
+            });
+        });
+        
+        $("#btnbackcomenzar").on('click',function(){
+          
+            $(".menuComemzar").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        
+        //Menu individual
+        $("#btnindividual").on('click',function(){
+            
+            $(".menuComemzar").fadeOut('fast','linear',function(){     
+                    $(".menuDescInd").fadeIn();
+            });
+        });
+        
+        $("#btnbackdesct").on('click',function(){
+          
+            $(".menuDescInd").fadeOut('fast','linear',function(){
+                     
+                $(".menuComemzar").fadeIn();
+            });
+         
+        });
+        $("#btnstartind").on('click',function(){
+            
+            Stopwatch.resume();
+            playmode=1;
+            gameStart=true;
+            
+            addmodels();
+            changelight($("#ambColor").val(),$("#dirColor").val());
+            
+            addTimerGui();
+            addLapsGui();
+            addCoinsGui();
+            
+            $(".menuDescInd").hide();
+            $(".menu").fadeOut('fast','linear',function(){
+                     
+             
+            });
+         
+        });
+        //Menu multijugador
+        $("#btnversus").on('click',function(){
+            
+            $(".menuComemzar").fadeOut('fast','linear',function(){     
+                    $(".menuDescMult").fadeIn();
+            });
+        });
+        
+        $("#btnbackdescm").on('click',function(){
+          
+            $(".menuDescMult").fadeOut('fast','linear',function(){
+                     
+                $(".menuComemzar").fadeIn();
+            });
+         
+        });
+        $("#btnstartmult1,#btnstartmult2").on('click',function(){
+          //comenzar juego
+          
+           Stopwatch.resume();
+            playmode=2;
+            gameStart=true;
+                
+            addmodels();
+            changelight($("#ambColor").val(),$("#dirColor").val());
+                
+            addTimerGui();
+            addLapsGui();
+            
+            
+            $(".menuDescMult").hide();
+               $(".menu").fadeOut('fast','linear',function(){
+                   
+            });
+         
+        });
+        
+        //Puntuaciones
+        $("#btnpuntuaciones").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuPuntuaciones").fadeIn();
+            });
+        });
+        
+        $("#soundbtn").on('click',function(){
+            
+            audio.muted = !audio.muted;
+
+            
+            if($(this).val()==0){
+             $(this).text('On');
+            $(this).val(1);
+            }
+            else{
+                $(this).val(0);
+                $(this).text('Off'); 
+            }
+            $(this).toggleClass("btnactived");
+        });
+        
+        $("#particlebtn").on('click',function(){
+            if($(this).val()==0){
+             $(this).text('On');
+            $(this).val(1);
+            }
+            else{
+                $(this).val(0);
+                $(this).text('Off'); 
+            }
+            $(this).toggleClass("btnactived");
+        });
+        
+        $("#btnbackpuntuaciones").on('click',function(){
+          
+            $(".menuPuntuaciones").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        
+        
+        
+        //Opciones
+        $("#btnopciones").on('click',function(){
+            
+            $(".menuPrincipal").fadeOut('fast','linear',function(){     
+                    $(".menuOpciones").fadeIn();
+            });
+        });
+        
+        $("#btnbackopciones").on('click',function(){
+          
+            $(".menuOpciones").fadeOut('fast','linear',function(){
+                     
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        //Victory screen
+        $("#singlewinReturn").on('click',function(){
+             returntomenu();
+            gameStart=false;
+            $(".singleWinScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+        });
+        //Pause menu
+        $("#pauseCountinue").on('click',function(){
+           pausa=false;
+        $(".pauseScreen").hide();
+        $(".menu").hide();
+            Stopwatch.resume();
+         
+        });
+        
+        $("#pauseMenu").on('click',function(){
+          
+           
+            gameStart=false;
+            pausa=false;
+            returntomenu();
+           
+            $(".pauseScreen").fadeOut('fast','linear',function(){
+
+                $(".menuPrincipal").fadeIn();
+            });
+         
+         
+        });
+           
+        
+$(".servertable").on("click",function () {
+     $(this).addClass("servertableselected").siblings().removeClass("servertableselected");
+    });
+        
+      
+	});
+            
+      
+            
+    function onKeyDown(event) {
+		keys[String.fromCharCode(event.keyCode)] = true;
+	}
+	function onKeyUp(event) {
+		keys[String.fromCharCode(event.keyCode)] = false;
+	}
+            
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+var visibleSize = { width: window.innerWidth, height: window.innerHeight};
+		
+            
+            
+			var container, stats, clock;
+			var camera, scene, renderer, car,scenario;
+            var llantas1, llantas2;
+            var rampas=[];
+            var monedas=[];
+            var treeBoxes=[];
+            var slowTiles=[];
+            var checkPoints=[];
+            var metaArea;
+            var montana;
+            var audio = document.createElement('audio');
+            
+            
+            var explosion=[];
+            var dirs = [];
+            var movementSpeed = 8;
+            var totalObjects = 500;
+            var objectSize = 0.5;
+            var sizeRandomness = 40;
+            var colors = [0xFF0000, 0xCCFF00, 0x0000FF, 0x00FF00, 0xFFFFFF];
+            
+            
+            var jugadores=[];
+            var jugadorid=0;
+            
+            var playmode=1;
+            var gameStart=false;
+            
+            var velocidad=0;
+            var aceleracion=0.58;
+            var velocidadmaxima=15;
+            var velocidadmaximaNormal=15;
+            var velocidadmaximaBoost=40;
+            var velocidadmaximaLenta=3;
+            
+            
+            var friccion=0.5;
+            var wheelangle=0;
+            var wheeldirection=0;
+            var reversa=false;
+            var going=false;
+            var boost=false;
+            var boostTime=0;
+            var showCollision=true;
+            var treecollOn=true;
+            var slowMove=false;
+            
+            var monedasCant=0;
+            var checkPointsCant=0;
+            var currentLaps=0;
+            
+            var totalLaps=3;
+            
+            var treehelpers = new THREE.Group();
+            var terrainHelpers = new THREE.Group();
+            var checkHelpers = new THREE.Group();
+            
+            var pausa=false;
+            var scenarioReady=false;
+            var wheel1p1Ready=false;
+            var wheel2p1Ready=false;
+            var wheel1p2Ready=false;
+            var wheel2p2Ready=false;
+            var modelsReady=false;
+            
+            function checkPoint(box){
+                this.collisionbox=box;
+                this.active=true;
+            }
+            function slowTile(box){
+                this.collisionbox=box;
+            }
+            
+            function treecollision(box){
+                this.collisionbox=box;
+            }
+            
+            function rampa(modelo){
+                this.modelo=modelo;
+                this.collisionbox={};
+            }
+            
+            function moneda(modelo){
+                
+                this.modelo=modelo;
+                this.xRaybox={};
+                this.colisionbox={};
+                this.active=true;
+            }
+            
+            function jugador(carro){
+
+                this.carro=carro;
+                this.llantas1={};
+                this.llantas2={};
+
+                this.pivot={};
+                this.collisionbox={};
+                this.helper={};
+
+                this.positionX;
+                this.positionY;
+                this.positionZ;
+                this.rotationX;
+                this.rotationY;
+                this.rotationZ;
+            }
+            
+			var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 1024;
+			var HUD_MARGIN = 0.05;
+			var SCREEN_WIDTH = window.innerWidth;
+			var SCREEN_HEIGHT = window.innerHeight;  
+                        
+		var object, uniforms;
+		var light;
+            
+            
+            
+			init();
+			animate();
+            
+            function changelight(lightval1,lightval2){
+        
+        var light1sub = lightval1.substr(1);
+        var light2sub = lightval2.substr(1);
+        var lightvalhex1 = parseInt(light1sub, 16);
+        var lightvalhex2 = parseInt(light2sub, 16);
+		var amblight = scene.getObjectByName("ambLight");
+		var dirlight = scene.getObjectByName("dirLight");
+                amblight.color.setHex( lightvalhex1 );
+                dirlight.color.setHex( lightvalhex2 );
+            }
+        
+            function isallload(){
+                if(!modelsReady)
+                {
+                    if(scenarioReady&&wheel1p1Ready&&wheel2p1Ready&&wheel1p2Ready&&wheel2p2Ready){
+                        $(".loading").hide();
+                        modelsReady=true;  
+                    }
+                }
+            }
+            
+            function addTimerGui(){
+                $(".timer").show();
+            }
+            
+            function addLapsGui(){
+                $(".totalLaps").show();
+                $(".totalLaps").css("display","flex");
+            }
+            
+            function addCoinsGui(){
+                $(".totalcoins").show();
+            }
+            
+            function removeGui(){
+                $(".timer").hide();
+                $(".totalLaps").hide();
+                $(".totalLaps").removeClass("flexbox");
+                $(".totalcoins").hide();
+                
+            }
+            
+            function addmodels(){
+                    scene.add(scenario);
+                    jugadores[0].pivot.rotation.y =( 3.1418/180)*90;
+                    jugadores[0].pivot.position.set(-56.15,0.30,32.69);
+                    jugadores[0].rotationY=jugadores[0].pivot.rotation.y;
+                    jugadores[0].positionX=jugadores[0].pivot.position.x;
+                    jugadores[0].positionY=jugadores[0].pivot.position.y;
+                    jugadores[0].positionZ=jugadores[0].pivot.position.z;
+                   for(var i=0;i<rampas.length;i++){
+                           scene.add( rampas[i].modelo );
+                           rampas[i].active=true;
+                        }
+                
+                if(playmode==1){
+                        for(var i=0;i<monedas.length;i++){
+                           scene.add( monedas[i].modelo );
+                           scene.add( monedas[i].xRaybox );
+                           monedas[i].active=true;
+                        }
+                }
+                if(playmode==2){
+                    jugadores[1].pivot.rotation.y =( 3.1418/180)*90;
+                    jugadores[1].pivot.position.set(-56.15,0.30,34.24);
+                    jugadores[1].rotationY=jugadores[1].pivot.rotation.y;
+                    jugadores[1].positionX=jugadores[1].pivot.position.x;
+                    jugadores[1].positionY=jugadores[1].pivot.position.y;
+                    jugadores[1].positionZ=jugadores[1].pivot.position.z;
+                }
+            }
+            function singleplayerWin(){
+                
+                Stopwatch.pause();
+                Stopwatch.setFinalTime();
+                
+                $(".menu").show();
+                $(".singleWinScreen").show();
+                
+            }
+            function multiplayerWin(){
+                
+            }
+            
+            function returntomenu(){
+                $("#currentMon").text('0');
+                $("#currentLap").text('0');
+                
+                $("#hour").text('00');
+                $("#min").text('00');
+                $("#sec").text('00');
+        
+                             
+                Stopwatch.totalSeconds=0;
+                removeGui();
+                scene.remove(scenario);
+                monedasCant=0;
+                currentLaps=0;
+             for(var i=0;i<rampas.length;i++){
+                        
+                        scene.remove(rampas[i].modelo);
+                          
+                        }
+                if(playmode==1){
+                
+                    for(var i=0;i<monedas.length;i++){
+                        if(monedas[i].active){
+                        scene.remove(monedas[i].modelo);
+                        scene.remove(monedas[i].xRaybox);
+                            }
+                        monedas[i].active=false;
+                        }
+                    }
+                
+            };
+            
+			function init() {
+
+				container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+				camera.position.set( 0, 0.5, 4 );
+
+				scene = new THREE.Scene();
+
+				clock = new THREE.Clock();
+
+                var basicMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff, opacity: 1, wireframe: true } );
+                
+                    
+                uniforms = {
+
+				amplitude: { value: 5.0 },
+				opacity:   { value: 0.7 },
+				color:     { value: new THREE.Color( 0xff0000 ) }
+
+			};
+
+			var shaderMaterial = new THREE.ShaderMaterial( {
+
+				uniforms:       uniforms,
+				vertexShader:   document.getElementById( 'vertexshader' ).textContent,
+				fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+				blending:       THREE.AdditiveBlending,
+				depthTest:      false,
+				transparent:    true
+
+			});
+
+
+                
+				// loading manager
+                
+
+				var loadingManager = new THREE.LoadingManager( function() {
+
+					
+                    var geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+                   // geometry.center();
+                    var material = new THREE.MeshNormalMaterial();
+                    jugadores[0].pivot = new THREE.Mesh( geometry, material );
+           
+                    jugadores[0].collisionbox= new THREE.Box3().setFromObject(jugadores[0].carro);
+                    
+                    jugadores[0].helper = new THREE.Box3Helper(jugadores[0].collisionbox, 0xff0000);
+                    //jugadores[0].helper.updateMatrixWorld();
+                    // If you want a visible bounding box
+                    jugadores[0].pivot.add(jugadores[0].helper);
+
+                    scene.add(jugadores[0].pivot );
+                    
+                    jugadores[0].rotationY=jugadores[0].pivot.rotation.y;
+                    jugadores[0].positionX=jugadores[0].pivot.position.x;
+                    jugadores[0].positionY=jugadores[0].pivot.position.y;
+                    jugadores[0].positionZ=jugadores[0].pivot.position.z;
+                
+                    jugadores[0].pivot.add( jugadores[0].carro);
+                    
+                    /*
+           car.children["0"].children["0"].children["0"].children["8"].castShadow=true;
+            car.children["0"].children["0"].children["0"].children["7"].castShadow=true;
+            car.children["0"].children["0"].children["0"].children["9"].castShadow=true;
+                    	*/
+                    jugadores[0].carro.add(camera);
+                    camera.position.y = 2;
+                    camera.position.z = 1;
+                    camera.up.set( 0, 0, 1);
+		            camera.lookAt(jugadores[0].carro.position);
+                    
+                 
+                            // car.position.y=-0.20;
+		   
+                    
+                            var loader3 = new THREE.ColladaLoader( loadingManager3 );
+                
+				loader3.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[0].llantas1 = collada.scene;
+
+				} );
+                
+                var loader4 = new THREE.ColladaLoader( loadingManager4 );
+                
+				loader4.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[0].llantas2 = collada.scene;
+
+				} );
+                    
+                             var loaderred = new THREE.ColladaLoader( loadingManagerRed );
+                
+				loaderred.load( './models/Redcar/redcar.dae', function ( collada ) {
+                    
+                    
+					//car = collada.scene;
+                    jugadores.push(new jugador(collada.scene));
+              
+
+				} );
+
+
+				} );
+                
+                
+                
+				var loadingManagerRed = new THREE.LoadingManager( function() {
+                    
+                    var geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+                   // geometry.center();
+                    var material = new THREE.MeshNormalMaterial();
+                    jugadores[1].pivot = new THREE.Mesh( geometry, material );
+
+					scene.add( jugadores[1].pivot );
+					jugadores[1].pivot.add( jugadores[1].carro );
+               
+                var loaderRed3 = new THREE.ColladaLoader( loadingManagerRed3 );
+                
+				loaderRed3.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[1].llantas1 = collada.scene;
+
+				} );
+                
+                var loaderRed4 = new THREE.ColladaLoader( loadingManagerRed4 );
+                
+				loaderRed4.load( './models/BackWheels/backwheels.dae', function ( collada ) {
+
+					jugadores[1].llantas2 = collada.scene;
+
+				} );
+       
+				} );
+                
+                var loadingManagerScenario = new THREE.LoadingManager( function() {
+
+                    //scenario.children[2].receiveShadow=true;
+                    scenario.children[0].material = new THREE.MeshPhongMaterial( { map: scenario.children[0].material.map });
+                    scenario.children[1].material = new THREE.MeshPhongMaterial( { map: scenario.children[1].material.map });
+                    scenario.children[2].material = new THREE.MeshPhongMaterial( { map: scenario.children[2].material.map });
+                    
+                    scenario.scale.set(5,5,5);
+                        scenario.updateMatrix();
+                    for(i=0;i<scenario.children[3].children.length;i++){
+                        
+                    scenario.children[3].children[i].material = new THREE.MeshPhongMaterial( { map: scenario.children[3].children[i].material.map });
+                  
+                                            
+                                        scenario.children[3].updateMatrix();
+                                             
+                                          
+                                        var collision = new THREE.Box3().setFromObject(scenario.children[3].children[i]);
+                                     
+                                        collision.applyMatrix4(scenario.children[3].matrix);
+                                        collision.applyMatrix4(scenario.matrix);
+                                        var helper =new THREE.Box3Helper(collision, 0x00ff00);
+                                      
+                                        slowTiles.push(new slowTile(collision));
+                                              
+                                         terrainHelpers.add(helper);
+                                         
+                                         
+                                 }
+                    
+                    if(showCollision){
+                       scene.add(terrainHelpers);
+                    }
+                    
+                    for(i=0;i<2;i++){          
+                    scenario.children[5+i].updateMatrix();
+
+
+                    var collision = new THREE.Box3().setFromObject(scenario.children[5+i]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collision.applyMatrix4(scenario.matrix);
+                    var helper =new THREE.Box3Helper(collision, 0x0000ff);
+
+                    checkPoints.push(new checkPoint(collision));
+
+                     checkHelpers.add(helper);
+                                         
+                                         
+                          } 
+                    scenario.children[7].updateMatrix();
+                    var collisionMeta = new THREE.Box3().setFromObject(scenario.children[7]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collisionMeta.applyMatrix4(scenario.matrix);
+                    var helperMeta =new THREE.Box3Helper(collisionMeta, 0xff00ff);
+                    metaArea=collisionMeta;
+                    checkHelpers.add(helperMeta);
+                    
+                    scenario.children[0].updateMatrix();
+                    var collisionMontana= new THREE.Box3().setFromObject(scenario.children[0]);
+
+                    //collision.applyMatrix4(scenario.children[5+i].matrix);
+                    collisionMontana.applyMatrix4(scenario.matrix);
+                    var helperMontana =new THREE.Box3Helper(collisionMontana, 0xffffff);
+                    montana=collisionMontana;
+                    checkHelpers.add(helperMontana);
+                    
+                            
+                    if(showCollision){
+                       scene.add(checkHelpers);
+                    
+                    }
+                    
+               
+                    
+                      
+                    for(i=4;i<scenario.children.length;i++){
+                                         if(scenario.children[i].children.length==2){
+                                             scenario.children[i].updateMatrix();
+                                             
+                                          
+                                        var collision = new THREE.Box3().setFromObject(scenario.children[i].children[1]);
+                                     
+                                        collision.applyMatrix4(scenario.children[i].matrix);
+                                        collision.applyMatrix4(scenario.matrix);
+                                        var helper =new THREE.Box3Helper(collision, 0xff0000);
+                                      
+                                        treeBoxes.push(new treecollision(collision));
+                                              
+                                         treehelpers.add(helper);
+                                         }
+                                         
+                                 }
+                    if(showCollision){
+                        scene.add(treehelpers);
+                         }
+               
+                scenarioReady=true;
+                    
+                    
+		          //car.rotation.y =( 3.1418/180)*180;
+                    	
+				} );
+                var loadingManager3 = new THREE.LoadingManager( function() {
+               
+                   // llantas1.children[1].material = new THREE.MeshPhongMaterial( { map: llantas1.children[1].material.map });
+                   
+                  //  var geometry = new THREE.Geometry().fromBufferGeometry( llantas1.children[0].geometry  );
+                    
+                    wheel1p1Ready=true;
+ 
+                 /*
+                    jugadores[0].llantas1.children[0].material[0] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[0].map });
+                    jugadores[0].llantas1.children[0].material[1] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[0].map });
+                    jugadores[0].llantas1.children[0].material[2] = new THREE.MeshPhongMaterial( { map:  jugadores[0].llantas1.children[0].material[1].map });
+                    */
+                   // jugadores[0].llantas1.children[0].castShadow=true;
+					
+                    jugadores[0].llantas1.eulerOrder='ZYX';
+                    scene.add(jugadores[0].llantas1 );
+                 
+                    jugadores[0].carro.add(jugadores[0].llantas1);
+                    jugadores[0].llantas1.position.y=-0.1;
+                } );
+
+                     var loadingManager4 = new THREE.LoadingManager( function() {
+                                  
+                    wheel2p1Ready=true;
+					scene.add( jugadores[0].llantas2 );
+                         
+                //    jugadores[0].llantas2.children[0].castShadow=true;
+                    jugadores[0].llantas2.position.y=0.6;
+                    jugadores[0].carro.add( jugadores[0].llantas2);
+                    	
+				} );
+
+                var loadingManagerRed3 = new THREE.LoadingManager( function() {
+               
+                    jugadores[1].llantas1.eulerOrder='ZYX';
+                    scene.add(jugadores[1].llantas1);
+                    
+                    jugadores[1].carro.add(jugadores[1].llantas1);
+                    jugadores[1].llantas1.position.y=-0.1;
+                    
+                        wheel1p2Ready=true;
+                } );
+
+                var loadingManagerRed4 = new THREE.LoadingManager( function() {
+                         
+					scene.add( jugadores[1].llantas2 );
+                         
+                    jugadores[1].llantas2.position.y=0.6;
+                    jugadores[1].carro.add( jugadores[1].llantas2);
+                          
+                        wheel2p2Ready=true;
+                    	
+				} );
+
+                     var loadingManager5 = new THREE.LoadingManager( function() {
+
+                      
+					    scene.add( rampas[0].modelo );
+                        rampas[0].modelo.scale.set(8,5,5);
+                        rampas[0].modelo.position.set(30.65,0.20,5.04);
+                        rampas[0].collisionbox = new THREE.Box3().setFromObject(rampas[0].modelo);
+					   
+                         
+                        scene.add(rampas[1].modelo);
+                        rampas[1].modelo.scale.set(8,5,5);
+                        rampas[1].modelo.rotation.z=(3.14/180)*90;
+                        rampas[1].modelo.position.set(-21.57,0.20,-69.50);
+                        rampas[1].collisionbox = new THREE.Box3().setFromObject(rampas[1].modelo);
+					   
+                         
+                            if(showCollision){
+                                     for(i=0;i<rampas.length;i++){
+                                         var helper =new THREE.Box3Helper( rampas[i].collisionbox, 0xff0000);
+                                 scene.add(helper);
+                                 }
+                         }
+                       
+                    	
+				} );
+                     var loadingManager6 = new THREE.LoadingManager( function() {
+
+                         
+                        
+                        monedas[0].modelo.scale.set(20,20,20);
+                        monedas[0].modelo.position.set(-0.25,0.5,32.88);
+                        monedas[0].colisionbox = new THREE.Box3().setFromObject(monedas[0].modelo);
+					  
+                
+                        monedas[1].modelo.scale.set(20,20,20);
+                        monedas[1].modelo.position.set(32.61,0.5,3.02);
+                        monedas[1].colisionbox = new THREE.Box3().setFromObject(monedas[1].modelo);
+					   
+                        
+                        monedas[2].modelo.scale.set(20,20,20);
+                        monedas[2].modelo.position.set(30.83,0.5,-78.36);
+                        monedas[2].colisionbox = new THREE.Box3().setFromObject(monedas[2].modelo);
+					   
+                        
+                        monedas[3].modelo.scale.set(20,20,20);
+                        monedas[3].modelo.position.set(-9.37,0.5,-110.22);
+                        monedas[3].colisionbox = new THREE.Box3().setFromObject(monedas[3].modelo);
+					   
+                        monedas[4].modelo.scale.set(20,20,20);
+                        monedas[4].modelo.position.set(-45.56,0.5,-68.42);
+                        monedas[4].colisionbox = new THREE.Box3().setFromObject(monedas[4].modelo);
+					   
+                         
+                        monedas[5].modelo.scale.set(20,20,20);
+                        monedas[5].modelo.position.set(-85.18,0.5,5.04);
+                        monedas[5].colisionbox = new THREE.Box3().setFromObject(monedas[5].modelo);
+					   for(i=0;i<monedas.length;i++){
+                         
+           // jugadores[0].carro.children["0"].children["9"].updateMatrix();
+            monedas[i].modelo.children["0"].updateMatrixWorld();
+            monedas[i].modelo.updateMatrixWorld();
+            var geometry = new THREE.Geometry().fromBufferGeometry( monedas[i].modelo.children["0"].geometry);
+                    
+            //geometry.center();  
+            //geometry.applyMatrix(jugadores[0].carro.children["0"].children["9"].matrix);
+            //geometry.applyMatrix(monedas[i].modelo.matrixWorld);
+            //debugger;
+            var vertices = geometry.vertices;
+
+			var buffergeometry = new THREE.BufferGeometry();
+
+			var position = new THREE.Float32BufferAttribute( vertices.length * 3, 3 ).copyVector3sArray( vertices );
+			buffergeometry.addAttribute( 'position', position );
+
+			var displacement = new THREE.Float32BufferAttribute( vertices.length * 3, 3 );
+			buffergeometry.addAttribute( 'displacement', displacement );
+
+			var customColor = new THREE.Float32BufferAttribute( vertices.length * 3, 3 );
+			buffergeometry.addAttribute( 'customColor', customColor );
+
+			var color = new THREE.Color( 0xff0000 );
+
+			for( var k = 0, l = customColor.count; k < l; k ++ ) {
+
+				color.setHSL( k/ l,1.0, 1.0 );
+				color.toArray( customColor.array, k * customColor.itemSize );
+
+			}
+
+			monedas[i].xRaybox = new THREE.Mesh( buffergeometry, shaderMaterial );
+		   
+                  
+                    monedas[i].xRaybox.scale.set(0.5,1,0.5);
+                    monedas[i].xRaybox.position.x=monedas[i].modelo.position.x;
+                    monedas[i].xRaybox.position.y=monedas[i].modelo.position.y;
+                    monedas[i].xRaybox.position.z=monedas[i].modelo.position.z;
+
+                       }
+                         
+                         if(showCollision){
+                                     for(i=0;i<monedas.length;i++){
+                                         var helper =new THREE.Box3Helper( monedas[i].colisionbox, 0xff0000);
+                                 scene.add(helper);
+                                 }
+                         }
+                         
+                        /* 
+                        monedas[0].castShadow=true;   
+                        monedas[1].castShadow=true; 
+                        monedas[2].castShadow=true; 
+                        monedas[3].castShadow=true; 
+                        monedas[4].castShadow=true;
+                        monedas[5].castShadow=true;
+                        */
+                    	
+				} );
+
+				var loader = new THREE.ColladaLoader( loadingManager );
+                
+				loader.load( './models/Car/bluetop.dae', function ( collada ) {
+                    
+                    
+					//car = collada.scene;
+                    jugadores.push(new jugador(collada.scene));
+                   
+
+				} );
+         
+                var loader2 = new THREE.ColladaLoader( loadingManagerScenario );
+                
+				loader2.load( './models/Escenario/Escenario4.dae', function ( collada ) {
+
+					scenario = collada.scene;
+
+				} );
+                
+        
+                
+                var loader5 = new THREE.ColladaLoader( loadingManager5 );
+                
+				loader5.load( './models/Rampa/rampaa.dae', function ( collada ) {
+
+					rampas.push(new rampa(collada.scene));
+                    rampas.push(new rampa(collada.scene.clone()));
+
+				} );
+                var loader6 = new THREE.ColladaLoader( loadingManager6 );
+                
+				loader6.load( './models/Coin/coin2.dae', function ( collada ) {
+
+					monedas.push(new moneda(collada.scene));
+                    monedas.push(new moneda(collada.scene.clone()));         
+                    monedas.push(new moneda(collada.scene.clone()));       
+                    monedas.push(new moneda(collada.scene.clone()));   
+                    monedas.push(new moneda(collada.scene.clone())); 
+                    monedas.push(new moneda(collada.scene.clone()));
+
+				} );
+                
+
+				//
+              
+
+				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
+                ambientLight.name="ambLight";
+				scene.add( ambientLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+				directionalLight.position.set( -1, 1, 0 ).normalize();
+                directionalLight.name="dirLight";
+                //directionalLight.castShadow = true;  
+				scene.add( directionalLight );
+                
+                /*
+                //Create a SpotLight and turn on shadows for the light
+                var light = new THREE.SpotLight( 0xffffff );
+                light.castShadow = true;            // default false
+                scene.add( light );
+                light.position.set(-20,24,-20);
+                //Set up shadow properties for the light
+                light.shadow.mapSize.width = 512;  // default
+                light.shadow.mapSize.height = 512; // default
+                light.shadow.camera.near = 0.01;       // default
+                light.shadow.camera.far = 50;      // default
+                */
+         
+                var grid = new THREE.GridHelper(300, 20, 0xffffff, 0xffffff);
+                grid.position.y = -1;
+                scene.add(grid);
+				//
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+       renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+
+				container.appendChild( renderer.domElement );
+                
+                
+                audio.src = 'Track3.mp3';
+                audio.loop = true;
+                audio.play();
+
+
+				//
+
+				stats = new Stats();
+				container.appendChild( stats.dom );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+            
+            
+            function ExplodeAnimation(x,y,z)
+            {
+              var geometry = new THREE.Geometry();
+
+              for (i = 0; i < totalObjects; i ++) 
+              { 
+                var vertex = new THREE.Vector3();
+                vertex.x = x;
+                vertex.y = y;
+                vertex.z = z;
+
+                geometry.vertices.push( vertex );
+                dirs.push({x:(Math.random() * movementSpeed)-(movementSpeed/2),y:(Math.random() * movementSpeed)-(movementSpeed/2),z:(Math.random() * movementSpeed)-(movementSpeed/2)});
+              }
+              var material = new THREE.ParticleBasicMaterial( { size: objectSize,  color: colors[Math.round(Math.random() * colors.length)] });
+              var particles = new THREE.ParticleSystem( geometry, material );
+
+              this.object = particles;
+              this.status = true;
+
+              this.xDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+              this.yDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+              this.zDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+
+              scene.add( this.object  ); 
+
+              this.update = function(){
+                if (this.status == true){
+                  var pCount = totalObjects;
+                  while(pCount--) {
+                    var particle =  this.object.geometry.vertices[pCount]
+                    particle.y += dirs[pCount].y;
+                    particle.x += dirs[pCount].x;
+                    particle.z += dirs[pCount].z;
+                      if(particle.y>100){
+                          this.status = false;
+                      }
+                  }
+                  this.object.geometry.verticesNeedUpdate = true;
+                    
+                }
+                    if (this.status == false){
+                   scene.remove( this.object  ); 
+ 
+              }
+              }
+            
+              
+
+            }
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+            
+            function createHUD() {
+				lightShadowMapViewer = new THREE.ShadowMapViewer( light );
+				lightShadowMapViewer.position.x = 10;
+				lightShadowMapViewer.position.y = SCREEN_HEIGHT - ( SHADOW_MAP_HEIGHT / 4 ) - 10;
+				lightShadowMapViewer.size.width = SHADOW_MAP_WIDTH / 4;
+				lightShadowMapViewer.size.height = SHADOW_MAP_HEIGHT / 4;
+				lightShadowMapViewer.update();
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+            
+        var stop=true;
+        var alto=false;
+            
+			function render() {
+        
+        var delta = clock.getDelta();
+
+        var alto = false;
+        var yaw = 0;
+		var forward = 0;
+                
+                isallload();
+                
+                if(boost){
+                aceleracion=10.0;
+                velocidadmaxima=velocidadmaximaBoost;
+                }
+                else{
+                    if(slowMove){
+                velocidadmaxima=velocidadmaximaLenta;
+                aceleracion=0.55;
+                    }
+                    else{ 
+                velocidadmaxima=velocidadmaximaNormal;
+                aceleracion=0.58;
+                        }
+               
+                }
+                
+		if(keys["P"]){
+               if(!pausa&&gameStart==true){
+                   
+                   $(".pauseScreen").show();
+                   $(".menu").show();
+                   Stopwatch.pause();
+                    pausa=true;
+               }
+          
+        }
+      if(!pausa){
+             
+                if (keys["%"]) {
+            going=true;
+            wheeldirection=1;
+            
+            if(wheelangle<10){
+            wheelangle+=50*delta;
+            }
+			yaw = 1;
+            forward = -3;
+		} else if (keys["'"]) {
+            going=true;
+            wheeldirection=2;
+	
+            if(wheelangle>-10){
+            wheelangle-=50*delta;
+            }
+            yaw = -1;
+            forward = -3;
+		}
+		if (keys["Z"]) {
+            
+           reversa=false;
+			forward = -10;
+            if(velocidad<velocidadmaxima* delta){
+                velocidad+=(aceleracion-friccion)* delta;
+                }
+            else{
+                velocidad=velocidadmaxima* delta;
+            }
+		} else if (keys["X"]) {
+        if(!boost){
+			forward = 10;
+              reversa=true;
+               
+            if(velocidad>0){
+                 aceleracion=0.65;
+                velocidad-=(aceleracion-friccion)* delta;
+                }
+               else if(velocidad>-(velocidadmaxima/2* delta)){
+                velocidad-=(aceleracion-friccion)* delta;
+                }
+               
+              else{
+                velocidad=-velocidadmaxima/2* delta;
+            }
+          
+        }else{
+             velocidad=velocidadmaxima/2* delta
+        }
+            
+		}
+        if (keys["N"]) {
+         if(stop){
+			alto = true;
+             stop=false;
+        }
+		} else if (keys["M"]) {
+		stop=true;
+		}
+        if (!keys["Z"]&&!keys["X"]) {
+            if(!boost){
+              going=false;
+    
+            if(reversa){
+                   
+                    if(velocidad>-1*delta&&velocidad<0){
+                        velocidad=0;
+                    }
+                    else if(velocidad<0){
+                           velocidad+=aceleracion*friccion/2*delta;
+                    }
+                    else if(velocidad>0){
+                        velocidad-=aceleracion*friccion/2*delta;
+                    }
+            }
+            else{
+                    if(velocidad>0){
+                        velocidad-=aceleracion*friccion/2*delta;
+             
+                    }
+                    else if(velocidad<1*delta&&velocidad>0){
+                        velocidad=0;
+                    }
+                   else if(velocidad<0){
+                        velocidad=0;
+                    }
+                }
+            }
+        }
+        if (!keys["%"]&&!keys["'"]) {
+            if(wheeldirection==1){
+                  if(wheelangle>0){
+                    wheelangle-=50*delta;
+                    }else if(wheelangle<1){
+                    wheelangle=0;
+                    wheeldirection=0;
+                    }
+            }
+            else if(wheeldirection==2){
+                    if(wheelangle<0){
+                    wheelangle+=50*delta;
+                    }else if(wheelangle>-1){
+                    wheelangle=0;
+                    wheeldirection=0;
+                    }
+                    }  
+                }
+                
+      }
+                               var time = Date.now() * 0.001;
+
+if( monedas.length>0){
+   if( monedas[0].xRaybox.geometry!=undefined){
+			uniforms.amplitude.value = Math.sin( 0.5 * time );
+			uniforms.color.value.offsetHSL( 0.005, 0, 0 );
+
+			var attributes =  monedas[0].xRaybox.geometry.attributes;
+			var array = attributes.displacement.array;
+
+			for ( var i = 0, l = array.length; i < l; i += 3 ) {
+
+				array[ i     ] += 0.0 * ( 0.5 - Math.random() );
+				array[ i + 1 ] += 0.0 * ( 0.5 - Math.random() );
+				array[ i + 2 ] += 0.0 * ( 0.5 - Math.random() );
+
+			}
+
+			attributes.displacement.needsUpdate = true;
+   }
+}
+if(!pausa&&gameStart){
+if(jugadores.length>0){
+    var carCollision=false;
+				if ( jugadores[0].carro !== undefined &&  jugadores[0].llantas2!=undefined &&  jugadores[0].llantas1!=undefined) {
+                    
+                    
+                    if( jugadores[0].llantas1.rotation !== undefined){
+                    jugadores[0].llantas1.rotation.z =(3.14/180)*wheelangle;
+                    jugadores[0].llantas1.rotation.x += velocidad;
+                    jugadores[0].llantas2.rotation.x += velocidad;
+                        }
+                    if( jugadores[1].llantas1.rotation !== undefined){
+                    jugadores[1].llantas1.rotation.z =(3.14/180)*wheelangle;
+                    jugadores[1].llantas1.rotation.x += velocidad;
+                    jugadores[1].llantas2.rotation.x+= velocidad;
+                    }
+
+                    if(boost){
+                        boostTime+=1*delta;
+                        if(boostTime>1){
+                            boost=false;
+                            boostTime=0;
+                        }
+                    }
+                    
+                    jugadores[0].collisionbox=new THREE.Box3().setFromObject(jugadores[0].carro);
+                   // jugadores[0].pivot.updateMatrix();
+                    //jugadores[0].collisionbox.applyMatrix4(jugadores[0].pivot.matrix);
+                   // jugadores[0].collisionbox.applyMatrix4(jugadores[0].carro.matrix);
+                  
+                   
+                  
+                                if( jugadores[0].collisionbox.intersectsBox(montana)){
+                          
+                                    carCollision=true;
+                                }
+                    
+                    if(playmode==1){
+                        for(i=0;i<monedas.length;i++){
+                                if(monedas[i].active){
+
+                                    var collision = jugadores[0].collisionbox.intersectsBox(monedas[i].colisionbox);
+                                    if(collision){
+                                        //  debugger;
+                                       monedas[i].active=false;
+                                       monedasCant++;
+                                        $("#currentMon").text(monedasCant); 
+                                        scene.remove( monedas[i].xRaybox );
+                                        scene.remove(monedas[i].modelo);
+                                    }
+                                }
+                        }
+                    }
+                    if(!boost){
+                    for(i=0;i<rampas.length;i++){
+                   
+
+                                var collision = jugadores[0].collisionbox.intersectsBox(rampas[i].collisionbox);
+                                if(collision){
+                                    //  debugger;
+                                   boost=true;
+                                }
+                            }
+                    }
+                    if(treecollOn){
+                    for(i=0;i<treeBoxes.length;i++){
+                              
+
+                                var collision = jugadores[0].collisionbox.intersectsBox(treeBoxes[i].collisionbox);
+                  
+                                if(collision){
+                          
+                                    carCollision=true;
+                                }
+                     
+                            }
+                    }
+                    
+                   slowMove=false;
+                    for(i=0;i<slowTiles.length;i++){
+
+                                var collision = jugadores[0].collisionbox.intersectsBox(slowTiles[i].collisionbox);
+                  
+                                if(collision){
+                          
+                               slowMove=true;
+                                }
+                     
+                            }
+                    for(i=0;i<checkPoints.length;i++){
+
+                                var collision = jugadores[0].collisionbox.intersectsBox(checkPoints[i].collisionbox);
+                  
+                                if(collision&&checkPoints[i].active){
+                                checkPointsCant++;
+                                checkPoints[i].active=false;
+                                }
+                     
+                            }
+                    if(checkPointsCant==checkPoints.length){
+                        
+                    var collision = jugadores[0].collisionbox.intersectsBox(metaArea);
+                  
+                         if(collision){
+                            checkPointsCant=0;
+                            explosion.push(new ExplodeAnimation(-46.39,1.0,33.48));
+                            explosion.push(new ExplodeAnimation(-30.91,1.0,32.01));
+                            explosion.push(new ExplodeAnimation(-33.88,1.0,35.02));
+                            for(i=0;i<checkPoints.length;i++){
+
+                                    checkPoints[i].active=true;
+                                    }
+                            currentLaps+=1;
+                            $("#currentLap").text(currentLaps);
+
+
+                            if(playmode==1){
+                                    if(monedas.length==monedasCant&&currentLaps>=totalLaps){
+                                        //debugger;
+                                        singleplayerWin();
+                                    }
+                                }
+                            if(playmode==2){
+                                    if(currentLaps==totalLaps){
+                                        multiplayerWin();
+                                    }
+                            }
+                         }
+                    }
+                    
+                    if(explosion.length>0){
+                            for(var p=0;p<explosion.length;p++){
+                                       explosion[p].update();
+                            }
+                        }
+                           
+                    if(alto){
+                        alto = false;  
+
+                  // debugger;
+                 alert( jugadores[0].pivot.position.x+"___"+ jugadores[0].pivot.position.y+"___"+ jugadores[0].pivot.position.z);
+                        
+                    }
+                    if(monedas.length!=undefined){
+                        for(var i=0;i<monedas.length;i++){
+                        monedas[i].modelo.rotation.z += 3 * delta;
+                            }
+                       
+                        }
+                    if(!carCollision){
+                           if(velocidad!==0){
+		                  jugadores[0].pivot.rotation.y += yaw * delta;
+                            }
+                        jugadores[0].rotationY=jugadores[0].pivot.rotation.y;
+                        jugadores[0].positionX=jugadores[0].pivot.position.x;
+                        jugadores[0].positionZ=jugadores[0].pivot.position.z;
+                        jugadores[0].pivot.translateZ(velocidad);
+                    }
+                    else{
+                                    velocidad=0;
+                            jugadores[0].pivot.rotation.y=jugadores[0].rotationY;
+                                    jugadores[0].pivot.position.x=jugadores[0].positionX;
+                                    jugadores[0].pivot.position.z=jugadores[0].positionZ;
+                                    carCollision=false;
+                    }
+
+				}
+                
+    }
+}
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
