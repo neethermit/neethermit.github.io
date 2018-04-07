@@ -1,7 +1,7 @@
 var pageheight = $(window).height()-26;
 var restartFlag=false;
 
-var script = "1.txt";
+var script = "4.txt";
 var lastFrameTimeMs = 0; // The last time the loop was run
 var maxFPS = 10; // The maximum FPS we want to allow
 var step = 0;
