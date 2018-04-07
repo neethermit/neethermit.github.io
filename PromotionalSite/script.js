@@ -23,7 +23,7 @@ var textSpeed = speedNormal;
 var textColor = '#fff';
 var forceNext = false;
 
-var maleblip = new Audio('sounds/sfx-blipmale.wav');
+var maleblip = new Audio('sounds/04.wav');
 var femaleblip = new Audio('sounds/sfx-blipfemale.wav');
 var typewriter = new Audio('sounds/sfx-typwriter.wav');
 var pichoop = new Audio('sounds/sfx-pichoop.wav');

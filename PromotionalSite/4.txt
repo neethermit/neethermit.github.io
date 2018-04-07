@@ -1,14 +1,13 @@
 [] <s> Hola Edgar...
-[] <s> Soy yo, <s> __ Esteban
-[] <s> Asi es,  __ soy un HTML
-[] <s> No me alcanzo para un hosting asi que no pude ser php
-[] <s> En fin, esto es una prueba para el sitio promocional
-[] <s> Es un sitio misterioso que le hablara al lector, a la profe le encantara
-[] <s> Y ella nunca sabra que este codigo era un demo que busque en internet con tal de no trabajar
+[] <s> Soy yo, <s> __ De nuevo[] <s> Asi es,  __ Me cambio la voz
+[] <s> Pero sigo siendo un HTML
+[] <s> En fin que hueva cambiar lo demas
+[] <s> Pero sigue siendo misterioso
+[] <s> Porque sigo haciendo esto
 
-[] Pensaste que hice esto? Ambos sabemos que no
+[] Que hago con mi vida
 
-[] <s> Ignora a la mona, es un sketch del personaje
+[] <s> Vuelve a ignorar a la mona
 
 [] <t> Cambio y fuera
 [] 
