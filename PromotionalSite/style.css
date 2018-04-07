@@ -1,0 +1,124 @@
+@font-face { font-family: digital7; src: url('fonts/digital-7.TTF'); } 
+
+
+html {
+    height: 100%;
+    padding: 0;
+}
+body{
+    
+    padding: 3px;
+    margin: 0;
+}
+#ccc{
+    position: fixed;
+    z-index: 10;
+    top: 90%;
+    width: 100%;
+}
+body{
+    background: #08c599; /* Old browsers */
+background: -moz-linear-gradient(top, #08c599 0%, #cd12b0 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #08c599 0%,#cd12b0 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #08c599 0%,#cd12b0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08c599', endColorstr='#cd12b0',GradientType=0 ); /* IE6-9 */
+
+}
+.hidden{
+    display: none;
+  
+}
+.mainImage{
+    position: absolute;
+     top :50%;
+    left :50%;
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Safari */
+    transform: translate(-50%, -50%);
+}
+.background{
+    padding: 10px ;
+    height: 100%;
+    background: #000;
+}
+
+#namebox, #textbox {
+
+    background: #000;
+  }
+
+
+#textbox {
+    position: absolute;
+    display: flex;
+    height: 120px;
+    padding: 10px 15px;
+    
+    top :50%;
+    left :50%;
+    -ms-transform: translate(-50%, -50%); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%); /* Safari */
+    transform: translate(-50%, -50%);
+}
+
+
+p {
+    font-family: 'Orbitron', sans-serif;
+    display: inline;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+#measure {
+    visibility: hidden;
+    font-size: 1.5em;
+    font-family: 'Orbitron', sans-serif;
+    position: absolute;
+}
+
+#text {
+    
+    display: inline;
+    color: #fff;
+    font-size: 2em;
+    line-height: 1.2em;
+    padding: 0;
+}
+
+
+#cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+#next {
+    position: absolute;
+    right: 14px;
+    bottom: 0;
+    
+    font-size: 2em;
+    color: #ccc;
+    
+    animation: blink-animation 1s steps(3, start) infinite;
+    -webkit-animation: blink-animation 1s steps(3, start) infinite;
+}
+@keyframes blink-animation {
+    to {
+        transform: translateX(8px);
+    }
+}
+@-webkit-keyframes blink-animation {
+    to {
+        transform: translateX(8px);
+    }
+}
