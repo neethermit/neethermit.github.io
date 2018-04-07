@@ -1,5 +1,6 @@
 [] <s> Hola Edgar...
-[] <s> Soy yo, <s> __ De nuevo[] <s> Asi es,  __ Me cambio la voz
+[] <s> Soy yo, <s> __ De nuevo
+[] <s> Asi es,  __ Me cambio la voz
 [] <s> Pero sigo siendo un HTML
 [] <s> En fin que hueva cambiar lo demas
 [] <s> Pero sigue siendo misterioso
