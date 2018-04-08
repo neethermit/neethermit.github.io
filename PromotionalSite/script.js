@@ -1,7 +1,51 @@
 var pageheight = $(window).height()-26;
 var restartFlag=false;
 
-var script = "4.txt";
+var soundtrack = new Audio('Track2.mp3');
+soundtrack.loop=true;
+soundtrack.volume=0.3;
+var iii = 0;
+var txt = 'NULL';
+var speed = 70;
+var LetActual = 65;
+var insertChar=true;
+var LetraDfin=0;
+
+function typeWriter1() {
+  if (iii < txt.length) {
+       var notdone=true;
+      
+   // document.getElementById("demo").innerHTML += txt.charAt(iii);
+        if(insertChar){
+                    $('<p class="waveFont">A</p>').appendTo("#demo");
+                    LetraDfin=txt.charCodeAt(iii);
+                    insertChar=false;
+        }
+      
+    
+        if(LetActual > LetraDfin)
+        {
+                    notdone=false;
+                    LetActual = 65;
+                    insertChar=true;
+                    iii++;
+        }
+      
+        if(notdone)
+        {
+                    $("#demo p:last-child").text(String.fromCharCode(LetActual));
+                    LetActual++;
+        }
+      
+    setTimeout(typeWriter1, speed);
+  }
+    else{
+         $("#anotherText").delay( 700 ).fadeTo("slow" , 1 );
+         $("#anotherText2").delay( 1600 ).fadeTo("slow" , 1 );
+    }
+}
+
+var script = "6.txt";
 var lastFrameTimeMs = 0; // The last time the loop was run
 var maxFPS = 10; // The maximum FPS we want to allow
 var step = 0;
@@ -416,8 +460,16 @@ function clear() {
 function restart() {
     //currentLine = 0;
     //readLine();
-    $(".mainImage").fadeIn();
-    $("#textbox").fadeOut();
+    
+soundtrack.volume=0.8;
+    $("#textbox").fadeOut(function(){
+         $(".mainImage").fadeIn( 3000, function(){
+            
+     typeWriter1();
+    });
+    });
+   
+
     
 }
 
@@ -486,4 +538,5 @@ $( document ).ready(function() {
     clear();
     readLine();
     requestAnimationFrame(mainLoop);
+    soundtrack.play();
 });
