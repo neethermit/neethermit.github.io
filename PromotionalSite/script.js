@@ -4,12 +4,79 @@ var restartFlag=false;
 var soundtrack = new Audio('Track2.mp3');
 soundtrack.loop=true;
 soundtrack.volume=0.3;
+    soundtrack.currentTime=54;
 var iii = 0;
 var txt = 'NULL';
 var speed = 70;
 var LetActual = 65;
 var insertChar=true;
 var LetraDfin=0;
+var s;
+var width;
+var height;
+var yPositions;
+var ctx;
+var draw;
+$( window ).resize(function() {
+        
+ s=window.screen;
+width = q.width=s.width;
+ height = q.height =s.height;
+ $("body").height("100%");
+$(".background").height("100%");
+    
+}); 
+
+$( document ).ready(function() {
+   $(".background").height(pageheight); 
+    clear();
+    readLine();
+    requestAnimationFrame(mainLoop);
+    soundtrack.play();
+    
+ s=window.screen;
+ width = q.width=s.width;
+ height = q.height =s.height;
+ yPositions = Array(300).join(0).split('');
+ ctx=q.getContext('2d');
+
+draw = function () {
+  ctx.fillStyle='rgba(0,0,0,.05)';
+  ctx.fillRect(0,0,width,height);
+  ctx.fillStyle='#b24bd7';
+  ctx.font = '10pt Georgia';
+  yPositions.map(function(y, index){
+    text = String.fromCharCode(1e2+Math.random()*33);
+    x = (index * 10)+10;
+    q.getContext('2d').fillText(text, x, y);
+	if(y > 100 + Math.random()*1e4)
+	{
+	  yPositions[index]=0;
+	}
+	else
+	{
+      yPositions[index] = y + 10;
+	}
+  });
+};
+
+//setInterval(draw, 33);
+//$("button#pause").click(function(){
+//StopMatrix();});
+//$("button#play").click(function(){RunMatrix();});
+});
+
+
+function RunMatrix()
+{
+if(typeof Game_Interval != "undefined") clearInterval(Game_Interval);
+		Game_Interval = setInterval(draw, 66);
+}
+    
+function StopMatrix()
+{
+clearInterval(Game_Interval);
+}
 
 function typeWriter1() {
   if (iii < txt.length) {
@@ -463,8 +530,16 @@ function restart() {
     
 soundtrack.volume=0.8;
     $("#textbox").fadeOut(function(){
+          RunMatrix();
+        if(  soundtrack.currentTime<80)
+        soundtrack.currentTime=80;
+      
+        $(".linkPosition").animate({
+            opacity: 1.0
+        }, 200, "swing");
          $(".mainImage").fadeIn( 3000, function(){
-            
+  
+
      typeWriter1();
     });
     });
@@ -530,13 +605,4 @@ $(function() {
             }
         }
     });
-});
-
-
-$( document ).ready(function() {
-   $(".background").height(pageheight); 
-    clear();
-    readLine();
-    requestAnimationFrame(mainLoop);
-    soundtrack.play();
 });

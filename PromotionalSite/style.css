@@ -4,6 +4,7 @@
 html {
     height: 100%;
     padding: 0;
+    overflow: hidden;
 }
 body{
     
@@ -22,14 +23,14 @@ body{
 font-family: digital7;
 font-size: 122px;
     
-    text-shadow: 0 0 100px #0033CC;
-    text-align: center;
+text-shadow: 0 0 100px #0033CC;
+text-align: center;
 background: -webkit-linear-gradient(#08c599, #cd12b0);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 
-      border-bottom: 5px solid transparent;
-    border-image: linear-gradient(to right, #0099CC 0%, #F27280 100%);
+border-bottom: 5px solid transparent;
+border-image: linear-gradient(to right, #0099CC 0%, #F27280 100%);
 
 }
 .waveFont{
@@ -37,7 +38,7 @@ background: -webkit-linear-gradient(#08c599, #cd12b0);
 font-size: 122px;
     margin: 0px 25px;
     
-    text-shadow: 0 0 100px #0033CC;
+    text-shadow: 0 0 60px #0033CC;
     text-align: center;
 background: -webkit-linear-gradient(#08c599, #cd12b0);
 -webkit-background-clip: text;
@@ -94,6 +95,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08c599', end
     background: #000;
 }
 
+.canvasM{
+    height: 100%;
+    width: 100%;
+    background: #000;
+}
 #namebox, #textbox {
 
     background: #000;
@@ -164,6 +170,7 @@ p {
     animation: blink-animation 1s steps(3, start) infinite;
     -webkit-animation: blink-animation 1s steps(3, start) infinite;
 }
+
 @keyframes blink-animation {
     to {
         transform: translateX(8px);
@@ -173,4 +180,26 @@ p {
     to {
         transform: translateX(8px);
     }
+}
+
+.linkPosition{
+    opacity: 0;
+    margin: 5px;
+    position: absolute;
+    display: inline-block;
+    top:0;
+    left: 100%;
+    -ms-transform: translate(-100%, 50%); /* IE 9 */
+    -webkit-transform: translate(-100%, 50%); /* Safari */
+    transform: translate(-150%, 50%);
+}
+.buttonText{
+    font-family: Digital-7;
+    color: skyblue;
+    background-color: rgba(0,0,0,0);
+    border-color: skyblue;
+}
+
+.buttonText:hover{
+    background-color: rgba(0,45,45,0.9);
 }
