@@ -1,4 +1,4 @@
-@font-face { font-family: digital7; src: url('fonts/digital-7.TTF'); } 
+@font-face { font-family: digital7; src: url('../fonts/digital.ttf'); } 
 
 
 html {
@@ -20,7 +20,7 @@ body{
 
 #demo{
     
-font-family: Digital-7;
+font-family: digital7;
 font-size: 122px;
     
 text-shadow: 0 0 100px #0033CC;
@@ -34,7 +34,7 @@ border-image: linear-gradient(to right, #0099CC 0%, #F27280 100%);
 
 }
 .waveFont{
-    font-family: Digital-7;
+    font-family: digital7;
 font-size: 122px;
     margin: 0px 25px;
     
@@ -45,7 +45,7 @@ background: -webkit-linear-gradient(#08c599, #cd12b0);
 -webkit-text-fill-color: transparent;
 }
 #anotherText,#anotherText2{
-    font-family: Digital-7;
+    font-family: digital7;
     font-size: 32px;
     
     text-shadow: 0 0 10px #FFFFFF;

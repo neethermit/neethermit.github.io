@@ -1,4 +1,4 @@
-@font-face { font-family: digital7; src: url('fonts/digital-7.TTF'); } 
+@font-face { font-family: digital7; src: url('../PromotionalSite/fonts/digital.ttf'); } 
 
 
 body{
@@ -99,7 +99,7 @@ margin-top: 20px;
     position:absolute;
     display: inline;
     font-size: 20px;
-    font-family: Digital-7;
+    font-family: digital7;
     z-index: 4;
     text-align: center;
     padding: 50px 0;
@@ -193,7 +193,7 @@ margin-top: 20px;
 
 }
 .buttonText{
-    font-family: Digital-7;
+    font-family: digital7;
     font-size: 18px;
     padding-left: 10px;
     color: rebeccapurple;
