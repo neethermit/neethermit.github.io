@@ -44,7 +44,7 @@ draw = function () {
   ctx.fillStyle='rgba(0,0,0,.05)';
   ctx.fillRect(0,0,width,height);
   ctx.fillStyle='#b24bd7';
-  ctx.font = '10pt Georgia';
+  ctx.font = '10pt digital7';
   yPositions.map(function(y, index){
     text = String.fromCharCode(1e2+Math.random()*33);
     x = (index * 10)+10;
