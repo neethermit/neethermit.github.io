@@ -70,6 +70,9 @@ margin-top: 20px;
     font-size: 22px;
     padding: 0 60px 0 80px;
 }
+.smallertext{
+    font-size: 20px;
+}
 
 .photo1{
     width:340px; /* you can use % */
