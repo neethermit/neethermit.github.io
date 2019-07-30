@@ -1,0 +1,361 @@
+@font-face {
+  font-family: Royal;
+  src: URL('Resources/AvantgardeExtralight.otf') ;
+}
+
+body{
+    background: url('Resources/lowpolyO2.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: Royal;
+    margin: 0%;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+
+.whitefont{
+    color: #ddd;
+    text-decoration: none;
+}
+a{
+    color: #ddd;
+    text-decoration: none;
+}
+a:hover{
+    color: #ff872b;
+    text-decoration: none;
+   text-shadow: -1px 1 #ddd, 0 1px #ddd, 1px 0 #ddd, 0 -1px #ddd;
+}
+
+hr{
+    
+  border:none;
+  height: 20px;
+ 	width: 90%;
+	height: 50px;
+	margin-top: 0;
+	border-bottom: 1px solid #aaa;
+	box-shadow: 0 20px 20px -20px #ddd;
+  margin: -50px auto 10px; 
+
+}
+
+.flexdiv{
+    display: flex;
+}
+
+.filler{
+    flex-grow: 1;
+    display: flex;
+}
+
+
+.logo{
+    display: flex;
+    background:#222;
+    padding-bottom: 10px;
+    width: 100%;
+    z-index: 1;
+    
+}
+
+.logo img{
+    height: 20px;
+    margin-top: 15px;
+}
+
+
+.logofooter{
+    font-family:Royal;
+    color: aliceblue;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.companyname{
+    color:azure;
+}
+
+.loginbody{
+
+  vertical-align:middle;
+  text-align:center;
+    margin-top: 20px;
+}
+
+.flex-center-vertically {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
+}
+
+.contenedor {
+    background: rgba(223, 228, 234, 0.2);
+    text-align: center; 
+    padding: 15px;
+    filter: drop-shadow(1px 1px 10px black);
+    box-shadow: 0px 0px 5px #212223;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;   
+}
+
+
+.crear{
+    display: flex;
+    margin-top: 20px;
+    color: aliceblue;   
+}
+
+.crear hr{
+    display:inline-block;
+    color: aliceblue;
+    width: 45%;
+    transform: translate(0%,15%);
+}   
+
+input[type="text"], input[type="password"], select, input[type="date"], input[type="email"] {
+    font-size: 13px;
+    color: #444;
+    border: 0px;
+    height: 30px;
+    width: 270px;
+    padding-left: 6px;
+    border-radius: 1px;
+    margin-bottom: 15px;
+        }
+
+
+.button {
+    height: 30px;
+    width: 270px;
+    border: 0px;
+    border-radius: 1px;
+    background: #ff872b;
+    color: #fff;
+    font-size: 15px;
+    border-bottom: 2px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    transition-duration: 0.3s;
+    transition-property: color, background-color;
+     font-family: Royal;
+}
+
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background:darkgrey; /*rgba(255,255,255,0.9);*/
+    padding-top: 30px;
+    width:400px;
+    height:350px;
+    border: 1px solid #888;
+    display: inline-block;
+    position: relative;
+    padding: 20px;
+    transform: translate(-50%,-50%);
+    border-radius: 1px;
+    left: 50%;
+    top: 50%;
+    
+    font-size: 15px;
+}
+
+.modal-content input[type="text"], .modal-content input[type="password"]{
+    font-size: 13px;
+    color: #444;
+    border: 0px;
+    height: 30px;
+    width: 65%;
+    padding-left: 6px;
+    margin-left: 17%;
+    border-radius: 1px;
+    margin-bottom: 15px;
+        }
+
+
+.modal-content input[type="radio"]{
+    font-size: 13px;
+    color: #444;
+    border: 0px;
+    margin-left: 17%;
+    border-radius: 1px;
+    margin-bottom: 15px;
+        }
+//.modal-content div{
+    
+ //    width: 30%;
+
+//}
+
+.modal-content label{
+        font-size: 15px;
+     padding-left: 70px;
+
+}
+
+.paso1{
+  
+    left:0;
+    right:0;
+    z-index: 4;
+    position:absolute;
+    
+    display:inline-block;
+}
+.paso2{
+    
+    left:0;
+    right:0;
+    display:none;
+    position:absolute;
+    z-index: 5;
+}
+
+.paso2 input[type="text"]{
+     background: #ff112b;
+     
+}
+
+.buscar{
+margin-top: 20px;
+    display:flex;
+}
+
+.logo input[type="text"]{
+
+    width: 80%;
+    color: aliceblue;
+    background: rgba(0,0,0,0);
+    padding-bottom: 0%;
+    margin-bottom: 5px;
+    z-index: 1;
+    font-family: Royal;
+    outline: none;
+	border-bottom: 1px solid #aaa;
+}
+
+.glyphicon.glyphicon-search{
+    margin-top: 5px;
+        margin-left: 5px;
+    font-size: 25px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.btnPaso1,.salir,.anterior{
+    color: aliceblue;
+    height: 30px;
+    width: 150px;
+    background: #ff872b;
+
+}
+.anterior{
+    margin-left: 40px;
+}
+
+.salir{
+    margin-left: 40px;
+    background: #ff112b;
+}
+
+select{
+    width: 90px;
+    display: inline-block;
+    
+}
+
+.mes{
+    margin-left: 70px;
+}
+
+#my-file { visibility: hidden;
+position: absolute;}
+#my-button{
+    
+    margin-left: 70px;
+    margin-top: 30px;
+    display: inline-block;
+}
+.uploadphoto{    
+    background-image: url(Resources/noavatar.png);
+    display:inline-block;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center center; 
+
+}
+
+.uploadbutton{
+    margin-right: 50px;
+}
+
+@media (min-width: 992px) { 
+
+    .logo img{
+        height: 40px;
+    }
+.logo input[type="text"]{
+
+        width: 100%;
+    margin-bottom: 20px;
+    }
+    
+.contenedor {
+    
+    text-align: center; 
+    
+}
+}
+
+
+@media  (min-height: 1300px)  { 
+    
+    .logo input[type="text"]{
+
+        width: 80%;
+    }
+    
+    .logo img{
+    height: 60px;
+    }
+    
+    .logofooter{
+        font-size: 24px;
+
+    }
+        
+  
+    input[type="text"], input[type="password"], select, input[type="date"], input[type="email"] {
+    height: 45px;
+    width: 100%;
+        }
+    
+
+.button {
+    height: 40px;
+    width: 340px;
+    font-size: 18px;
+
+}
+}

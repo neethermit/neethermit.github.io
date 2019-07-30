@@ -1,0 +1,109 @@
+body {
+   
+}
+
+.blog {
+    background: rgba(223, 228, 234, 0.6);
+    position: absolute;
+    top: 150px;
+    left:50%;
+    width: 350px;
+    transform: translate(-50%,0%);
+    padding: 10px;
+    color: white;
+}
+.blog p:first-child{
+    font-size: 20px;
+    text-align: left;
+}
+.blogEdit{
+    font-size: 12px;
+    text-align:right;
+    position:absolute;
+    right:10px;
+    cursor: pointer;
+}
+.campo, select, select, textarea {
+    font-size: 13px;
+    color: #444;
+    border: 0px;
+    display: block;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 15px;
+    background: rgba(223, 228, 234, 0.6);
+    
+}
+textarea{
+    height: 80px;
+    resize: none;
+}
+.button {
+    height: 30px;
+    width: 100px;
+    border: 0px;
+    font-size: 15px;
+    border-bottom: 2px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    transition-duration: 0.3s;
+    transition-property: color, background-color;
+    position:absolute;
+    right: 0px;
+}
+.button:active, .button2:active {
+    background: #3f2a6a;
+    margin-top: 12px;
+}
+.button:hover, .button2:hover {
+    background: #3f2a6a;
+}
+.error{
+    background-color: #FFC2C2 !important;
+}
+.good{
+    background-color: #D5FFC2 !important;
+}
+.buttonCerrarS{
+    display: inline;
+    margin-bottom: 0px;
+    float: right;
+ background-color: chocolate; 
+    border: 0;
+}
+
+
+#upd8-photo1,#upd8-photo2 { visibility: hidden;
+position: absolute;}
+#conf-photo1,#conf-photo2{
+    
+    margin-left: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.profilehead{
+    margin-top: 10px;
+}
+
+@media (min-width: 576px) { }
+
+
+@media (min-width: 768px) { 
+    .blog {
+        width: 600px;
+    }
+
+
+}
+@media (min-width: 992px) { 
+
+}
+
+
+@media (min-width: 1200px){ 
+
+    .blog {
+        width: 800px;
+    }
+}

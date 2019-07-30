@@ -35,7 +35,6 @@ flex-grow: 1;
     position: relative;
     background-image: url(ugh.png);
     background-position: top;
-    background-repeat: no-repeat;
     background-size: cover;
 }
 .imgBlock{
@@ -64,6 +63,17 @@ flex-grow: 1;
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
+}
+.game01{
+    background-image: url(game01.png);
+    background-size: cover;
+    background-position: center left;
+    background-repeat: no-repeat;
+}
+
+.nullInfo{
+    background-image: url(fuggu.gif);
+    background-position: center ;
 }
 
   .gradDynamic{
